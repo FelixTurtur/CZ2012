@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logicx", "Logicx\Logicx.csproj", "{BDE490A5-75E6-43A2-BA69-391D772FD530}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{C140C56B-5D99-4A90-B87E-8BA76F420829}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDE490A5-75E6-43A2-BA69-391D772FD530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE490A5-75E6-43A2-BA69-391D772FD530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE490A5-75E6-43A2-BA69-391D772FD530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE490A5-75E6-43A2-BA69-391D772FD530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C140C56B-5D99-4A90-B87E-8BA76F420829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C140C56B-5D99-4A90-B87E-8BA76F420829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C140C56B-5D99-4A90-B87E-8BA76F420829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C140C56B-5D99-4A90-B87E-8BA76F420829}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
