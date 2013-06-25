@@ -1,0 +1,5 @@
+﻿Jun 25th
+First three tests completed successfully: Create_And_Test_Line, Test_AllButOneFound, Test_UnconclusiveResult. The Line class is the basic box that holds the contents of one category. The top row holds the index, the second the category identifier (A, B, C...) and the values if these are required. The third row is an array of strings that will hold known relational information. At this initial stage, only positive relations are cited in the third row. Might have to introduce a fourth row to hold negative relations. 
+The idea for the line came from thinking about how to query a relative clause ("A1(B) - A2(B) = 25"). With the Line class, the whole statement can be passed to the Line and, as the values are held for comparative items, it can deduce and return any statements based on the information it holds (e.g. "A1 != B1; A2 != B5").
+
+Still need to reconsider First Order Logic to see if I can use that as the basic semantic representation of such clauses, or whether another translation will have to happen later for the prover to keep things simple and manageable here.
