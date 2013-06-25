@@ -15,20 +15,20 @@ namespace CleverZebra.Logix
      * */
     public class Line
     {
-        public char identifier {get; private set;}
+        public string identifier {get; private set;}
         public int size {get; private set;}
         private string[] rules;
         private object[][] innerArray;
 
-        public Line() { size = 0; identifier = 'Z'; }
-        public Line(char ident, int size)
+        public Line() { size = 0; identifier = "Z"; }
+        public Line(string ident, int size)
         {
             identifier = ident;
             this.size = size;
             this.innerArray = createArray(ident, size);
         }
 
-        public Line(char ident, int size, string[] rules)
+        public Line(string ident, int size, string[] rules)
         {
             identifier = ident;
             this.size = size;
@@ -36,11 +36,12 @@ namespace CleverZebra.Logix
             this.innerArray = createArray(ident, size);
         }
 
-        private object[][] createArray(char ident, int size) {
-            object[][] newArray = { new object[size + 1], new object[size + 1], new object[size + 1] };
+        private object[][] createArray(string ident, int size) {
+            object[][] newArray = { new object[size + 1], new object[size + 1], new string[size + 1] };
             newArray[1][0] = ident;
             for (int i = 0; i <= size; i++) {
                 newArray[0][i] = i;
+                newArray[2][i] = "";
             }
             return newArray; 
         }
@@ -67,6 +68,30 @@ namespace CleverZebra.Logix
                 throw new IndexOutOfRangeException("Index not within Line: " + this.identifier);
             }
             return this.innerArray[1][i];
+        }
+
+        public void addRelation(string p1, string p2) {
+            if (p1.Substring(0, 1) != identifier) {
+                throw new ArgumentException("Identifier does not match target location: " + p1);
+            }
+            int index = Convert.ToInt32(p1.Substring(1));
+            if (index > size) {
+                throw new ArgumentException("Target is out of bounds: " + p1);
+            }
+            this.innerArray[2][index] += p2;
+        }
+
+        public string checkForMatch(string p) {
+            int unknowns = 0;
+            string category = p.Substring(0, 1);
+            string result = null;
+            for (int i = 0; i < size && unknowns < 2; i++) {
+                if (!this.innerArray[2][i + 1].ToString().Contains(category)) {
+                    unknowns++;
+                    result = this.identifier + (i+1).ToString();
+                }
+            }
+            return unknowns < 2 ? result : null;
         }
     }
 }
