@@ -103,7 +103,7 @@ namespace CleverZebra.Logix
         }
 
         public bool considerRelation(Relation r) {
-            if (!r.isRelative) {
+            if (!r.isRelative()) {
                 //direct relation. Chuck it in.
                 Line.Rows row = r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives;
                 this.addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
