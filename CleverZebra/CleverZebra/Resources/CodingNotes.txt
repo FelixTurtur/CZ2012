@@ -3,3 +3,17 @@ First three tests completed successfully: Create_And_Test_Line, Test_AllButOneFo
 The idea for the line came from thinking about how to query a relative clause ("A1(B) - A2(B) = 25"). With the Line class, the whole statement can be passed to the Line and, as the values are held for comparative items, it can deduce and return any statements based on the information it holds (e.g. "A1 != B1; A2 != B5").
 
 Still need to reconsider First Order Logic to see if I can use that as the basic semantic representation of such clauses, or whether another translation will have to happen later for the prover to keep things simple and manageable here.
+------------
+
+Jun 29th
+After initially creating just one Relation class to hold all rule variants, it became apparent that a bit of inheritance would better handle the different logic required for most methods depending on the rule type. A factory was therefore created to control creation logic.
+
+Added a fourth row to the Line class to hold information on negative relations.
+
+Spent a while trying to think of a good name for "considerRelation", a function that passes a rule to a Line and returns true or false if the Line was able to use it. As a Line might create more rules in the process of considering a relation, this may need to be rethinked. Perhaps it's the collection of rules that uses the Line, and not vv?
+
+Have created a namespace called Representation which has the characters I've chosen to use in Relations for equality, comparison and ownership. The items here are referenced by Relation classes when identifying items within a rule and checking the rule type.
+
+Created a basic exception class for use when attempting to retrieve a specific item but it is not clear which item is desired. Need to read more about custom exceptions in C#. It's called InconclusiveException, but is currently specific to one scenario.
+
+Created a separate test for the Relation class. (Tests were created in the LineTest file originally.)

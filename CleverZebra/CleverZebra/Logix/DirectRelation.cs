@@ -14,8 +14,11 @@ namespace CleverZebra.Logix
         private List<string> separateItems(string input) {
             List<string> items = new List<string>();
             string item = "";
-            for (int i = 0; i < input.Length; i++) {
-                if (Representation.Relations.isEqualityChar(input[i])) {
+            for (int i = 0; i <= input.Length; i++) {
+                if (i == input.Length && !string.IsNullOrEmpty(item)) {
+                    items.Add(item);
+                }
+                else if (Representation.Relations.isEqualityChar(input[i])) {
                     if (!string.IsNullOrEmpty(item)) {
                         items.Add(item);
                         item = "";

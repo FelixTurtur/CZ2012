@@ -6,8 +6,8 @@ namespace LogixTests
     [TestClass]
     public class LineTest
     {
-        public Line line;
-        public RelationFactory relationBuilder;
+        private Line line;
+        private RelationFactory relationBuilder;
 
         [TestMethod]
         public void Create_And_Test_Line() {
@@ -47,7 +47,6 @@ namespace LogixTests
         public void Consider_Positive_Rule() {
             line = new Line("A", 5);
             Relation r = relationBuilder.createRelation("A1=B3");
-            Assert.AreEqual(r.GetType().Name, "DirectRelation");
             bool used = line.considerRelation(r);
             Assert.IsTrue(used);
         }
@@ -58,7 +57,6 @@ namespace LogixTests
             line.enterValues(new object[] { 5, 10, 15, 20, 25 });
             line.addRelation("A3", "B1");
             Relation r = relationBuilder.createRelation("A1(B)-A3(B)=5");
-            Assert.AreEqual(r.GetType().Name, "RelativeRelation");
             bool used = line.considerRelation(r);
             Assert.IsTrue(used);
         }

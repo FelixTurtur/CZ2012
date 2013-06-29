@@ -68,6 +68,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Logix\DirectRelation.cs" />
+    <Compile Include="Logix\InconclusiveException.cs" />
     <Compile Include="Logix\Relation.cs" />
     <Compile Include="Logix\RelationFactory.cs" />
     <Compile Include="Logix\RelativeRelation.cs" />
