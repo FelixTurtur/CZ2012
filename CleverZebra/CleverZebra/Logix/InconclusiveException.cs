@@ -9,9 +9,9 @@ namespace CleverZebra.Logix
     {
         private string p;
         private string rule;
-        private string identifierChecked;
+        private char identifierChecked;
 
-        public InconclusiveException(string ident, string rule) {
+        public InconclusiveException(char ident, string rule) {
             // TODO: Complete member initialization
             this.p = "Relation has more items than expected. Cannot identify required item";
             this.rule = rule;

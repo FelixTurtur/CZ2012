@@ -33,9 +33,9 @@ namespace LogixTests
         [TestMethod]
         public void Item_Retrieval() {
             Relation r = relationBuilder.createRelation("A1=B3");
-            string bItem = r.getBaseItem("B");
+            string bItem = r.getBaseItem('B');
             Assert.AreEqual("B3", bItem);
-            string aItem = r.getRelatedItem("B");
+            string aItem = r.getRelatedItem('B');
             Assert.AreEqual("A1", aItem);
         }
 

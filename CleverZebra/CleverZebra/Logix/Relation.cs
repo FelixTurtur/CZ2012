@@ -31,18 +31,21 @@ namespace CleverZebra.Logix
             return !this.rule.Contains(Representation.Relations.Negative);
         }
 
-        public string getBaseItem(string identifier) {
+        public string getBaseItem(char identifier) {
             if (items.Count > 2) {
                 throw new InconclusiveException(identifier, this.rule);
             }
-            return items[0].StartsWith(identifier) ? items[0] : items[1];
+            if (items.Count < 2) {
+                throw new NullReferenceException("Relation Items have not been initialised.");
+            }
+            return items[0][0] == identifier ? items[0] : items[1];
         }
 
-        public string getRelatedItem(string identifier) {
+        public string getRelatedItem(char identifier) {
             if (items.Count > 2) {
                 throw new InconclusiveException(identifier, this.rule);
             }
-            return items[0].StartsWith(identifier) ? items[1] : items[0];
+            return items[0][0] == identifier ? items[1] : items[0];
         }
     }
 }

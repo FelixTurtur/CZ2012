@@ -11,8 +11,8 @@ namespace LogixTests
 
         [TestMethod]
         public void Create_And_Test_Line() {
-            var line1 = new Line("B", 5);
-            Assert.AreEqual("B", line1.identifier);
+            var line1 = new Line('B', 5);
+            Assert.AreEqual('B', line1.identifier);
             object[] list = { 5, 10, 15, 20, 25 };
             line1.enterValues(list);
             object result = line1.retrieveValue("B3");
@@ -26,7 +26,7 @@ namespace LogixTests
 
         [TestMethod]
         public void Test_AllButOneFound() {
-            line = new Line("A", 5);
+            line = new Line('A', 5);
             line.addRelation("A1", "B1");
             line.addRelation("A2", "B2");
             line.addRelation("A3", "B3");
@@ -37,7 +37,7 @@ namespace LogixTests
 
         [TestMethod]
         public void Test_InconclusiveResult() {
-            line = new Line("A", 5);
+            line = new Line('A', 5);
             line.addRelation("A1", "B1");
             string AforB = line.checkForMatch("B5");
             Assert.IsNull(AforB);
@@ -45,7 +45,7 @@ namespace LogixTests
 
         [TestMethod]
         public void Consider_Positive_Rule() {
-            line = new Line("A", 5);
+            line = new Line('A', 5);
             Relation r = relationBuilder.createRelation("A1=B3");
             bool used = line.considerRelation(r);
             Assert.IsTrue(used);
@@ -53,12 +53,12 @@ namespace LogixTests
         
         [TestMethod]
         public void Consider_Relative_Rule() {
-            line = new Line("A", 5);
+            line = new Line('A', 5);
             line.enterValues(new object[] { 5, 10, 15, 20, 25 });
             line.addRelation("A3", "B1");
             Relation r = relationBuilder.createRelation("A1(B)-A3(B)=5");
             bool used = line.considerRelation(r);
-            Assert.IsTrue(used);
+            Assert.IsFalse(used);
         }
     }
 }
