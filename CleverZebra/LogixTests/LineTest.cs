@@ -40,5 +40,15 @@ namespace LogixTests
             string AforB = line.checkForMatch("B5");
             Assert.IsNull(AforB);
         }
+
+        [TestMethod]
+        public void Consider_Relative_Rule() {
+            line = new Line("A", 5);
+            line.enterValues(new object[] { 5, 10, 15, 20, 25 });
+            line.addRelation("A3", "B1");
+            Relation r = new Relation("A1(B)-A3(B)=5");
+            bool used = line.considerRelation(r);
+            Assert.IsTrue(used);
+        }
     }
 }

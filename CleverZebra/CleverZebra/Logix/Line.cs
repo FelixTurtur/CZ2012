@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CleverZebra.Logix
 {
     /* Line class 
-     * Creates a matrix that will store information on one category. The matrix is always three rows deep with one labelling column
+     * Creates a matrix that will store information on one category. The matrix is always four rows deep with one labelling column
      * and then one column per value within the category. The top row holds the index, the second the value (if necessary) and the third
      * any known relational data so that logical deductions can be drawn. 
      * Rules keeps a copy of keywords relevant to the category.
@@ -15,6 +15,14 @@ namespace CleverZebra.Logix
      * */
     public class Line
     {
+        public enum Rows
+        {
+            Index = 0,
+            Values = 1,
+            Positives = 2,
+            Negatives = 3
+        };
+
         public string identifier {get; private set;}
         public int size {get; private set;}
         private string[] rules;
@@ -37,16 +45,16 @@ namespace CleverZebra.Logix
         }
 
         private object[][] createArray(string ident, int size) {
-            object[][] newArray = { new object[size + 1], new object[size + 1], new string[size + 1] };
+            object[][] newArray = { new object[size + 1], new object[size + 1], new string[size + 1], new string[size+1] };
             newArray[1][0] = ident;
             for (int i = 0; i <= size; i++) {
                 newArray[0][i] = i;
                 newArray[2][i] = "";
+                newArray[3][i] = "";
             }
             return newArray; 
         }
-
-
+        
         public void enterValues(object[] list) {
             if (list.Length > this.size) {
                 throw new ArgumentException("List contains too many arguements for this Line. Line: " + this.identifier + " Size: " + this.size + " List length: " + list.Length);
@@ -70,15 +78,15 @@ namespace CleverZebra.Logix
             return this.innerArray[1][i];
         }
 
-        public void addRelation(string p1, string p2) {
+        public void addRelation(string p1, string p2, Line.Rows row = Line.Rows.Positives) {
             if (p1.Substring(0, 1) != identifier) {
                 throw new ArgumentException("Identifier does not match target location: " + p1);
             }
-            int index = Convert.ToInt32(p1.Substring(1));
-            if (index > size) {
+            int column = Convert.ToInt32(p1.Substring(1));
+            if (column > size) {
                 throw new ArgumentException("Target is out of bounds: " + p1);
             }
-            this.innerArray[2][index] += p2;
+            this.innerArray[(int)row][column] += p2;
         }
 
         public string checkForMatch(string p) {
@@ -92,6 +100,17 @@ namespace CleverZebra.Logix
                 }
             }
             return unknowns < 2 ? result : null;
+        }
+
+        public bool considerRelation(Relation r) {
+            if (!r.isRelative) {
+                //direct relation. Chuck it in.
+                Line.Rows row = r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives;
+                this.addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
+                return true;
+            }
+            //relative relation
+            return false; //implement later
         }
     }
 }
