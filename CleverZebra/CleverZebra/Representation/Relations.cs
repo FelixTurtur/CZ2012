@@ -14,6 +14,13 @@ namespace CleverZebra.Representation
         private static List<string> EqualityChars = new List<string> { "!=", "=" };
         private static List<char> PossessiveChars = new List<char> { '(', ')' };
 
+        public enum Sides
+        {
+            Left,
+            Related,
+            Right
+        }
+
         public static bool isEqualityChar(char c) {
             foreach (string e in EqualityChars) {
                 if (e.Contains(c)) { return true; }
@@ -42,6 +49,10 @@ namespace CleverZebra.Representation
                 }
             }
             return false;
+        }
+
+        internal static bool isQuantified(string input) {
+            return input.Contains(Relations.Positive);
         }
     }
     

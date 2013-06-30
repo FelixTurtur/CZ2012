@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleverZebra.Representation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,9 +32,13 @@ namespace CleverZebra.Logix
             return !this.rule.Contains(Representation.Relations.Negative);
         }
 
-        public string getBaseItem(char identifier) {
+        public string getBaseItem(char identifier, Relations.Sides side = Relations.Sides.Related) {
+            if (this.rule.Contains(identifier) == false) {
+                return null;
+            }
             if (items.Count > 2) {
-                throw new InconclusiveException(identifier, this.rule);
+                if (side == Relations.Sides.Related) { throw new InconclusiveException(identifier, this.rule); }
+                return items[(int)side];
             }
             if (items.Count < 2) {
                 throw new NullReferenceException("Relation Items have not been initialised.");
@@ -42,8 +47,11 @@ namespace CleverZebra.Logix
         }
 
         public string getRelatedItem(char identifier) {
+            if (this.rule.Contains(identifier) == false) {
+                return null;
+            }
             if (items.Count > 2) {
-                throw new InconclusiveException(identifier, this.rule);
+                return items[(int)Relations.Sides.Related];
             }
             return items[0][0] == identifier ? items[1] : items[0];
         }

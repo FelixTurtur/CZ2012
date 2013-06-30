@@ -67,6 +67,7 @@
     <Compile Include="frmSolvingWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logix\Deducer.cs" />
     <Compile Include="Logix\DirectRelation.cs" />
     <Compile Include="Logix\InconclusiveException.cs" />
     <Compile Include="Logix\Relation.cs" />

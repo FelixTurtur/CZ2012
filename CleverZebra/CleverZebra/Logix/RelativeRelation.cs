@@ -33,5 +33,8 @@ namespace CleverZebra.Logix
             return items;
         }
 
+        public new bool isPositive() {
+            return !rule.Contains(Representation.Relations.Negative) && rule.Contains(Representation.Relations.Positive);
+        }
     }
 }

@@ -89,12 +89,17 @@ namespace CleverZebra.Logix
             this.innerArray[(int)row][column] += p2;
         }
 
-        public string checkForMatch(string p) {
+        public string checkForMatch(string p, Rows row = Rows.Positives) {
+            if (string.IsNullOrEmpty(p)) return null;
+            //return category item that relates to item passed.
             int unknowns = 0;
             char category = p[0];
             string result = null;
             for (int i = 1; i <= size && unknowns < 2; i++) {
-                if (!this.innerArray[(int)Rows.Positives][i].ToString().Contains(category)) {
+                if (this.innerArray[(int)row][i].ToString().Contains(p)) {
+                    return this.identifier + (i).ToString();
+                }
+                if (!this.innerArray[(int)row][i].ToString().Contains(category)) {
                     unknowns++;
                     result = this.identifier + (i).ToString();
                 }
@@ -102,15 +107,14 @@ namespace CleverZebra.Logix
             return unknowns < 2 ? result : null;
         }
 
-        public bool considerRelation(Relation r) {
-            if (!r.isRelative()) {
-                //direct relation. Chuck it in.
-                Line.Rows row = r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives;
-                this.addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
-                return true;
+        internal string findValue(object targetValue) {
+            for (int i = 1; i <= this.size; i++) {
+                if (innerArray[(int)Rows.Values][i] == targetValue) {
+                    return this.identifier + i.ToString();
+                }
             }
-            //relative relation
-            return false; //implement later
+            return null;
         }
     }
 }
+    
