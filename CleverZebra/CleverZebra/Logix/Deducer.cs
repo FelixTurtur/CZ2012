@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace CleverZebra.Logix
 {
-    class Deducer
+    public class Deducer
     {
         private RelationFactory relationBuilder;
         private List<Line> lines;
-        private int puzzleSize;
+        private int puzzleHeight;
+        private int puzzleWidth;
 
-        public Deducer(int size) {
-            this.puzzleSize = size;
+        public Deducer(int x, int y) {
+            this.puzzleHeight = x;
+            this.puzzleWidth = y;
             this.relationBuilder = RelationFactory.getInstance();
+            this.lines = new List<Line>();
             char c = 'A';
-            for (int i = 0; i < puzzleSize; i++, c++) {
-                this.lines.Add(new Line(c, puzzleSize));
+            for (int i = 0; i < puzzleHeight; i++, c++) {
+                this.lines.Add(new Line(c, puzzleWidth));
             }
         }
 
-        private Line getLineFromIdentifier(char ident) {
+        public Line getLineFromIdentifier(char ident) {
             foreach (Line l in this.lines) {
                 if (l.identifier == ident) { return l; }
             }
@@ -43,7 +46,6 @@ namespace CleverZebra.Logix
                 return null;
             }
             //relative relation
-            //if either of the two items has a value, then something can be learnt for the other, if not a complete match
             string[] items = { r.getBaseItem(l.identifier, Relations.Sides.Left), r.getBaseItem(l.identifier, Relations.Sides.Right) };
             string leftMatch = l.checkForMatch(items[0]);
             string rightMatch = l.checkForMatch(items[1]);
@@ -52,21 +54,19 @@ namespace CleverZebra.Logix
                 return null;
             } 
             else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
+                //if either of the two items has a value, then something can be learnt for the other, if not a complete match
                 if (Representation.Relations.isQuantified(r.getRule())) {
                     string unknownItem = leftMatch == null ? items[0] : items[1];
-                    object knownValue = l.retrieveValue(leftMatch==null ? rightMatch : leftMatch);
-                    object targetValue = calculateRelatedValue(knownValue, r.getRule());
-                    string targetItem = l.findValue(targetValue);
+                    object knownValue = l.retrieveValue(leftMatch ?? rightMatch);
+                    bool inverse = leftMatch == null ? true : false;
+                    string targetItem = l.findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
                     l.addRelation(targetItem, unknownItem , r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives);
+                    addInverse(unknownItem, targetItem, r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives);
                 }
             } 
             else if (eitherSideMatches(r, l, Line.Rows.Negatives)) {
             }
             return null;
-        }
-
-        private object calculateRelatedValue(object knownValue, string p) {
-            throw new NotImplementedException();
         }
 
         private void addInverse(string p1, string p2, Line.Rows row) {
@@ -79,6 +79,9 @@ namespace CleverZebra.Logix
             return !string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch);
         }
 
+        public List<Line> getLineCollection() {
+            return lines;
+        }
 
     }
 }

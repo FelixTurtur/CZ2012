@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CleverZebra.Logix
 {
-    class InconclusiveException : Exception
+    class InconclusiveException : ApplicationException
     {
         private string p;
         private string rule;
@@ -16,6 +16,11 @@ namespace CleverZebra.Logix
             this.p = "Relation has more items than expected. Cannot identify required item";
             this.rule = rule;
             this.identifierChecked = ident;
+        }
+
+        public InconclusiveException(string message)
+            : base(message) {
+            this.p = message;
         }
     }
 }

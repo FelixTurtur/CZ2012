@@ -46,12 +46,9 @@ namespace CleverZebra.Logix
             return items[0][0] == identifier ? items[0] : items[1];
         }
 
-        public string getRelatedItem(char identifier) {
+        public virtual string getRelatedItem(char identifier) {
             if (this.rule.Contains(identifier) == false) {
                 return null;
-            }
-            if (items.Count > 2) {
-                return items[(int)Relations.Sides.Related];
             }
             return items[0][0] == identifier ? items[1] : items[0];
         }

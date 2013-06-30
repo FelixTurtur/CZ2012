@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CleverZebra.Logix.Calculators;
 
 namespace CleverZebra.Logix
 {
@@ -25,8 +23,9 @@ namespace CleverZebra.Logix
 
         public char identifier {get; private set;}
         public int size {get; private set;}
-        private string[] rules;
+        private string keyword;
         private object[][] innerArray;
+        private Calculator calculator;
 
         public Line() { size = 0; identifier = 'Z'; }
         public Line(char ident, int size)
@@ -36,11 +35,12 @@ namespace CleverZebra.Logix
             this.innerArray = createArray(ident, size);
         }
 
-        public Line(char ident, int size, string[] rules)
+        public Line(char ident, int size, string special)
         {
             identifier = ident;
             this.size = size;
-            this.rules = rules;
+            this.keyword = special;
+            calculator = CalculatorFactory.getInstance().createCalculator(special);
             this.innerArray = createArray(ident, size);
         }
 
@@ -48,9 +48,9 @@ namespace CleverZebra.Logix
             object[][] newArray = { new object[size + 1], new object[size + 1], new string[size + 1], new string[size+1] };
             newArray[1][0] = ident;
             for (int i = 0; i <= size; i++) {
-                newArray[0][i] = i;
-                newArray[2][i] = "";
-                newArray[3][i] = "";
+                newArray[(int)Rows.Index][i] = i;
+                newArray[(int)Rows.Positives][i] = "";
+                newArray[(int)Rows.Negatives][i] = "";
             }
             return newArray; 
         }
@@ -67,13 +67,13 @@ namespace CleverZebra.Logix
             }
         }
 
-        public object retrieveValue(string index) {
-            if (index[0] != this.identifier) {
-                throw new ArgumentException("Identifier does not match Index provided: " + index);
+        public object retrieveValue(string item) {
+            if (item[0] != this.identifier) {
+                throw new ArgumentException("Identifier does not match Index provided: " + item);
             }
-            int column = Convert.ToInt32(index.Substring(1));
+            int column = Convert.ToInt32(item.Substring(1));
             if (this.size < column) {
-                throw new IndexOutOfRangeException("Index (" + index + ") not within Line " + this.identifier);
+                throw new IndexOutOfRangeException("Index (" + item + ") not within Line " + this.identifier);
             }
             return this.innerArray[(int)Line.Rows.Values][column];
         }
@@ -107,13 +107,18 @@ namespace CleverZebra.Logix
             return unknowns < 2 ? result : null;
         }
 
-        internal string findValue(object targetValue) {
+        internal string findItem(object targetValue) {
             for (int i = 1; i <= this.size; i++) {
                 if (innerArray[(int)Rows.Values][i] == targetValue) {
                     return this.identifier + i.ToString();
                 }
             }
             return null;
+        }
+
+        internal string findTarget(object knownValue, string comparative) {
+            object targetValue = calculator.calculateValue(knownValue, comparative);
+            return findItem(targetValue);
         }
     }
 }

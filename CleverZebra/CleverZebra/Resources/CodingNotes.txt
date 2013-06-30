@@ -17,3 +17,13 @@ Have created a namespace called Representation which has the characters I've cho
 Created a basic exception class for use when attempting to retrieve a specific item but it is not clear which item is desired. Need to read more about custom exceptions in C#. It's called InconclusiveException, but is currently specific to one scenario.
 
 Created a separate test for the Relation class. (Tests were created in the LineTest file originally.)
+
+After debating where to store the considerRelation function, given it's use of both a line and a relation, a brains class, Deducer, was created and so begins the step-by-step logical processing.
+------------
+
+Jun 30th
+Exciting morning. Have created a family of Calculators which will perform the necessary calculation of relative items for a Line. The Line class holds a Calculator, which is initialised at the same time as a Line is created with a keyword. This keyword determines the type of Calculator that will be created. So far only the NumberCalculator is functional. These can be created as puzzles require. When a new keyword is encountered the logic for it will be held in Representation.Relations and the Calculator class.
+
+Lines can now consider quantified relative numeric rules. 
+
+Also created the DeducerTest file to complete the parts of Deducer begun last night. The Deducer holds a collection of lines, created based on the size of the puzzle.

@@ -11,7 +11,7 @@ namespace CleverZebra.Logix
     {
         static RelationFactory instance = null;
 
-        public RelationFactory() { }
+        private RelationFactory() { }
 
         public static RelationFactory getInstance() {
             if (instance == null) {

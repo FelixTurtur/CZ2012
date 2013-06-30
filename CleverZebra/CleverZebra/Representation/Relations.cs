@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleverZebra.Logix;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace CleverZebra.Representation
     {
         public static string Positive = "=";
         public static string Negative = "!=";
+        //Comparators are listed in pairs of opposites
         private static List<string> Comparators = new List<string> { ">", "<", "+", "-", "*", "/" };
         private static List<string> EqualityChars = new List<string> { "!=", "=" };
         private static List<char> PossessiveChars = new List<char> { '(', ')' };
@@ -54,6 +56,33 @@ namespace CleverZebra.Representation
         internal static bool isQuantified(string input) {
             return input.Contains(Relations.Positive);
         }
+
+        internal static string comparativeAmount(string input, bool inverse) {
+            string comparator = "";
+            foreach(string c in Comparators) {
+                if (input.Contains(c)) {
+                    comparator = c;
+                }
+            }
+            comparator = inverse ? Relations.getInverse(comparator) : comparator;
+            string difference = input.Substring(input.IndexOf(Relations.Positive) + 1).Trim();
+            return comparator + " " + difference;
+        }
+
+        private static string getInverse(string comparator) {
+            for (int i = 0; i < Comparators.Count; i++) {
+                if (Comparators[i] == comparator) {
+                    if (i % 2 == 0) {
+                        return Comparators[i + 1];
+                    }
+                    else {
+                        return Comparators[i - 1];
+                    }
+                }
+            }
+            throw new ArgumentException("Comparator not found");
+        }
+
     }
     
     

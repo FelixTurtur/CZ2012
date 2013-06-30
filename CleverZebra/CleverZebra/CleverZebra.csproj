@@ -67,12 +67,17 @@
     <Compile Include="frmSolvingWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logix\Calculators\Calculator.cs" />
+    <Compile Include="Logix\Calculators\CalculatorFactory.cs" />
+    <Compile Include="Logix\Calculators\DateCalculator.cs" />
+    <Compile Include="Logix\Exceptions\LogicException.cs" />
     <Compile Include="Logix\Deducer.cs" />
-    <Compile Include="Logix\DirectRelation.cs" />
-    <Compile Include="Logix\InconclusiveException.cs" />
-    <Compile Include="Logix\Relation.cs" />
-    <Compile Include="Logix\RelationFactory.cs" />
-    <Compile Include="Logix\RelativeRelation.cs" />
+    <Compile Include="Logix\Relation\DirectRelation.cs" />
+    <Compile Include="Logix\Exceptions\InconclusiveException.cs" />
+    <Compile Include="Logix\Calculators\NumberCalculator.cs" />
+    <Compile Include="Logix\Relation\Relation.cs" />
+    <Compile Include="Logix\Relation\RelationFactory.cs" />
+    <Compile Include="Logix\Relation\RelativeRelation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Representation\Relations.cs" />

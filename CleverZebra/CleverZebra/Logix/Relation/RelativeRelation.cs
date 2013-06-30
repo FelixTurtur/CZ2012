@@ -36,5 +36,15 @@ namespace CleverZebra.Logix
         public new bool isPositive() {
             return !rule.Contains(Representation.Relations.Negative) && rule.Contains(Representation.Relations.Positive);
         }
+
+        public override string getRelatedItem(char identifier) {
+            if (this.rule.Contains(identifier) == false) {
+                return null;
+            }
+            if (items.Count > 2) {
+                return items[(int)Relations.Sides.Related];
+            }
+            return items[0][0] == identifier ? items[1] : items[0];
+        }
     }
 }

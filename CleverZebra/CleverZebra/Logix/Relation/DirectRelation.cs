@@ -29,5 +29,15 @@ namespace CleverZebra.Logix
             }
             return items;
         }
+
+        public override string getRelatedItem(char identifier) {
+            if (this.rule.Contains(identifier) == false) {
+                return null;
+            }
+            if (items.Count > 2) {
+                throw new InconclusiveException("More items than expected in Direct Relation");
+            }
+            return items[0][0] == identifier ? items[1] : items[0];
+        }
     }
 }
