@@ -27,5 +27,9 @@ namespace CleverZebra.Logix
             return new DirectRelation(input);
         }
 
+
+        internal Relation createRelation(string left, string right, bool isPositive) {
+            return createRelation(left + (isPositive ? Relations.Positive : Relations.Negative) + right);
+        }
     }
 }

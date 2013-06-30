@@ -37,8 +37,10 @@ namespace CleverZebra.Logix
                 return null;
             }
             if (items.Count > 2) {
-                if (side == Relations.Sides.Related) { throw new InconclusiveException(identifier, this.rule); }
-                return items[(int)side];
+                if (side == Relations.Sides.Related) { 
+                    //If default value then this wasn't called for a Relative Relation.
+                    throw new InconclusiveException(identifier, this.rule); }
+                return items[(int)Relations.Sides.Related] == identifier.ToString() ? items[(int)side] : null;
             }
             if (items.Count < 2) {
                 throw new NullReferenceException("Relation Items have not been initialised.");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleverZebra.Representation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,21 @@ namespace CleverZebra.Logix.Calculators
                 default:
                     throw new ArgumentException("No known numeric operator equivalent to entered char: " + op);
             }
+        }
+
+        public override List<int> getImpossibles(int index, string comparator, int size) {
+            List<int> results = new List<int>();
+            if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
+                for (int i = index; i <= size; i++) {
+                    results.Add(i);
+                }
+            }
+            else {
+                for (int i = index; i > 0; i--) {
+                    results.Add(i);
+                }
+            }
+            return results;
         }
     }
 }

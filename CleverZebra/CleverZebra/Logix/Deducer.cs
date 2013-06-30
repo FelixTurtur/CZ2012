@@ -33,7 +33,7 @@ namespace CleverZebra.Logix
         }
 
         public Relation[] considerRelationToLine(Relation r, Line l) {
-            if (r.getBaseItem(l.identifier) == null) {
+            if (!r.getRule().Contains(l.identifier)) {
                 //cannot use this relation
                 return new Relation[] {r};
             }
@@ -60,22 +60,24 @@ namespace CleverZebra.Logix
                     object knownValue = l.retrieveValue(leftMatch ?? rightMatch);
                     bool inverse = leftMatch == null ? true : false;
                     string targetItem = l.findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
-                    l.addRelation(targetItem, unknownItem , r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives);
+                    l.addRelation(targetItem, unknownItem, r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives);
                     addInverse(unknownItem, targetItem, r.isPositive() ? Line.Rows.Positives : Line.Rows.Negatives);
+                    return null;
+                }
+                else {
+                    Relation[] results = l.considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
                 }
             } 
-            else if (eitherSideMatches(r, l, Line.Rows.Negatives)) {
-            }
-            return null;
+            return new Relation[] {r};
         }
 
         private void addInverse(string p1, string p2, Line.Rows row) {
             getLineFromIdentifier(p1[0]).addRelation(p1, p2, row);
         }
 
-        private static bool eitherSideMatches(Relation r, Line l, Line.Rows row) {
-            string leftMatch = l.checkForMatch(r.getBaseItem(l.identifier, Relations.Sides.Left), row);
-            string rightMatch = l.checkForMatch(r.getBaseItem(l.identifier, Relations.Sides.Right), row);
+        private static bool eitherSideMatches(Relation r, Line l) {
+            string leftMatch = l.checkForMatch(r.getBaseItem(l.identifier, Relations.Sides.Left));
+            string rightMatch = l.checkForMatch(r.getBaseItem(l.identifier, Relations.Sides.Right));
             return !string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch);
         }
 

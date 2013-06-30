@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using CleverZebra.Logix.Calculators;
+using CleverZebra.Representation;
+using System.Collections.Generic;
 
 namespace CleverZebra.Logix
 {
@@ -78,7 +80,7 @@ namespace CleverZebra.Logix
             return this.innerArray[(int)Line.Rows.Values][column];
         }
 
-        public void addRelation(string p1, string p2, Line.Rows row = Line.Rows.Positives) {
+        public void addRelation(string p1, string p2, Rows row = Rows.Positives) {
             if (p1[0] != identifier) {
                 throw new ArgumentException("Identifier does not match target location: " + p1);
             }
@@ -89,17 +91,17 @@ namespace CleverZebra.Logix
             this.innerArray[(int)row][column] += p2;
         }
 
-        public string checkForMatch(string p, Rows row = Rows.Positives) {
+        public string checkForMatch(string p) {
             if (string.IsNullOrEmpty(p)) return null;
             //return category item that relates to item passed.
             int unknowns = 0;
             char category = p[0];
             string result = null;
             for (int i = 1; i <= size && unknowns < 2; i++) {
-                if (this.innerArray[(int)row][i].ToString().Contains(p)) {
+                if (this.innerArray[(int)Rows.Positives][i].ToString().Contains(p)) {
                     return this.identifier + (i).ToString();
                 }
-                if (!this.innerArray[(int)row][i].ToString().Contains(category)) {
+                if (!this.innerArray[(int)Rows.Positives][i].ToString().Contains(category)) {
                     unknowns++;
                     result = this.identifier + (i).ToString();
                 }
@@ -119,6 +121,33 @@ namespace CleverZebra.Logix
         internal string findTarget(object knownValue, string comparative) {
             object targetValue = calculator.calculateValue(knownValue, comparative);
             return findItem(targetValue);
+        }
+
+        internal Relation[] considerComparative(string p1, string comparator, string p2) {
+            string matchedIndex = "";
+            string itemToRelate = "";
+            List<Relation> results = new List<Relation>();
+            if (p1[0] == identifier) {
+                matchedIndex = p1;
+                itemToRelate = p2;
+            }
+            else {
+                matchedIndex = p2;
+                itemToRelate = p1;
+                comparator = Relations.getInverse(comparator);
+            }
+            List<int> indexesToCheck = this.calculator.getImpossibles(Convert.ToInt32(matchedIndex.Substring(1)), comparator, this.size);
+            foreach (int i in indexesToCheck) {
+                if (innerArray[(int)Rows.Positives][i].ToString().Contains(itemToRelate[0])) {
+                    continue;
+                }
+                if (innerArray[(int)Rows.Negatives][i].ToString().Contains(itemToRelate[0])) {
+                    continue;
+                }
+                this.addRelation(identifier + i.ToString(), itemToRelate, Rows.Negatives);
+                results.Add(RelationFactory.getInstance().createRelation(identifier + i.ToString(), itemToRelate, false));
+            }
+            return results.ToArray();
         }
     }
 }

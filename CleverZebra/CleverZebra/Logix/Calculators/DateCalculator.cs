@@ -10,5 +10,8 @@ namespace CleverZebra.Logix.Calculators
         public override object calculateValue(object knownValue, string comparative) {
             throw new NotImplementedException();
         }
+        public override List<int> getImpossibles(int index, string comparator, int size) {
+            throw new NotImplementedException();
+        }
     }
 }

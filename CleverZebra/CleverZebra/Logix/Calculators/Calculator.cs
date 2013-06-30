@@ -12,5 +12,7 @@ namespace CleverZebra.Logix.Calculators
     public abstract class Calculator
     {
         public abstract object calculateValue(object knownValue, string comparative);
+
+        public abstract List<int> getImpossibles(int index, string comparator, int size);
     }
 }

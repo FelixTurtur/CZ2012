@@ -9,12 +9,11 @@ namespace CleverZebra.Representation
 {
     public static class Relations
     {
-        public static string Positive = "=";
-        public static string Negative = "!=";
-        //Comparators are listed in pairs of opposites
-        private static List<string> Comparators = new List<string> { ">", "<", "+", "-", "*", "/" };
-        private static List<string> EqualityChars = new List<string> { "!=", "=" };
-        private static List<char> PossessiveChars = new List<char> { '(', ')' };
+        public enum Directions
+        {
+            Lower,
+            Higher
+        }
 
         public enum Sides
         {
@@ -22,6 +21,14 @@ namespace CleverZebra.Representation
             Related,
             Right
         }
+        public static string Positive = "=";
+        public static string Negative = "!=";
+        //Comparators are listed in pairs of opposites
+        private static List<string> Comparators = new List<string> { ">", "<", "+", "-", "*", "/" };
+        private static List<string> GreaterThanTerms = new List<string> { ">" };
+        private static List<string> LessThanTerms = new List<string> { "<" };
+        private static List<string> EqualityChars = new List<string> { "!=", "=" };
+        private static List<char> PossessiveChars = new List<char> { '(', ')' };
 
         public static bool isEqualityChar(char c) {
             foreach (string e in EqualityChars) {
@@ -69,7 +76,7 @@ namespace CleverZebra.Representation
             return comparator + " " + difference;
         }
 
-        private static string getInverse(string comparator) {
+        internal static string getInverse(string comparator) {
             for (int i = 0; i < Comparators.Count; i++) {
                 if (Comparators[i] == comparator) {
                     if (i % 2 == 0) {
@@ -83,6 +90,25 @@ namespace CleverZebra.Representation
             throw new ArgumentException("Comparator not found");
         }
 
+
+        internal static string getComparator(string rule) {
+            foreach (string c in Comparators) {
+                if (rule.Contains(c)) {
+                    return c;
+                }
+            }
+            return null;
+        }
+
+        internal static Directions checkDirection(string comparator) {
+            if (Comparators.Contains(comparator) && GreaterThanTerms.Contains(comparator)) {
+                return Directions.Higher;
+            }
+            else if (Comparators.Contains(comparator) && LessThanTerms.Contains(comparator)) {
+                return Directions.Lower;
+            }
+            throw new ArgumentException("Term provided is not known as a term for either Greater or Less than: " + comparator);
+        }
     }
     
     

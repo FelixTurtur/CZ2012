@@ -27,3 +27,5 @@ Exciting morning. Have created a family of Calculators which will perform the ne
 Lines can now consider quantified relative numeric rules. 
 
 Also created the DeducerTest file to complete the parts of Deducer begun last night. The Deducer holds a collection of lines, created based on the size of the puzzle.
+
+Line now works with the calculator and comparative terms to understand relative relations! Need to build some tests, tho.
