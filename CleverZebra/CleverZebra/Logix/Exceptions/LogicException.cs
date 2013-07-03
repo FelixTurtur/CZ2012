@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleverZebra.Logix
-{
-    public class LogicException : ApplicationException
-    {
+namespace CleverZebra.Logix {
+    public class LogicException : ApplicationException {
         private string p;
 
-        public LogicException(string message) 
+        public LogicException(string message, Exception e)
             : base(message) {
             this.p = message;
         }

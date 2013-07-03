@@ -13,7 +13,7 @@ namespace CleverZebra.Logix
      * Rules keeps a copy of keywords relevant to the category.
      * The Identifier is the [A|B|C|D|E...] puzzle-scope character for this category.
      * */
-    public class Line
+    public class Category
     {
         public enum Rows
         {
@@ -29,15 +29,15 @@ namespace CleverZebra.Logix
         private object[][] innerArray;
         private Calculator calculator;
 
-        public Line() { size = 0; identifier = 'Z'; }
-        public Line(char ident, int size)
+        public Category() { size = 0; identifier = 'Z'; }
+        public Category(char ident, int size)
         {
             identifier = ident;
             this.size = size;
             this.innerArray = createArray(ident, size);
         }
 
-        public Line(char ident, int size, string special)
+        public Category(char ident, int size, string special)
         {
             identifier = ident;
             this.size = size;
@@ -77,7 +77,7 @@ namespace CleverZebra.Logix
             if (this.size < column) {
                 throw new IndexOutOfRangeException("Index (" + item + ") not within Line " + this.identifier);
             }
-            return this.innerArray[(int)Line.Rows.Values][column];
+            return this.innerArray[(int)Category.Rows.Values][column];
         }
 
         public void addRelation(string p1, string p2, Rows row = Rows.Positives) {

@@ -18,16 +18,16 @@ namespace LogixTests
         [TestMethod]
         public void Create_Deducer() {
             Deducer brains = new Deducer(4,5);
-            List<Line> lines = brains.getLineCollection();
-            Assert.AreEqual(4, lines.Count);
+            List<Category> cats = brains.getCategoryCollection();
+            Assert.AreEqual(4, cats.Count);
         }
 
         [TestMethod]
         public void Retrieve_Line_From_Identifier() {
             Deducer brains = new Deducer(4, 5);
-            Line l = brains.getLineFromIdentifier('C');
+            Category l = brains.getCategoryFromIdentifier('C');
             Assert.IsNotNull(l);
-            brains.considerRelationToLine(relationBuilder.createRelation("C1=B3"), l);
+            brains.considerRelationToCategory(relationBuilder.createRelation("C1=B3"), l);
             string consideredItem = l.checkForMatch("B3");
             Assert.AreEqual("C1", consideredItem);
         }
