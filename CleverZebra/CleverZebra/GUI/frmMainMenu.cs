@@ -17,19 +17,25 @@ namespace CleverZebra
             InitializeComponent();
         }
 
-        private void btnSolve_Click(object sender, EventArgs e)
-        {
-            Application.Run(new frmSolvingWindow());
-        }
-
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            Application.Run(new frmOptions());
-        }
-
         private void btnQuit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e) {
+           Application.Exit();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e) {
+           frmOptions options = new frmOptions();
+           this.AddOwnedForm(options);           
+           options.InitializeComponent();
+           options.Show();
+
+        }
+
+        private void btnSolvePuzzle_Click(object sender, EventArgs e) {
+           Application.Run(new frmSolvingWindow());
         }
     }
 }
