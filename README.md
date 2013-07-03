@@ -1,4 +1,5 @@
-CleverZebra
-===========
+CZ2012
+======
 
-Solve them puzzles.
+
+Solve them Einstein Zebras.
