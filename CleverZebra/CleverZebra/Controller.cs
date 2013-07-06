@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using CleverZebra.Parser;
+using Parser;
+using Logix;
+using Representation;
 
 namespace CleverZebra {
     internal class Controller {
 
         #region Singletonia
         private static Controller instance = null;
-        private Controller() { }
+        private Controller() {}
         public static Controller getInstance() {
             if (instance == null) {
                 instance = new Controller();
@@ -44,21 +46,21 @@ namespace CleverZebra {
             throw new NotImplementedException();
         }
 
-        public void Solve(Puzzle p) {
-            this.activePuzzle = p;
+        public void Solve(Puzzle puzzle) {
+            this.activePuzzle = puzzle;
             try {
-                List<string> rules = Parser.Parser.Read(p);
-                p.setRules(rules);
+                List<string> rules = Parser.Parser.Read(puzzle);
+                puzzle.setRules(rules);
             }
             catch (Exception e) {
-                throw new Parser.ParserException("Unable to parse clues for puzzle id: " + p.getId(), e);
+                throw new Parser.ParserException("Unable to parse clues for puzzle id: " + puzzle.getId(), e);
             }
             Solution result = null;
             try {
-                result = Logix.Logix.Solve(p);
+                result = Logix.Logix.Solve(puzzle);
             }
             catch (Exception e) {
-                throw new Logix.LogicException("Unable to solve puzzle id: " + p.getId(), e);
+                throw new Logix.LogicException("Unable to solve puzzle id: " + puzzle.getId(), e);
             }
             reportSuccess(result);
         }

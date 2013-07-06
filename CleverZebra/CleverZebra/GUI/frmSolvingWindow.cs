@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace CleverZebra
 {
+    //displays puzzle as it is solved
     class frmSolvingWindow : Form
     {
        private CZButton btnMainMenu;
-       //displays puzzle as it is solved
 
-        private void InitializeComponent()
+        internal void InitializeComponent()
         {
          this.btnMainMenu = new CleverZebra.Resources.CZButton();
          this.SuspendLayout();
@@ -42,7 +42,10 @@ namespace CleverZebra
         }
 
         private void btnMainMenu_Click(object sender, EventArgs e) {
+           this.Owner.Show();
            this.Close();
         }
+
+
     }
 }

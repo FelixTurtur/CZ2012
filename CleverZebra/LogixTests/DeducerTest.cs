@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CleverZebra.Logix;
+using Logix;
 using System.Collections.Generic;
 
 namespace LogixTests

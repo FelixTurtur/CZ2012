@@ -68,29 +68,11 @@
     <Compile Include="GUI\frmSolvingWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Logix\Calculators\Calculator.cs" />
-    <Compile Include="Logix\Calculators\CalculatorFactory.cs" />
-    <Compile Include="Logix\Calculators\DateCalculator.cs" />
-    <Compile Include="Logix\Exceptions\LogicException.cs" />
-    <Compile Include="Logix\Deducer.cs" />
-    <Compile Include="Logix\Logix.cs" />
-    <Compile Include="Logix\Relation\DirectRelation.cs" />
-    <Compile Include="Logix\Exceptions\InconclusiveException.cs" />
-    <Compile Include="Logix\Calculators\NumberCalculator.cs" />
-    <Compile Include="Logix\Relation\Relation.cs" />
-    <Compile Include="Logix\Relation\RelationFactory.cs" />
-    <Compile Include="Logix\Relation\RelativeRelation.cs" />
-    <Compile Include="Parser\Parser.cs" />
-    <Compile Include="Parser\Exceptions\ParserException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Puzzle.cs" />
-    <Compile Include="Representation\Relations.cs" />
     <Compile Include="Resources\CZButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Logix\Category.cs" />
-    <Compile Include="Solution.cs" />
     <EmbeddedResource Include="GUI\frmMainMenu.resx">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,7 +112,20 @@
     <Content Include="Resources\CodingNotes.txt" />
     <Content Include="Resources\puzzles.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logix\Logix.csproj">
+      <Project>{f6d508c8-99a3-44a0-b419-22883cef30b5}</Project>
+      <Name>Logix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Parser\Parser.csproj">
+      <Project>{13c2bde5-57cf-46ba-badf-7e8f9e21d4b8}</Project>
+      <Name>Parser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Representation\Representation.csproj">
+      <Project>{998c262f-7013-4ed9-98a7-78bb8cddbc92}</Project>
+      <Name>Representation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

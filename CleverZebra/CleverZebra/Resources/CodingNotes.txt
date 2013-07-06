@@ -29,3 +29,26 @@ Lines can now consider quantified relative numeric rules.
 Also created the DeducerTest file to complete the parts of Deducer begun last night. The Deducer holds a collection of lines, created based on the size of the puzzle.
 
 Line now works with the calculator and comparative terms to understand relative relations! Need to build some tests, tho.
+-----------
+
+Jul 3rd
+Slow day at work, so worked on getting VS2012 up in office to enable working from work and home. Once complete, got to fixing the UI a bit. There are now functioning switches from the main menu to settings window and the basic solver window, although nothing happens in the latter yet.
+Filled in some basic ideas for settings options. 
+
+Created a base file, Controller, to be the cross-module file that will use the individual modules to control the whole software as it works together. This was not created from a test file, as whether it would work was a test in itself with help from IDE hints.
+
+Renamed Line to Category to use the abstract object it represents, not a name linked to its representation in code. Code is therefore now full of cats...	  
+
+Created the shell of the Parser module and a few shells of classes it will need to allow build success.
+Created a shell of the all-important Puzzle class.
+-------------
+
+Jul 6th
+Let's get to it!
+Might leave UI for a bit and assume all methods of Controller can populate UI elements and respond to events from UI. Don't like the tight coupling of UI elements to the controller anyway, although the Controller is quite coupled to the specific modules too. Might look for a way to add another layer of abstraction in the mix when it's time to put these two parts together.
+
+Introduced CategoryBuilder to avoid Category having several constructors available. (Added InternalsVisibleTo attribute in CleverZebra for LogixTests to keep internals internal.)
+
+Started rearranging modules into actual separate projects as otherwise they're not really independent entities. Now everyone needs references adding, but this suggests I've not gotten the coupling right. Need to work out what the interface should be between the CleverZebra project running everything and the now-separate components, Logix and Parser. Will cheat for now and add the references whilst waiting for a spot of guidance and lunching.
+
+No guidance received, but by separating out the Representation classes - Puzzle, Solution, Relations - each module now references these and CZ references Logix and Parser, so coupling is much better. If the representation of anything were to change then I'd want each concrete item to derive from an interface and this interface is what my modules would reference... but I don't think this will happen in the course of this project and so won't spend time adding in that layer of abstraction.
