@@ -34,7 +34,7 @@ namespace LogixTests
 
         [TestMethod]
         public void Set_Clues() {
-            List<string> clues = new List<string>{ "A3=D1", "A3(C)-A2(C)=2", "A2=B3", "B2=D3", "D2!=C2" };
+            List<string> clues = new List<string>{ "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "D2!=C2" };
             Deducer brains = new Deducer(4, 3);
             brains.setClues(clues);
             Assert.AreNotEqual(0, brains.getRemainingClueCount());
@@ -42,11 +42,13 @@ namespace LogixTests
 
         [TestMethod]
         public void First_Problem_Test() {
-            List<string> clues = new List<string> { "A3=D1", "A3(C)-A2(C)=1", "A2=B3", "B2=D3", "D2!=C2" };
+            List<string> clues = new List<string> { "A3=D1", "A2(C)-A3(C)=1", "A2=B3", "B2=D3", "D2!=C2" };
             Deducer brains = new Deducer(4, 3);
             brains.setClues(clues);
-            List<string> result = brains.go();
-            Assert.IsNotNull(result);
+            int[,] matrix = brains.go();
+            Assert.IsNotNull(matrix);
+            int[,] providedMatrix = new int[3,4]{{1,2,1,3},{2,3,3,2},{3,1,2,1}};
+            Assert.AreEqual(providedMatrix, matrix);
         }
     }
 }

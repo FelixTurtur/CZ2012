@@ -55,7 +55,7 @@ namespace CleverZebra {
             catch (Exception e) {
                 throw new Parser.ParserException("Unable to parse clues for puzzle id: " + puzzle.getId(), e);
             }
-            List<string> result = null;
+            List<List<string>> result = null;
             try {
                 result = Logix.Logix.Solve(puzzle);
             }
@@ -65,9 +65,12 @@ namespace CleverZebra {
             reportSuccess(result);
         }
 
-        private void reportSuccess(List<string> result) {
-            List<string> originalSolution = activePuzzle.ProvidedSolution;
-
+        private void reportSuccess(List<List<string>> result) {
+            List<List<string>> originalSolution = activePuzzle.ProvidedSolution;
+            if (result == originalSolution) {
+                Console.WriteLine("We have achieved a great victory.");
+            }
+            Console.WriteLine("Well, that's not *quite* what I was going for.");
         }
     }
 }

@@ -7,8 +7,8 @@ namespace Representation {
         public int width { get; private set; }
         public int height { get; private set; }
         public string name { get; private set; }
-        public List<string> ProvidedSolution { get; private set; }
-        public List<string> Solution { get; private set; }
+        public List<List<string>> ProvidedSolution { get; private set; }
+        public List<List<string>> Solution { get; private set; }
 
         private int id;
         private string preamble;
@@ -53,9 +53,14 @@ namespace Representation {
             this.ProvidedSolution = transformRawSolution(input["box"]["solution"].Value);
         }
 
-        private List<string> transformRawSolution(string p) {
+        private List<List<string>> transformRawSolution(string p) {
             string[] r = p.Split(new string[] { "{", "},{", "}" }, StringSplitOptions.RemoveEmptyEntries);
-            return new List<string>(r);
+            List<List<string>> result = new List<List<string>>();
+            foreach (string line in r) {
+                List<string> row = new List<string>(line.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries));
+                result.Add(row);
+            }
+            return result;
         }
 
         public int getId() {
@@ -64,6 +69,12 @@ namespace Representation {
 
         public void setRules(List<string> rules) {
             throw new NotImplementedException();
+        }
+
+        public string getNameAt(int y, int p) {
+            //y gives category index; p the item within the category.
+            //items[0] => y(0), p(1), items[1] => y(0), p(1)
+            return items[(y * width) + (p - 1)];
         }
     }
 }

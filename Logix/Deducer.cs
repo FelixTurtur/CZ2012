@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logix {
     public class Deducer {
@@ -129,8 +127,7 @@ namespace Logix {
             this.clues = clues;
         }
 
-        internal List<string> go() {
-            List<string> solutionStrings = new List<string>();
+        internal int[,] go() {
             int turn = 1;
             usedClues = new List<string>();
             while (clues.Count() > 0 && turn < MAXTURNS && !solution.isComplete()) {
@@ -141,19 +138,20 @@ namespace Logix {
                 combineRanges(ref relations, relations2);
                 combineRanges(ref relations, relations3);
                 usedClues.Add(clues[0]);
+                System.Diagnostics.Debug.WriteLine("Used clue: " + clues[0]);
                 clues.RemoveAt(0);
                 if (relations != null && relations.Count() ==1 && relations[0].getRule() == clue) {
                     //Nothing new learnt
                     relations = (reductio());
                 }
-                if (relations != null) {
+                if (relations != null && relations.Count() > 0) {
                     foreach (Relation r in relations) {
                         addRelation(r);
                     }
                 }
                 turn++;
             }
-            return solutionStrings;
+            return solution.getFinalMatrix();
         }
 
         private List<Relation> reductio() {
@@ -175,7 +173,7 @@ namespace Logix {
                         string[] unmatchedItems = Category.getUnmatchedItems(cat, itemIndex);
                         foreach (string match in matchedItems) {
                             //see if matched item has negative connections to items first item doesn't
-                            string[] relatedUnmatches = Category.getUnmatchedItems(getCategoryFromIdentifier(match[0]), itemIndex);
+                            string[] relatedUnmatches = Category.getUnmatchedItems(getCategoryFromIdentifier(match[0]), Convert.ToInt32(match[1].ToString()));
                             if (relatedUnmatches == null) continue;
                             string[] newNegatives = relatedUnmatches.Except(unmatchedItems ?? new string[] {""}).ToArray();
                             if (newNegatives.Count() > 0) {

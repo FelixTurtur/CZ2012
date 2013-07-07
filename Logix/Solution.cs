@@ -169,5 +169,9 @@ namespace Logix
             }
             return null;
         }
+
+        internal int[,] getFinalMatrix() {
+            return matrix;
+        }
     }
 }
