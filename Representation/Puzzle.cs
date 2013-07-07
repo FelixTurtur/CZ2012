@@ -7,33 +7,28 @@ namespace Representation {
         public int width { get; private set; }
         public int height { get; private set; }
         public string name { get; private set; }
+        public List<string> ProvidedSolution { get; private set; }
+        public List<string> Solution { get; private set; }
+
         private int id;
         private string preamble;
         private List<string> clues;
         private List<string> categories;
         private List<string> items;
-        private Solution providedSolution;
         private string ordering;
         private string semanticTag;
         private string otherTag;
-
-        private List<string> rules;
-        public Solution solution { get; private set; }
 
         public List<string> getClues() {
             return clues;
         }
 
-        public List<string> getRules() {
-            return rules;
-        }
-
         public Puzzle() { }
         public Puzzle(XmlNode n) {
-            initialise(n);
+            parseXMLToPuzzle(n);
         }
 
-        public void initialise(XmlNode input) {
+        public void parseXMLToPuzzle(XmlNode input) {
             id = Convert.ToInt32(input.Attributes[0].Value);
             string size = input.Attributes["size"].Value;
             ordering = input.Attributes["ordering"].Value;
@@ -55,7 +50,12 @@ namespace Representation {
                     items.Add(i.Value);
                 }
             }
-            providedSolution = new Solution(input["box"]["solution"].Value);
+            this.ProvidedSolution = transformRawSolution(input["box"]["solution"].Value);
+        }
+
+        private List<string> transformRawSolution(string p) {
+            string[] r = p.Split(new string[] { "{", "},{", "}" }, StringSplitOptions.RemoveEmptyEntries);
+            return new List<string>(r);
         }
 
         public int getId() {

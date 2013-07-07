@@ -54,6 +54,7 @@
     <Compile Include="Relation\Relation.cs" />
     <Compile Include="Relation\RelationFactory.cs" />
     <Compile Include="Relation\RelativeRelation.cs" />
+    <Compile Include="Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Representation\Representation.csproj">

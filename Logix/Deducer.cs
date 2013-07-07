@@ -9,22 +9,28 @@ namespace Logix {
     public class Deducer {
         private RelationFactory relationBuilder;
         private List<Category> cats;
-        private int puzzleHeight;
-        private int puzzleWidth;
+        private List<string> clues;
+        private List<string> usedClues;
+        private int puzzleBreadth;
+        private int puzzleDepth;
+        private Solution solution;
+        private const int MAXTURNS = 200;
+        private const int REDUCTIO_RULES = 20;
 
         public Deducer(int x, int y) {
-            this.puzzleHeight = x;
-            this.puzzleWidth = y;
+            this.puzzleBreadth = x;
+            this.puzzleDepth = y;
             this.relationBuilder = RelationFactory.getInstance();
             this.cats = new List<Category>();
             CategoryBuilder catBuilder = new CategoryBuilder();
             char c = 'A';
-            for (int i = 0; i < puzzleHeight; i++, c++) {
+            for (int i = 0; i < puzzleBreadth; i++, c++) {
                 catBuilder.newKitty();
                 catBuilder.setIdentifier(c);
-                catBuilder.setSize(puzzleWidth);
+                catBuilder.setSize(puzzleDepth);
                 this.cats.Add(catBuilder.build());
             }
+            solution = new Solution(x,y);
         }
 
         public Category getCategoryFromIdentifier(char ident) {
@@ -34,10 +40,10 @@ namespace Logix {
             throw new ArgumentException("No Category found for identifier: " + ident);
         }
 
-        public Relation[] considerRelationToCategory(Relation r, Category cat) {
+        public List<Relation> considerRelationToCategory(Relation r, Category cat) {
             if (!r.getRule().Contains(cat.identifier)) {
                 //cannot use this relation
-                return new Relation[] { r };
+                return new List<Relation> {r};
             }
             if (!r.isRelative()) {
                 //direct relation
@@ -67,10 +73,38 @@ namespace Logix {
                     return null;
                 }
                 else {
-                    Relation[] results = cat.considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                    List<Relation> results = cat.considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
                 }
             }
-            return new Relation[] { r };
+            else {
+                if (items[0] != null && items[1] != null) {
+                    //create negative relations from comparatives
+                    List<Relation> relations = new List<Relation>();
+                    relations = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), cat.identifier, cat.size));
+                    if (relations == null) relations = new List<Relation> { r };
+                    else relations.Add(r);
+                    return relations;
+
+                }
+            }
+            return new List<Relation> { r };
+        }
+
+        private List<Relation> createNegativeRelationsToBounds(string leftItem, string rightItem, string comparator, char ident, int size) {
+            List<Relation> relations = new List<Relation>();
+            string lowestInCat = ident + "1";
+            string highestInCat = ident + size.ToString();
+            if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
+                //left cannot be lowest; right cannot be highest
+                relations.Add(relationBuilder.createRelation(leftItem, lowestInCat, false));
+                relations.Add(relationBuilder.createRelation(rightItem, highestInCat, false));
+            }
+            else if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
+                relations.Add(relationBuilder.createRelation(leftItem, highestInCat, false));
+                relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
+
+            }
+            return relations;
         }
 
         private void addInverse(string p1, string p2, Category.Rows row) {
@@ -87,12 +121,115 @@ namespace Logix {
             return cats;
         }
 
-        internal void setRules(List<string> rules) {
-            throw new NotImplementedException();
+        internal void setClues(List<string> clues) {
+            this.clues = clues;
         }
 
-        internal Solution go() {
-            throw new NotImplementedException();
+        internal List<string> go() {
+            List<string> solutionStrings = new List<string>();
+            int turn = 1;
+            usedClues = new List<string>();
+            while (clues.Count() > 0 && turn < MAXTURNS && !solution.isComplete()) {
+                string clue = clues[0];
+                List<Relation> relations = considerRelationToCategories(relationBuilder.createRelation(clue));
+                List<Relation> relations2 = solution.considerRelationInSolution(relationBuilder.createRelation(clue));
+                List<Relation> relations3 = solution.checkAllButOnes();
+                combineRanges(ref relations, relations2);
+                combineRanges(ref relations, relations3);
+                usedClues.Add(clues[0]);
+                clues.RemoveAt(0);
+                if (relations != null && relations.Count() ==1 && relations[0].getRule() == clue) {
+                    //Nothing new learnt
+                    relations = (reductio());
+                }
+                if (relations != null) {
+                    foreach (Relation r in relations) {
+                        addRelation(r);
+                    }
+                }
+                turn++;
+            }
+            return solutionStrings;
         }
+
+        private List<Relation> reductio() {
+            List<Relation> results = new List<Relation>();
+            int newRules = 0;
+            bool fullyChecked = false;
+            while (newRules < REDUCTIO_RULES && !fullyChecked) {
+                foreach (Category cat in cats) {
+                    List<Relation> deductedRelations = cat.checkDeductibles();
+                    if (deductedRelations.Count() > 0) {
+                        results.AddRange(deductedRelations);
+                        newRules += deductedRelations.Count();
+                    }
+                    for (int itemIndex = 1; itemIndex <= cat.size; itemIndex++) {
+                        string[] matchedItems = Category.getMatchedItems(cat, itemIndex);
+                        if (matchedItems == null) {
+                            continue;
+                        }
+                        string[] unmatchedItems = Category.getUnmatchedItems(cat, itemIndex);
+                        foreach (string match in matchedItems) {
+                            //see if matched item has positive connections to items first item doesn't
+                            string[] relatedUnmatches = Category.getUnmatchedItems(getCategoryFromIdentifier(match[0]), itemIndex);
+                            if (relatedUnmatches == null) continue;
+                            string[] newNegatives = relatedUnmatches.Except(unmatchedItems ?? new string[] {""}).ToArray();
+                            if (newNegatives.Count() > 0) {
+                                string comparedItem = cat.identifier.ToString() + itemIndex;
+                                combineRanges(ref results, createNegativeRelations(comparedItem, newNegatives));
+                                newRules += newNegatives.Count();
+                            }
+                        }
+                    }
+                }
+                fullyChecked = true;
+            }
+            return results;
+        }
+
+        private List<Relation> createNegativeRelations(string item, string[] newNegatives) {
+            List<Relation> relations = new List<Relation>();
+            foreach (string s in newNegatives) {
+                relations.Add(relationBuilder.createRelation(item, s, false));
+            }
+            return relations;
+        }
+
+        private List<Relation> considerRelationToCategories(Relation relation) {
+            List<Relation> result = new List<Relation>();
+            foreach (Category cat in cats) {
+                combineRanges(ref result, considerRelationToCategory(relation, cat));
+            }
+            return result;
+        }
+
+        private void combineRanges(ref List<Relation> relations, List<Relation> relations2) {
+            if (relations == null && relations2 == null) {
+                return;
+            }
+            if (relations == null) {
+                relations = relations2.Distinct<Relation>().ToList();
+            }
+            if (relations2 == null) {
+                return;
+            }
+            //combine unique
+            foreach (Relation r in relations2) {
+                if (relations.Any(a => a.CompareTo(r)==0)) { continue; }
+                relations.Add(r);
+            }
+            relations = relations.Distinct<Relation>().ToList();
+        }
+
+        internal object getRemainingClueCount() {
+            return this.clues.Count;
+        }
+
+        internal void addRelation(Relation r) {
+            if (clues.Contains(r.getRule())) return;
+            //if (usedClues.Contains(r.getRule())) return;
+            this.clues.Add(r.getRule());
+        }
+
     }
 }

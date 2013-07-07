@@ -54,5 +54,29 @@ namespace Logix
             }
             return items[0][0] == identifier ? items[1] : items[0];
         }
+
+        public string getLeftItem() {
+            if (isRelative()) return null;
+            if (rule.Contains(Relations.Negative)) {
+                return rule.Substring(0, rule.IndexOf(Relations.Negative));
+            }
+            else {
+                return rule.Substring(0, rule.IndexOf(Relations.Positive));
+            }
+        }
+
+        public string getRightItem() {
+            if (isRelative()) return null;
+            if (rule.Contains(Relations.Negative)) {
+                return rule.Substring(rule.IndexOf(Relations.Negative) + 1);
+            }
+            else {
+                return rule.Substring(rule.IndexOf(Relations.Positive) + 1);
+            }
+        }
+
+        internal string getComparator() {
+            return Relations.getComparator(rule);
+        }
     }
 }

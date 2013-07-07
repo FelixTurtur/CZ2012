@@ -24,8 +24,8 @@ namespace Representation
         public static string Negative = "!=";
         //Comparators are listed in pairs of opposites
         private static List<string> Comparators = new List<string> { ">", "<", "+", "-", "*", "/" };
-        private static List<string> GreaterThanTerms = new List<string> { ">" };
-        private static List<string> LessThanTerms = new List<string> { "<" };
+        private static List<string> GreaterThanTerms = new List<string> { ">", "-", "/" };
+        private static List<string> LessThanTerms = new List<string> { "<", "+", "*" };
         private static List<string> EqualityChars = new List<string> { "!=", "=" };
         private static List<char> PossessiveChars = new List<char> { '(', ')' };
 
@@ -41,6 +41,15 @@ namespace Representation
                 if (e.Contains(c)) { return true; }
             }
             return false;
+        }
+
+        public static string getComparator(string s) { 
+            foreach (string c in Comparators) {
+                if (s.IndexOf(c) != -1) {
+                    return c;
+                }
+            }
+            return null;
         }
 
         public static bool isPossessive(char c) {
@@ -89,16 +98,6 @@ namespace Representation
             throw new ArgumentException("Comparator not found");
         }
 
-
-        public static string getComparator(string rule) {
-            foreach (string c in Comparators) {
-                if (rule.Contains(c)) {
-                    return c;
-                }
-            }
-            return null;
-        }
-
         public static Directions checkDirection(string comparator) {
             if (Comparators.Contains(comparator) && GreaterThanTerms.Contains(comparator)) {
                 return Directions.Higher;
@@ -108,7 +107,6 @@ namespace Representation
             }
             throw new ArgumentException("Term provided is not known as a term for either Greater or Less than: " + comparator);
         }
+
     }
-
-
 }

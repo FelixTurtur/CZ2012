@@ -78,25 +78,38 @@ namespace Logix
             if (this.size < column) {
                 throw new ArgumentException("Target is out of bounds: " + p1);
             }
-            this.innerArray[(int)row][column] += p2;
+            if (!this.innerArray[(int)row][column].ToString().Contains(p2)) {
+                this.innerArray[(int)row][column] += p2;
+            }
         }
 
-        public string checkForMatch(string p) {
+        public string checkForMatch(string p, Rows row = Rows.Positives) {
             if (string.IsNullOrEmpty(p)) return null;
             //return category item that relates to item passed.
-            int unknowns = 0;
+            int finds = 0;
             char category = p[0];
             string result = null;
-            for (int i = 1; i <= size && unknowns < 2; i++) {
-                if (this.innerArray[(int)Rows.Positives][i].ToString().Contains(p)) {
-                    return this.identifier + (i).ToString();
+            if (row == Rows.Positives) {
+                for (int i = 1; i <= size && finds < 2; i++) {
+                    if (this.innerArray[(int)row][i].ToString().Contains(p)) {
+                        return this.identifier + (i).ToString();
+                    }
+                    if (!this.innerArray[(int)row][i].ToString().Contains(category)) {
+                        finds++;
+                        result = this.identifier + (i).ToString();
+                    }
                 }
-                if (!this.innerArray[(int)Rows.Positives][i].ToString().Contains(category)) {
-                    unknowns++;
+                return finds < 2 ? result : null;
+            }
+            for (int i = 1; i <= size; i++) {
+                if (this.innerArray[(int)row][i].ToString().Contains(p)) {
+                    finds++;
+                }
+                else {
                     result = this.identifier + (i).ToString();
                 }
             }
-            return unknowns < 2 ? result : null;
+            return finds == size - 1 ? result : null;
         }
 
         internal string findItem(object targetValue) {
@@ -113,7 +126,7 @@ namespace Logix
             return findItem(targetValue);
         }
 
-        internal Relation[] considerComparative(string p1, string comparator, string p2) {
+        internal List<Relation> considerComparative(string p1, string comparator, string p2) {
             string matchedIndex = "";
             string itemToRelate = "";
             List<Relation> results = new List<Relation>();
@@ -121,7 +134,7 @@ namespace Logix
                 matchedIndex = p1;
                 itemToRelate = p2;
             }
-            else {
+            else if (p2[0] == identifier) {
                 matchedIndex = p2;
                 itemToRelate = p1;
                 comparator = Relations.getInverse(comparator);
@@ -137,12 +150,60 @@ namespace Logix
                 this.addRelation(identifier + i.ToString(), itemToRelate, Rows.Negatives);
                 results.Add(RelationFactory.getInstance().createRelation(identifier + i.ToString(), itemToRelate, false));
             }
-            return results.ToArray();
+            return results;
         }
 
         internal void setKeyword(string key) {
             this.keyword = key;
             calculator = CalculatorFactory.getInstance().createCalculator(key);
+        }
+
+        internal static string[] getMatchedItems(Category c, int index) {
+            string positivesList = c.innerArray[(int)Rows.Positives][index].ToString();
+            return splitItems(positivesList);
+        }
+
+        internal static string[] getUnmatchedItems(Category c, int index) {
+            string negativesList = c.innerArray[(int)Rows.Negatives][index].ToString();
+            return splitItems(negativesList);
+        }
+
+        private static string[] splitItems(string list) {
+            if (string.IsNullOrEmpty(list)) return null;
+            List<string> items = new List<string>();
+            string item = list[0].ToString();
+            for (int i = 1; i < list.Length; i++) {
+                if (Char.IsLetter(list[i])) {
+                    items.Add(item);
+                    item = list[i].ToString();
+                }
+                else item += list[i];
+            }
+            items.Add(item);
+            return items.ToArray();
+        }
+
+        internal List<Relation> checkDeductibles() {
+            List<Relation> relations = new List<Relation>();
+            for (int x = 1; x <= size; x++ ) {
+                string[] negatives = getAllListedItems(Rows.Negatives);
+                if (negatives == null) { continue; }
+                foreach (string item in negatives) {
+                    string item2 = checkForMatch(item, Rows.Negatives);
+                    if(!string.IsNullOrEmpty(item2)) {
+                        relations.Add(RelationFactory.getInstance().createRelation(item, item2, true));
+                    }
+                }
+            }
+            return relations;
+        }
+
+        private string[] getAllListedItems(Rows row) {
+            string list = "";
+            for (int i = 1; i <= size; i++) {
+                list += innerArray[(int)row][i].ToString();
+            }
+            return splitItems(list);
         }
     }
 }
