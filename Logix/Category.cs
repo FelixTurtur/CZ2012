@@ -90,7 +90,7 @@ namespace Logix
             char category = p[0];
             string result = null;
             if (row == Rows.Positives) {
-                for (int i = 1; i <= size && finds < 2; i++) {
+                for (int i = 1; i <= size; i++) {
                     if (this.innerArray[(int)row][i].ToString().Contains(p)) {
                         return this.identifier + (i).ToString();
                     }
@@ -114,7 +114,7 @@ namespace Logix
 
         internal string findItem(object targetValue) {
             for (int i = 1; i <= this.size; i++) {
-                if (innerArray[(int)Rows.Values][i] == targetValue) {
+                if (innerArray[(int)Rows.Values][i].Equals(targetValue)) {
                     return this.identifier + i.ToString();
                 }
             }

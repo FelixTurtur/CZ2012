@@ -7,25 +7,30 @@ namespace Logix {
     public class Deducer {
         private RelationFactory relationBuilder;
         private List<Category> cats;
+        private string[] keywords;
         private List<string> clues;
         private List<string> usedClues;
         private int puzzleBreadth;
         private int puzzleDepth;
         private Solution solution;
         private const int MAXTURNS = 200;
-        private const int REDUCTIO_RULES = 20;
+        private const int REDUCTIO_SPACING = 8;
 
-        public Deducer(int x, int y) {
+        public Deducer(int x, int y, string[] keys = null) {
             this.puzzleBreadth = x;
             this.puzzleDepth = y;
             this.relationBuilder = RelationFactory.getInstance();
             this.cats = new List<Category>();
+            this.keywords = keys ?? new string[4];
             CategoryBuilder catBuilder = new CategoryBuilder();
             char c = 'A';
             for (int i = 0; i < puzzleBreadth; i++, c++) {
                 catBuilder.newKitty();
                 catBuilder.setIdentifier(c);
                 catBuilder.setSize(puzzleDepth);
+                if (!string.IsNullOrEmpty(keywords[i])) {
+                    catBuilder.setKeyword(keywords[i]);
+                }
                 this.cats.Add(catBuilder.build());
             }
             solution = new Solution(x,y);
@@ -61,6 +66,7 @@ namespace Logix {
             }
             else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
                 //if either of the two items has a value, then something can be learnt for the other, if not a complete match
+                List<Relation> results = new List<Relation>();
                 if (Representation.Relations.isQuantified(r.getRule())) {
                     string unknownItem = leftMatch == null ? items[0] : items[1];
                     object knownValue = cat.retrieveValue(leftMatch ?? rightMatch);
@@ -68,10 +74,11 @@ namespace Logix {
                     string targetItem = cat.findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
                     cat.addRelation(targetItem, unknownItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
                     addInverse(unknownItem, targetItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
-                    return null;
+                    results.Add(relationBuilder.createRelation(targetItem, unknownItem, r.isPositive()));
+                    return results;
                 }
                 else {
-                    List<Relation> results = cat.considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                    results = cat.considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
                 }
             }
             else {
@@ -135,14 +142,15 @@ namespace Logix {
                 List<Relation> relations = considerRelationToCategories(relationBuilder.createRelation(clue));
                 List<Relation> relations2 = solution.considerRelationInSolution(relationBuilder.createRelation(clue));
                 List<Relation> relations3 = solution.checkAllButOnes();
-                combineRanges(ref relations, relations2);
-                combineRanges(ref relations, relations3);
+                combineRelationRanges(ref relations, relations2);
+                combineRelationRanges(ref relations, relations3);
                 usedClues.Add(clues[0]);
                 System.Diagnostics.Debug.WriteLine("Used clue: " + clues[0]);
                 clues.RemoveAt(0);
-                if (relations != null && relations.Count() ==1 && relations[0].getRule() == clue) {
+                //if (relations != null && relations.Count() ==1 && relations[0].getRule() == clue) {
                     //Nothing new learnt
-                    relations = (reductio());
+                if (turn % REDUCTIO_SPACING == 0) {
+                    relations.AddRange(reductio());
                 }
                 if (relations != null && relations.Count() > 0) {
                     foreach (Relation r in relations) {
@@ -154,16 +162,18 @@ namespace Logix {
             return solution.getFinalMatrix();
         }
 
+        /// <summary>
+        /// Performs a check for any other relations that can be deduced by considering related items' pairings.
+        /// </summary>
+        /// <returns>A list of relations discovered.</returns>
         private List<Relation> reductio() {
             List<Relation> results = new List<Relation>();
-            int newRules = 0;
             bool fullyChecked = false;
-            while (newRules < REDUCTIO_RULES && !fullyChecked) {
+            while (!fullyChecked) {
                 foreach (Category cat in cats) {
                     List<Relation> deductedRelations = cat.checkDeductibles();
                     if (deductedRelations.Count() > 0) {
                         results.AddRange(deductedRelations);
-                        newRules += deductedRelations.Count();
                     }
                     for (int itemIndex = 1; itemIndex <= cat.size; itemIndex++) {
                         string[] matchedItems = Category.getMatchedItems(cat, itemIndex);
@@ -178,14 +188,12 @@ namespace Logix {
                             string[] newNegatives = relatedUnmatches.Except(unmatchedItems ?? new string[] {""}).ToArray();
                             if (newNegatives.Count() > 0) {
                                 string comparedItem = cat.identifier.ToString() + itemIndex;
-                                combineRanges(ref results, createNegativeRelations(comparedItem, newNegatives));
-                                newRules += newNegatives.Count();
+                                combineRelationRanges(ref results, createNegativeRelations(comparedItem, newNegatives));
                             }
                         }
                         List<Relation> allButOnes = checkNegativesForAllButOne(cat, itemIndex);
                         if (allButOnes != null) {
-                            combineRanges(ref results, allButOnes);
-                            newRules += allButOnes.Count();
+                            combineRelationRanges(ref results, allButOnes);
                         }
                     }
                 }
@@ -194,6 +202,12 @@ namespace Logix {
             return results;
         }
 
+        /// <summary>
+        /// Returns a relation per category if only one valid option remains.
+        /// </summary>
+        /// <param name="cat"></param>
+        /// <param name="itemIndex"></param>
+        /// <returns></returns>
         private List<Relation> checkNegativesForAllButOne(Category cat, int itemIndex) {
             string[] Negatives = Category.getUnmatchedItems(cat, itemIndex);
             if (Negatives == null || Negatives.Count() < cat.size-1) {
@@ -216,49 +230,75 @@ namespace Logix {
             return null;
         }
 
-        private List<Relation> createNegativeRelations(string item, string[] newNegatives) {
+        /// <summary>
+        /// Creates negative relations for the item against a list of related items
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="notRelateds"></param>
+        /// <returns></returns>
+        private List<Relation> createNegativeRelations(string item, string[] notRelateds) {
             List<Relation> relations = new List<Relation>();
-            foreach (string s in newNegatives) {
+            foreach (string s in notRelateds) {
+                if (item[0] == s[0]) {
+                    continue;
+                }
                 relations.Add(relationBuilder.createRelation(item, s, false));
             }
             return relations;
         }
 
+        /// <summary>
+        /// Checks a Relation against each Category
+        /// </summary>
+        /// <param name="relation"></param>
+        /// <returns></returns>
         private List<Relation> considerRelationToCategories(Relation relation) {
             List<Relation> result = new List<Relation>();
             foreach (Category cat in cats) {
-                combineRanges(ref result, considerRelationToCategory(relation, cat));
+                combineRelationRanges(ref result, considerRelationToCategory(relation, cat));
             }
             return result;
         }
 
-        private void combineRanges(ref List<Relation> relations, List<Relation> relations2) {
-            if (relations == null && relations2 == null) {
+        /// <summary>
+        /// Updates one set of Relations with all distinct Relations from another
+        /// </summary>
+        /// <param name="relations1"></param>
+        /// <param name="relations2"></param>
+        private void combineRelationRanges(ref List<Relation> relations1, List<Relation> relations2) {
+            if (relations1 == null && relations2 == null) {
                 return;
             }
-            if (relations == null) {
-                relations = relations2.Distinct<Relation>().ToList();
+            if (relations1 == null) {
+                relations1 = relations2.Distinct<Relation>().ToList();
             }
             if (relations2 == null) {
                 return;
             }
             //combine unique
             foreach (Relation r in relations2) {
-                if (relations.Any(a => a.CompareTo(r)==0)) { continue; }
-                relations.Add(r);
+                if (relations1.Any(a => a.CompareTo(r)==0)) { continue; }
+                relations1.Add(r);
             }
-            relations = relations.Distinct<Relation>().ToList();
+            relations1 = relations1.Distinct<Relation>().ToList();
         }
 
         internal object getRemainingClueCount() {
             return this.clues.Count;
         }
 
+        /// <summary>
+        /// Adds Relation to clue bank if not seen already, or if it is Relative
+        /// </summary>
+        /// <param name="r"></param>
         internal void addRelation(Relation r) {
             if (clues.Contains(r.getRule())) return;
-            //if (usedClues.Contains(r.getRule())) return;
+            if (usedClues.Contains(r.getRule()) && usedClues.Count() > 10 && !r.isRelative()) return;
             this.clues.Add(r.getRule());
         }
 
+        internal void enterCategoryValues(char ident, object[] vals) {
+            getCategoryFromIdentifier(ident).enterValues(vals);
+        }
     }
 }

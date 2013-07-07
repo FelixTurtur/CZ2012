@@ -11,27 +11,32 @@ namespace Logix {
         public static List<List<string>> Solve(Puzzle p) {
             Deducer brains = new Deducer(p.height, p.width);
             brains.setClues(p.getClues());
-            List<List<string>> result = null;
-            int[,] finalMatrix = new int[p.height, p.width];
+            int[,] solutionMatrix = new int[p.height, p.width];
+            
             try {
-                finalMatrix = brains.go();
+                solutionMatrix = brains.go();
             }
             catch (Exception e) {
                 throw e;
             }
-            if (finalMatrix == null) { throw new InconclusiveException(p); }
+            if (solutionMatrix == null) { 
+                throw new InconclusiveException(p); 
+            }
+            //Translate matrix solution to verbal solution
+            List<List<string>> solutionStrings = new List<List<string>>();
             for (int x = 0; x < p.height; x++) {
                 List<string> row = new List<string>();
                 for (int y = 0; y < p.width; y++) {
-                    string item = p.getNameAt(y, finalMatrix[x,y]);
+                    string item = p.getNameAt(y, solutionMatrix[x,y]);
                     if (p.width - y != 1) {
                         item += ", ";
                     }
                     row.Add(item);
                 }
-                result.Add(row);
+                solutionStrings.Add(row);
             }
-            return result;
+
+            return solutionStrings;
         }
     }
 }
