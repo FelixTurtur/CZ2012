@@ -22,7 +22,7 @@ namespace Logix
                     return false;
                 }
             }
-            return false;
+            return true;
         }
         private bool rowComplete(int x) {
             for (int y = 0; y < matrix.GetLength(1); y++) {
@@ -124,6 +124,7 @@ namespace Logix
 
         internal List<Relation> checkAllButOnes() {
             //Check for deductible categories
+            List<Relation> results = new List<Relation>();
             for (int y = 0; y < matrix.GetLength(1); y++) {
                 List<int> empties = new List<int>();
                 for (int x = 0; x < matrix.GetLength(0); x++) {
@@ -132,15 +133,16 @@ namespace Logix
                     }
                 }
                 if (empties.Count() == 1) {
-                    return completeAllButOne(empties[0], y);
+                    results.AddRange(completeAllButOne(empties[0], y));
                 }
             }
-            return null;
+            return results;
         }
 
         private List<Relation> completeAllButOne(int x, int y) {
             //category of y can be completed
             string newItem = getMissingItem(y);
+            addItem(x, newItem);
             List<Relation> relations = new List<Relation>();
             for (int cat = 0; cat < matrix.GetLength(1); cat++) {
                 if (cat == y || matrix[x,cat] == 0) {

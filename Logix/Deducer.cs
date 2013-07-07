@@ -78,6 +78,10 @@ namespace Logix {
             }
             else {
                 if (items[0] != null && items[1] != null) {
+                    if (usedClues.Contains(r.getRule())) {
+                        //Nothing new learnt
+                        return new List<Relation> {r};
+                    }
                     //create negative relations from comparatives
                     List<Relation> relations = new List<Relation>();
                     relations = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), cat.identifier, cat.size));
@@ -170,7 +174,7 @@ namespace Logix {
                         }
                         string[] unmatchedItems = Category.getUnmatchedItems(cat, itemIndex);
                         foreach (string match in matchedItems) {
-                            //see if matched item has positive connections to items first item doesn't
+                            //see if matched item has negative connections to items first item doesn't
                             string[] relatedUnmatches = Category.getUnmatchedItems(getCategoryFromIdentifier(match[0]), itemIndex);
                             if (relatedUnmatches == null) continue;
                             string[] newNegatives = relatedUnmatches.Except(unmatchedItems ?? new string[] {""}).ToArray();
@@ -180,11 +184,38 @@ namespace Logix {
                                 newRules += newNegatives.Count();
                             }
                         }
+                        List<Relation> allButOnes = checkNegativesForAllButOne(cat, itemIndex);
+                        if (allButOnes != null) {
+                            combineRanges(ref results, allButOnes);
+                            newRules += allButOnes.Count();
+                        }
                     }
                 }
                 fullyChecked = true;
             }
             return results;
+        }
+
+        private List<Relation> checkNegativesForAllButOne(Category cat, int itemIndex) {
+            string[] Negatives = Category.getUnmatchedItems(cat, itemIndex);
+            if (Negatives == null || Negatives.Count() < cat.size-1) {
+                return null;
+            }
+            char ident = 'A';
+            for (int catIndex = 0; catIndex < cat.size; catIndex++, ident++) {
+                if (Negatives.Where(a => a.StartsWith(ident.ToString())).Count() == cat.size - 1) {
+                    //All but one negated. Find positive
+                    string positiveMatchItem = "";
+                    for (int i = 1; i <= cat.size; i++) {
+                        if (!Negatives.Contains(ident.ToString() + i)) {
+                            positiveMatchItem = ident.ToString() + i;
+                        }
+                    }
+                    addRelation(relationBuilder.createRelation(cat.identifier.ToString() + itemIndex, positiveMatchItem, true));
+                    addInverse(cat.identifier.ToString() + itemIndex, positiveMatchItem, Category.Rows.Positives);
+                }
+            }
+            return null;
         }
 
         private List<Relation> createNegativeRelations(string item, string[] newNegatives) {

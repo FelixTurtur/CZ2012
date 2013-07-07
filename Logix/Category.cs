@@ -185,12 +185,12 @@ namespace Logix
 
         internal List<Relation> checkDeductibles() {
             List<Relation> relations = new List<Relation>();
-            for (int x = 1; x <= size; x++ ) {
-                string[] negatives = getAllListedItems(Rows.Negatives);
-                if (negatives == null) { continue; }
+            string[] negatives = getAllListedItems(Rows.Negatives);
+            if (negatives != null) {
                 foreach (string item in negatives) {
+                    //check if it is listed against all but one
                     string item2 = checkForMatch(item, Rows.Negatives);
-                    if(!string.IsNullOrEmpty(item2)) {
+                    if (!string.IsNullOrEmpty(item2)) {
                         relations.Add(RelationFactory.getInstance().createRelation(item, item2, true));
                     }
                 }
