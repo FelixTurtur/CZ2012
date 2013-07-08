@@ -74,12 +74,24 @@ namespace Logix
             if (p1[0] != identifier) {
                 throw new ArgumentException("Identifier does not match target location: " + p1);
             }
-            int column = Convert.ToInt32(p1.Substring(1));
+            int column = Convert.ToInt32(p1[1].ToString());
             if (this.size < column) {
                 throw new ArgumentException("Target is out of bounds: " + p1);
             }
             if (!this.innerArray[(int)row][column].ToString().Contains(p2)) {
                 this.innerArray[(int)row][column] += p2;
+                if (row == Rows.Positives) {
+                    createNegativeLinkForOthers(p2, column);
+                }
+            }
+        }
+
+        private void createNegativeLinkForOthers(string p2, int y) {
+            for (int i = 1; i <= size; i++) {
+                if (i == y) {
+                    continue;
+                }
+                addRelation(identifier.ToString() + i, p2, Rows.Negatives);
             }
         }
 
@@ -102,6 +114,7 @@ namespace Logix
                 return finds < 2 ? result : null;
             }
             for (int i = 1; i <= size; i++) {
+                if (this.innerArray[(int)Rows.Positives][i].ToString().Contains(p)) return null;
                 if (this.innerArray[(int)row][i].ToString().Contains(p)) {
                     finds++;
                 }
@@ -187,7 +200,7 @@ namespace Logix
             List<Relation> relations = new List<Relation>();
             string[] negatives = getAllListedItems(Rows.Negatives);
             if (negatives != null) {
-                foreach (string item in negatives) {
+                foreach (string item in negatives.Distinct<string>()) {
                     //check if it is listed against all but one
                     string item2 = checkForMatch(item, Rows.Negatives);
                     if (!string.IsNullOrEmpty(item2)) {

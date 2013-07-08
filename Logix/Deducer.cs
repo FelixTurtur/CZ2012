@@ -177,18 +177,17 @@ namespace Logix {
                     }
                     for (int itemIndex = 1; itemIndex <= cat.size; itemIndex++) {
                         string[] matchedItems = Category.getMatchedItems(cat, itemIndex);
-                        if (matchedItems == null) {
-                            continue;
-                        }
-                        string[] unmatchedItems = Category.getUnmatchedItems(cat, itemIndex);
-                        foreach (string match in matchedItems) {
-                            //see if matched item has negative connections to items first item doesn't
-                            string[] relatedUnmatches = Category.getUnmatchedItems(getCategoryFromIdentifier(match[0]), Convert.ToInt32(match[1].ToString()));
-                            if (relatedUnmatches == null) continue;
-                            string[] newNegatives = relatedUnmatches.Except(unmatchedItems ?? new string[] {""}).ToArray();
-                            if (newNegatives.Count() > 0) {
-                                string comparedItem = cat.identifier.ToString() + itemIndex;
-                                combineRelationRanges(ref results, createNegativeRelations(comparedItem, newNegatives));
+                        if (matchedItems != null) {
+                            string[] unmatchedItems = Category.getUnmatchedItems(cat, itemIndex);
+                            foreach (string match in matchedItems) {
+                                //see if matched item has negative connections to items first item doesn't
+                                string[] relatedUnmatches = Category.getUnmatchedItems(getCategoryFromIdentifier(match[0]), Convert.ToInt32(match[1].ToString()));
+                                if (relatedUnmatches == null) continue;
+                                string[] newNegatives = relatedUnmatches.Except(unmatchedItems ?? new string[] {""}).ToArray();
+                                if (newNegatives.Count() > 0) {
+                                    string comparedItem = cat.identifier.ToString() + itemIndex;
+                                    combineRelationRanges(ref results, createNegativeRelations(comparedItem, newNegatives));
+                                }
                             }
                         }
                         List<Relation> allButOnes = checkNegativesForAllButOne(cat, itemIndex);

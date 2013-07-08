@@ -54,7 +54,27 @@ namespace LogixTests
         }
 
         [TestMethod]
-        public void Second_Problem_Test() { }
+        public void Second_Problem_Test() {
+            List<string> clues = new List<string> { "C2=D1", "A1=B1", "A3=C3", "B3!=D3", "B2=D2"};
+            Deducer brains = new Deducer(4, 3, new string[] { "", "", "", "" });
+            brains.setClues(clues);
+            int[,] matrix = brains.go();
+            Assert.IsNotNull(matrix);
+            int[,] providedMatrix = new int[3, 4] { { 1, 1, 1, 3 }, { 2, 3, 2, 1 }, { 3, 2, 3, 2 } };
+            Assert.IsTrue(solutionsMatch(providedMatrix, matrix));
+        }
+
+        [TestMethod]
+        public void Third_Problem_Test() {
+            List<string> clues = new List<string> { "C1=D3", "C1!=B2", "B2!=C2", "C2!=A4", "B1=D1", "B4=A3", "B4!=D4", "C4=A2", "C4!=D2", "B3(A)-C3(A)=1" };
+            Deducer brains = new Deducer(4, 4, new string[] { "Numeric", "", "", "" });
+            brains.setClues(clues);
+            brains.enterCategoryValues('A', new object[] { 1, 2, 3, 4 });
+            int[,] matrix = brains.go();
+            Assert.IsNotNull(matrix);
+            int[,] providedMatrix = new int[4, 4] { { 1, 1, 2, 1 }, { 2, 2, 4, 4 }, { 3, 4, 3, 2 }, { 4, 3, 1, 3 } };
+            Assert.IsTrue(solutionsMatch(providedMatrix, matrix));
+        }
 
         private bool solutionsMatch(int[,] providedMatrix, int[,] matrix) {
             List<string> strung1 = new List<string>();
