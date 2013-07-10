@@ -49,6 +49,7 @@
     <Compile Include="Exceptions\InconclusiveException.cs" />
     <Compile Include="Exceptions\LogicException.cs" />
     <Compile Include="Logix.cs" />
+    <Compile Include="MatchEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relation\DirectRelation.cs" />
     <Compile Include="Relation\Relation.cs" />

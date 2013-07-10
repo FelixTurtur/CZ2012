@@ -173,5 +173,6 @@ namespace Logix
         internal int[,] getFinalMatrix() {
             return matrix;
         }
+
     }
 }

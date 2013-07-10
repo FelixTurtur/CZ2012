@@ -28,7 +28,7 @@ namespace LogixTests
             Deducer brains = new Deducer(4, 5);
             Category l = brains.getCategoryFromIdentifier('C');
             Assert.IsNotNull(l);
-            brains.considerRelationToCategory(relationBuilder.createRelation("C1=B3"), l);
+            l.considerRelationToCategory(relationBuilder.createRelation("C1=B3"), false);
             string consideredItem = l.checkForMatch("B3");
             Assert.AreEqual("C1", consideredItem);
         }

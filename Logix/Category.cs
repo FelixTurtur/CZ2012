@@ -6,7 +6,9 @@ using System.Collections.Generic;
 
 namespace Logix
 {
-    /* Line class 
+   public delegate void MatchEventHandler (Category sender, MatchEventArgs e);
+ 
+   /* Category class 
      * Creates a matrix that will store information on one category. The matrix is always four rows deep with one labelling column
      * and then one column per value within the category. The top row holds the index, the second the value (if necessary) and the 
      * third/fourth any known positive/negative relational data so that logical deductions can be drawn. 
@@ -15,7 +17,9 @@ namespace Logix
      * */
     public class Category
     {
-        public enum Rows
+       public event MatchEventHandler Matched; 
+       
+       public enum Rows
         {
             Index = 0,
             Values = 1,
@@ -31,7 +35,13 @@ namespace Logix
 
         internal Category() { size = 0; identifier = 'Z'; }
 
-        internal void createInnerArray()
+        private void OnMatch(MatchEventArgs e) {
+           if (Matched != null) {
+              Matched(this, e);
+           }
+        }
+ 
+       internal void createInnerArray()
         {
             innerArray = createArray(identifier, size);
         }
@@ -59,6 +69,11 @@ namespace Logix
             }
         }
 
+        internal void setKeyword(string key) {
+            this.keyword = key;
+            calculator = CalculatorFactory.getInstance().createCalculator(key);
+        }
+
         public object retrieveValue(string item) {
             if (item[0] != this.identifier) {
                 throw new ArgumentException("Identifier does not match Index provided: " + item);
@@ -81,17 +96,9 @@ namespace Logix
             if (!this.innerArray[(int)row][column].ToString().Contains(p2)) {
                 this.innerArray[(int)row][column] += p2;
                 if (row == Rows.Positives) {
+                   OnMatch(new MatchEventArgs(p1, p2));
                     createNegativeLinkForOthers(p2, column);
                 }
-            }
-        }
-
-        private void createNegativeLinkForOthers(string p2, int y) {
-            for (int i = 1; i <= size; i++) {
-                if (i == y) {
-                    continue;
-                }
-                addRelation(identifier.ToString() + i, p2, Rows.Negatives);
             }
         }
 
@@ -137,38 +144,6 @@ namespace Logix
         internal string findTarget(object knownValue, string comparative) {
             object targetValue = calculator.calculateValue(knownValue, comparative);
             return findItem(targetValue);
-        }
-
-        internal List<Relation> considerComparative(string p1, string comparator, string p2) {
-            string matchedIndex = "";
-            string itemToRelate = "";
-            List<Relation> results = new List<Relation>();
-            if (p1[0] == identifier) {
-                matchedIndex = p1;
-                itemToRelate = p2;
-            }
-            else if (p2[0] == identifier) {
-                matchedIndex = p2;
-                itemToRelate = p1;
-                comparator = Relations.getInverse(comparator);
-            }
-            List<int> indexesToCheck = this.calculator.getImpossibles(Convert.ToInt32(matchedIndex.Substring(1)), comparator, this.size);
-            foreach (int i in indexesToCheck) {
-                if (innerArray[(int)Rows.Positives][i].ToString().Contains(itemToRelate[0])) {
-                    continue;
-                }
-                if (innerArray[(int)Rows.Negatives][i].ToString().Contains(itemToRelate[0])) {
-                    continue;
-                }
-                this.addRelation(identifier + i.ToString(), itemToRelate, Rows.Negatives);
-                results.Add(RelationFactory.getInstance().createRelation(identifier + i.ToString(), itemToRelate, false));
-            }
-            return results;
-        }
-
-        internal void setKeyword(string key) {
-            this.keyword = key;
-            calculator = CalculatorFactory.getInstance().createCalculator(key);
         }
 
         internal static string[] getMatchedItems(Category c, int index) {
@@ -217,6 +192,110 @@ namespace Logix
                 list += innerArray[(int)row][i].ToString();
             }
             return splitItems(list);
+        }
+
+        public List<Relation> considerRelationToCategory(Relation r, bool alreadySeen) {
+            if (!r.getRule().Contains(identifier)) {
+              //cannot use this relation
+              return new List<Relation> { r };
+            }
+            if (!r.isRelative()) {
+              //direct relation
+                if (!alreadySeen) {
+                    Category.Rows row = r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives;
+                    addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
+                }
+                return null;
+            }
+            //relative relation
+            string[] items = { r.getBaseItem(identifier, Relations.Sides.Left), r.getBaseItem(identifier, Relations.Sides.Right) };
+            string leftMatch = checkForMatch(items[0]);
+            string rightMatch = checkForMatch(items[1]);
+            List<Relation> results = new List<Relation>();
+            if (!string.IsNullOrEmpty(leftMatch) && !string.IsNullOrEmpty(rightMatch)) {
+                //both sides already matched 
+                return null;
+            }
+            else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
+                  //if either of the two items has a value, then something can be learnt for the other, if not a complete match
+                if (Representation.Relations.isQuantified(r.getRule())) {
+                     string unknownItem = leftMatch == null ? items[0] : items[1];
+                     object knownValue = retrieveValue(leftMatch ?? rightMatch);
+                     bool inverse = leftMatch == null ? true : false;
+                     string targetItem = findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
+                     addRelation(targetItem, unknownItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
+                     results.Add(RelationFactory.getInstance().createRelation(targetItem, unknownItem, r.isPositive()));
+                }
+                else {
+                    results = considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                }
+            return results;
+            }
+            else if (items[0] != null && items[1] != null) {
+                if(alreadySeen) {
+                    //Nothing new learnt
+                    return new List<Relation> { r };
+               }
+               //create negative relations from comparatives
+               results = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), identifier, size));
+               if (results == null) results = new List<Relation> { r };
+               else results.Add(r);
+            }
+            return results;
+        }
+
+        internal List<Relation> considerComparative(string p1, string comparator, string p2) {
+            string matchedIndex = "";
+            string itemToRelate = "";
+            List<Relation> results = new List<Relation>();
+            if (p1[0] == identifier) {
+                matchedIndex = p1;
+                itemToRelate = p2;
+            }
+            else if (p2[0] == identifier) {
+                matchedIndex = p2;
+                itemToRelate = p1;
+                comparator = Relations.getInverse(comparator);
+            }
+            List<int> indexesToCheck = this.calculator.getImpossibles(Convert.ToInt32(matchedIndex.Substring(1)), comparator, this.size);
+            foreach (int i in indexesToCheck) {
+                if (innerArray[(int)Rows.Positives][i].ToString().Contains(itemToRelate[0])) {
+                    continue;
+                }
+                if (innerArray[(int)Rows.Negatives][i].ToString().Contains(itemToRelate[0])) {
+                    continue;
+                }
+                this.addRelation(identifier + i.ToString(), itemToRelate, Rows.Negatives);
+                results.Add(RelationFactory.getInstance().createRelation(identifier + i.ToString(), itemToRelate, false));
+            }
+            return results;
+        }
+
+        private void createNegativeLinkForOthers(string p2, int y) {
+            for (int i = 1; i <= size; i++) {
+                if (i == y) {
+                    continue;
+                }
+                addRelation(identifier.ToString() + i, p2, Rows.Negatives);
+            }
+        }
+
+        private List<Relation> createNegativeRelationsToBounds(string leftItem, string rightItem, string comparator, char ident, int size) {
+           RelationFactory relationBuilder = RelationFactory.getInstance();
+           List<Relation> relations = new List<Relation>();
+           string lowestInCat = ident + "1";
+           string highestInCat = ident + size.ToString();
+           if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
+              //left cannot be lowest; right cannot be highest
+              relations.Add(relationBuilder.createRelation(leftItem, lowestInCat, false));
+              relations.Add(relationBuilder.createRelation(rightItem, highestInCat, false));
+           }
+           else if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
+              relations.Add(relationBuilder.createRelation(leftItem, highestInCat, false));
+              relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
+
+           }
+           return relations;
         }
     }
 }
