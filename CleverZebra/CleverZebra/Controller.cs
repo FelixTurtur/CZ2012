@@ -56,8 +56,11 @@ namespace CleverZebra {
                 throw new Parser.ParserException("Unable to parse clues for puzzle id: " + puzzle.getId(), e);
             }
             List<List<string>> result = null;
+            List<object> stats = null;
             try {
-                result = Logix.Logix.Solve(puzzle);
+                Logix.Logix logix = new Logix.Logix();
+                result = logix.Solve(puzzle);
+                stats = logix.getLastResults();
             }
             catch (Exception e) {
                 throw new Logix.LogicException("Unable to solve puzzle id: " + puzzle.getId(), e);

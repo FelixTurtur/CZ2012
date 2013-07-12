@@ -1,10 +1,15 @@
 ﻿using Representation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Logix {
-    public class Deducer {
+    public delegate void SolveCompleteHandler(Deducer sender, SolveCompleteArgs e);
+    
+    public class Deducer
+    {
+        public event SolveCompleteHandler Concluded;
         private RelationFactory relationBuilder;
         private List<Category> cats;
         private string[] keywords;
@@ -84,6 +89,8 @@ namespace Logix {
         }
 
         internal int[,] go() {
+            Stopwatch ticker = new Stopwatch();
+            ticker.Start();
             int turn = 1;
             usedClues = new List<string>();
             while (clues.Count() > 0 && turn < MAXTURNS && !solution.isComplete()) {
@@ -102,6 +109,9 @@ namespace Logix {
                 }
                 turn++;
             }
+            ticker.Stop();
+            TimeSpan t = ticker.Elapsed;
+            OnSolutionComplete(new SolveCompleteArgs(solution.isComplete(), turn, t));
             return solution.getFinalMatrix();
         }
 
@@ -243,5 +253,12 @@ namespace Logix {
         internal void enterCategoryValues(char ident, object[] vals) {
             getCategoryFromIdentifier(ident).enterValues(vals);
         }
+        
+        private void OnSolutionComplete(SolveCompleteArgs solveCompleteArgs) {
+            if (Concluded != null) {
+                Concluded(this, solveCompleteArgs);
+            }
+        }
+
     }
 }

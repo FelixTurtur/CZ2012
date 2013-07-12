@@ -8,8 +8,14 @@ using Representation;
 namespace Logix {
     public class Logix {
 
-        public static List<List<string>> Solve(Puzzle p) {
+        public SolveCompleteHandler solveHandler;
+        private Results latestResults;
+
+        public Logix() { }
+
+        public List<List<string>> Solve(Puzzle p) {
             Deducer brains = new Deducer(p.height, p.width);
+            brains.Concluded += brains_solveComplete;
             brains.setClues(p.getClues());
             int[,] solutionMatrix = new int[p.height, p.width];
             
@@ -19,15 +25,16 @@ namespace Logix {
             catch (Exception e) {
                 throw e;
             }
-            if (solutionMatrix == null) { 
-                throw new InconclusiveException(p); 
-            }
             //Translate matrix solution to verbal solution
+            return translateSolution(p, solutionMatrix);
+        }
+
+        private static List<List<string>> translateSolution(Puzzle p, int[,] solutionMatrix) {
             List<List<string>> solutionStrings = new List<List<string>>();
             for (int x = 0; x < p.height; x++) {
                 List<string> row = new List<string>();
                 for (int y = 0; y < p.width; y++) {
-                    string item = p.getNameAt(y, solutionMatrix[x,y]);
+                    string item = p.getNameAt(y, solutionMatrix[x, y]);
                     if (p.width - y != 1) {
                         item += ", ";
                     }
@@ -37,6 +44,14 @@ namespace Logix {
             }
 
             return solutionStrings;
+        }
+
+        void brains_solveComplete(Deducer sender, SolveCompleteArgs e) {
+            this.latestResults = new Results(e.isSuccessful, e.turns, e.timeTaken);
+        }
+
+        public List<object> getLastResults() {
+            return latestResults.listResults();
         }
     }
 }

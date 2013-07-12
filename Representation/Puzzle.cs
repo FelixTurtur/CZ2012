@@ -71,10 +71,13 @@ namespace Representation {
             throw new NotImplementedException();
         }
 
-        public string getNameAt(int y, int p) {
-            //y gives category index; p the item within the category.
+        public string getNameAt(int cat, int index) {
             //items[0] => y(0), p(1), items[1] => y(0), p(1)
-            return items[(y * width) + (p - 1)];
+            if (index == 0) {
+                //answer not found.
+                return "Unknown";
+            }
+            return items[(cat * width) + (index - 1)];
         }
     }
 }
