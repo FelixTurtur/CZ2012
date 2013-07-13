@@ -199,7 +199,19 @@ namespace Logix
               //cannot use this relation
               return new List<Relation> { r };
             }
-            if (!r.isRelative()) {
+            if (r.isConditional()) {
+                if (((ConditionalRelation)r).getRule().Contains(identifier)) {
+                    bool? conditionMet = checkDeterminability(r);
+                    if (conditionMet.HasValue) {
+                        if (conditionMet.Value) {
+                            return new List<Relation> { RelationFactory.getInstance().createRelation(((ConditionalRelation)r).getIfTrueStatement()) };
+                        }
+                        return new List<Relation> { RelationFactory.getInstance().createRelation(((ConditionalRelation)r).getIfFalseStatement()) };
+                    }
+                }
+                return new List<Relation> { r };
+            }
+            if (r.isDirect()) {
               //direct relation
                 if (!alreadySeen) {
                     Category.Rows row = r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives;
@@ -242,6 +254,31 @@ namespace Logix
                else results.Add(r);
             }
             return results;
+        }
+
+        private bool? checkDeterminability(Relation r) {
+            Relation testRelation = ((ConditionalRelation)r).conditional;
+            if (testRelation.isRelative()) {
+                //wuss out until we need this
+                return null;
+            }
+            else {
+                string baseItem = testRelation.getBaseItem(this.identifier);
+                string relatedItem = testRelation.getRelatedItem(this.identifier);
+                if (innerArray[(int)Rows.Positives][Convert.ToInt32(baseItem[1].ToString())].ToString().Contains(relatedItem)) {
+                    if (testRelation.isPositive()) {
+                        return true; //Positive rule, positive match
+                    }
+                    return false; //Negative rule, positive match
+                }
+                else if (innerArray[(int)Rows.Negatives][Convert.ToInt32(baseItem[1].ToString())].ToString().Contains(relatedItem)) {
+                    if (testRelation.isPositive()) {
+                        return false; //Positive rule, negative match
+                    }
+                    return true; //Negative rule, negative match
+                }
+                return null;
+            }
         }
 
         internal List<Relation> considerComparative(string p1, string comparator, string p2) {
