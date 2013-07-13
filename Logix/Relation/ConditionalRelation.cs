@@ -21,11 +21,11 @@ namespace Logix
             base.items = separateItems(input);
         }
 
-        private string getIfFalseStatement() {
+        internal string getIfFalseStatement() {
             return Representation.Relations.getIfFalseStatement(base.rule);
         }
 
-        private string getIfTrueStatement() {
+        internal string getIfTrueStatement() {
             return Representation.Relations.getIfTrueStatement(base.rule);
         }
 

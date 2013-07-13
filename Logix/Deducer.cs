@@ -42,6 +42,17 @@ namespace Logix {
             solution = new Solution(x,y);
         }
 
+        internal void enterCategoryValues(char ident, object[] vals) {
+            getCategoryFromIdentifier(ident).enterValues(vals);
+        }
+
+        public Category getCategoryFromIdentifier(char ident) {
+            foreach (Category l in this.cats) {
+                if (l.identifier == ident) { return l; }
+            }
+            throw new ArgumentException("No Category found for identifier: " + ident);
+        }
+
         void Deducer_Matched(Category sender, MatchEventArgs e) {
            List<Relation> newRules = solution.considerRelationInSolution(relationBuilder.createRelation(e.item1, e.item2, true));
            combineRelationRanges(ref newRules, solution.checkAllButOnes());
@@ -52,32 +63,10 @@ namespace Logix {
            }
         }
 
-        public Category getCategoryFromIdentifier(char ident) {
-            foreach (Category l in this.cats) {
-                if (l.identifier == ident) { return l; }
+        private void OnSolutionComplete(SolveCompleteArgs solveCompleteArgs) {
+            if (Concluded != null) {
+                Concluded(this, solveCompleteArgs);
             }
-            throw new ArgumentException("No Category found for identifier: " + ident);
-        }
-
-        private List<Relation> createNegativeRelationsToBounds(string leftItem, string rightItem, string comparator, char ident, int size) {
-            List<Relation> relations = new List<Relation>();
-            string lowestInCat = ident + "1";
-            string highestInCat = ident + size.ToString();
-            if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
-                //left cannot be lowest; right cannot be highest
-                relations.Add(relationBuilder.createRelation(leftItem, lowestInCat, false));
-                relations.Add(relationBuilder.createRelation(rightItem, highestInCat, false));
-            }
-            else if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
-                relations.Add(relationBuilder.createRelation(leftItem, highestInCat, false));
-                relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
-
-            }
-            return relations;
-        }
-
-        private void addInverse(string p1, string p2, Category.Rows row) {
-            getCategoryFromIdentifier(p1[0]).addRelation(p1, p2, row);
         }
 
         public List<Category> getCategoryCollection() {
@@ -88,7 +77,15 @@ namespace Logix {
             this.clues = clues;
         }
 
-        internal int[,] go() {
+        internal object getRemainingClueCount() {
+            return this.clues.Count;
+        }
+
+        /// <summary>
+        /// The main high-level algorithm for solving puzzles
+        /// </summary>
+        /// <returns></returns>
+        internal int[,] Go() {
             Stopwatch ticker = new Stopwatch();
             ticker.Start();
             int turn = 1;
@@ -97,7 +94,6 @@ namespace Logix {
                 string clue = clues[0];
                 List<Relation> relations = considerRelationToCategories(relationBuilder.createRelation(clue));
                 usedClues.Add(clues[0]);
-                System.Diagnostics.Debug.WriteLine("Used clue: " + clues[0]);
                 clues.RemoveAt(0);
                 if (turn % ABSURDIO_SPACING == 0) {
                     relations.AddRange(Absurdio());
@@ -113,6 +109,42 @@ namespace Logix {
             TimeSpan t = ticker.Elapsed;
             OnSolutionComplete(new SolveCompleteArgs(solution.isComplete(), turn, t));
             return solution.getFinalMatrix();
+        }
+
+        /// <summary>
+        /// Checks a Relation against each Category
+        /// </summary>
+        /// <param name="relation"></param>
+        /// <returns></returns>
+        private List<Relation> considerRelationToCategories(Relation relation) {
+            List<Relation> result = new List<Relation>();
+            foreach (Category cat in cats) {
+               combineRelationRanges(ref result, cat.considerRelationToCategory(relation, usedClues.Contains(relation.getRule())));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Updates one set of Relations with all distinct Relations from another
+        /// </summary>
+        /// <param name="relations1"></param>
+        /// <param name="relations2"></param>
+        private void combineRelationRanges(ref List<Relation> relations1, List<Relation> relations2) {
+            if (relations1 == null && relations2 == null) {
+                return;
+            }
+            if (relations1 == null) {
+                relations1 = relations2.Distinct<Relation>().ToList();
+            }
+            if (relations2 == null) {
+                return;
+            }
+            //combine unique
+            foreach (Relation r in relations2) {
+                if (relations1.Any(a => a.CompareTo(r)==0)) { continue; }
+                relations1.Add(r);
+            }
+            relations1 = relations1.Distinct<Relation>().ToList();
         }
 
         /// <summary>
@@ -156,6 +188,23 @@ namespace Logix {
         }
 
         /// <summary>
+        /// Creates negative relations for the item against a list of related items
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="notRelateds"></param>
+        /// <returns></returns>
+        private List<Relation> createNegativeRelations(string item, string[] notRelateds) {
+            List<Relation> relations = new List<Relation>();
+            foreach (string s in notRelateds) {
+                if (item[0] == s[0]) {
+                    continue;
+                }
+                relations.Add(relationBuilder.createRelation(item, s, false));
+            }
+            return relations;
+        }
+
+        /// <summary>
         /// Returns a relation per category if only one valid option remains.
         /// </summary>
         /// <param name="cat"></param>
@@ -177,67 +226,10 @@ namespace Logix {
                         }
                     }
                     addRelationToClues(relationBuilder.createRelation(cat.identifier.ToString() + itemIndex, positiveMatchItem, true));
-                    addInverse(cat.identifier.ToString() + itemIndex, positiveMatchItem, Category.Rows.Positives);
+                    addInverseRelation(cat.identifier.ToString() + itemIndex, positiveMatchItem, Category.Rows.Positives);
                 }
             }
             return null;
-        }
-
-        /// <summary>
-        /// Creates negative relations for the item against a list of related items
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="notRelateds"></param>
-        /// <returns></returns>
-        private List<Relation> createNegativeRelations(string item, string[] notRelateds) {
-            List<Relation> relations = new List<Relation>();
-            foreach (string s in notRelateds) {
-                if (item[0] == s[0]) {
-                    continue;
-                }
-                relations.Add(relationBuilder.createRelation(item, s, false));
-            }
-            return relations;
-        }
-
-        /// <summary>
-        /// Checks a Relation against each Category
-        /// </summary>
-        /// <param name="relation"></param>
-        /// <returns></returns>
-        private List<Relation> considerRelationToCategories(Relation relation) {
-            List<Relation> result = new List<Relation>();
-            foreach (Category cat in cats) {
-               combineRelationRanges(ref result, cat.considerRelationToCategory(relation, usedClues.Contains(relation.getRule())));
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Updates one set of Relations with all distinct Relations from another
-        /// </summary>
-        /// <param name="relations1"></param>
-        /// <param name="relations2"></param>
-        private void combineRelationRanges(ref List<Relation> relations1, List<Relation> relations2) {
-            if (relations1 == null && relations2 == null) {
-                return;
-            }
-            if (relations1 == null) {
-                relations1 = relations2.Distinct<Relation>().ToList();
-            }
-            if (relations2 == null) {
-                return;
-            }
-            //combine unique
-            foreach (Relation r in relations2) {
-                if (relations1.Any(a => a.CompareTo(r)==0)) { continue; }
-                relations1.Add(r);
-            }
-            relations1 = relations1.Distinct<Relation>().ToList();
-        }
-
-        internal object getRemainingClueCount() {
-            return this.clues.Count;
         }
 
         /// <summary>
@@ -246,18 +238,12 @@ namespace Logix {
         /// <param name="r"></param>
         internal void addRelationToClues(Relation r) {
             if (clues.Contains(r.getRule())) return;
-            if (usedClues.Contains(r.getRule()) && usedClues.Count() > 10 && !r.isRelative()) return;
+            if (usedClues.Contains(r.getRule()) && usedClues.Count() > 10 && r.isDirect()) return;
             this.clues.Add(r.getRule());
         }
 
-        internal void enterCategoryValues(char ident, object[] vals) {
-            getCategoryFromIdentifier(ident).enterValues(vals);
-        }
-        
-        private void OnSolutionComplete(SolveCompleteArgs solveCompleteArgs) {
-            if (Concluded != null) {
-                Concluded(this, solveCompleteArgs);
-            }
+        private void addInverseRelation(string p1, string p2, Category.Rows row) {
+            getCategoryFromIdentifier(p1[0]).addRelation(p1, p2, row);
         }
 
     }

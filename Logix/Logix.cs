@@ -20,7 +20,7 @@ namespace Logix {
             int[,] solutionMatrix = new int[p.height, p.width];
             
             try {
-                solutionMatrix = brains.go();
+                solutionMatrix = brains.Go();
             }
             catch (Exception e) {
                 throw e;

@@ -55,7 +55,7 @@ namespace Logix
         }
 
         internal List<Relation> considerRelationInSolution(Relation r) {
-            if (r.isRelative() || !r.isPositive()) { return new List<Relation> { r }; }
+            if (!r.isDirect() || !r.isPositive()) { return new List<Relation> { r }; }
             string item1 = r.getLeftItem();
             string item2 = r.getRightItem();
             List<int> possibles = new List<int>();

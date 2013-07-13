@@ -12,7 +12,7 @@ namespace Logix {
             this.Data.Add("puzzle", p);
         }
 
-        public InconclusiveException(char ident, string rule) {
+        public InconclusiveException(string message, char ident, string rule) {
             // TODO: Complete member initialization
             this.p = "Relation has more items than expected. Cannot identify required item";
             this.rule = rule;
