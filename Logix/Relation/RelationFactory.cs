@@ -24,6 +24,9 @@ namespace Logix
             if (Relations.isConditional(input)) {
                 return new ConditionalRelation(input);
             }
+            if (Relations.isTripleRelative(input)) {
+                return new TripleRelativeRelation(input);
+            }
             if (Relations.isRelative(input)) {
                 return new RelativeRelation(input); 
             }

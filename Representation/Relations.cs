@@ -61,6 +61,16 @@ namespace Representation
             return false;
         }
 
+        public static bool isTripleRelative(string input) {
+            int possCount = 0;
+            for (int i = 0; i < input.Length; i++) {
+                if (isPossessive(input[i])) {
+                    possCount++;
+                }
+            }
+            return possCount > 4; //two per possessed item
+        }
+
         public static bool isRelative(string input) {
             foreach (string comparator in Representation.Relations.Comparators) {
                 if (input.Contains(comparator)) {
