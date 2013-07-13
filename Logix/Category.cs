@@ -219,41 +219,43 @@ namespace Logix
                 }
                 return null;
             }
-            //relative relation
-            string[] items = { r.getBaseItem(identifier, Relations.Sides.Left), r.getBaseItem(identifier, Relations.Sides.Right) };
-            string leftMatch = checkForMatch(items[0]);
-            string rightMatch = checkForMatch(items[1]);
-            List<Relation> results = new List<Relation>();
-            if (!string.IsNullOrEmpty(leftMatch) && !string.IsNullOrEmpty(rightMatch)) {
-                //both sides already matched 
-                return null;
-            }
-            else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
-                  //if either of the two items has a value, then something can be learnt for the other, if not a complete match
-                if (Representation.Relations.isQuantified(r.getRule())) {
-                     string unknownItem = leftMatch == null ? items[0] : items[1];
-                     object knownValue = retrieveValue(leftMatch ?? rightMatch);
-                     bool inverse = leftMatch == null ? true : false;
-                     string targetItem = findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
-                     addRelation(targetItem, unknownItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
-                     results.Add(RelationFactory.getInstance().createRelation(targetItem, unknownItem, r.isPositive()));
+            if (r.isRelative()) {
+                string[] items = { r.getBaseItem(identifier, Relations.Sides.Left), r.getBaseItem(identifier, Relations.Sides.Right) };
+                string leftMatch = checkForMatch(items[0]);
+                string rightMatch = checkForMatch(items[1]);
+                List<Relation> results = new List<Relation>();
+                if (!string.IsNullOrEmpty(leftMatch) && !string.IsNullOrEmpty(rightMatch)) {
+                    //both sides already matched 
+                    return null;
                 }
-                else {
-                    results = considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
+                    //if either of the two items has a value, then something can be learnt for the other, if not a complete match
+                    if (Representation.Relations.isQuantified(r.getRule())) {
+                        string unknownItem = leftMatch == null ? items[0] : items[1];
+                        object knownValue = retrieveValue(leftMatch ?? rightMatch);
+                        bool inverse = leftMatch == null ? true : false;
+                        string targetItem = findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
+                        addRelation(targetItem, unknownItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
+                        results.Add(RelationFactory.getInstance().createRelation(targetItem, unknownItem, r.isPositive()));
+                    }
+                    else {
+                        results = considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                    }
+                    return results;
                 }
-            return results;
+                else if (items[0] != null && items[1] != null) {
+                    if (alreadySeen) {
+                        //Nothing new learnt
+                        return new List<Relation> { r };
+                    }
+                    //create negative relations from comparatives
+                    results = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), Relations.comparativeAmount(r.getRule(),false), alreadySeen));
+                    if (results == null) results = new List<Relation> { r };
+                    else results.Add(r);
+                }
+                return results;
             }
-            else if (items[0] != null && items[1] != null) {
-                if(alreadySeen) {
-                    //Nothing new learnt
-                    return new List<Relation> { r };
-               }
-               //create negative relations from comparatives
-               results = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), identifier, size));
-               if (results == null) results = new List<Relation> { r };
-               else results.Add(r);
-            }
-            return results;
+            throw new ArgumentException("Relation type not recognised: " + r.GetType().ToString());
         }
 
         private bool? checkDeterminability(Relation r) {
@@ -285,15 +287,9 @@ namespace Logix
             string matchedIndex = "";
             string itemToRelate = "";
             List<Relation> results = new List<Relation>();
-            if (p1[0] == identifier) {
-                matchedIndex = p1;
-                itemToRelate = p2;
-            }
-            else if (p2[0] == identifier) {
-                matchedIndex = p2;
-                itemToRelate = p1;
-                comparator = Relations.getInverse(comparator);
-            }
+            matchedIndex = p1[0] == identifier ? p1 : p2;
+            itemToRelate = p1[0] == identifier ? p2 : p1;
+            comparator = p1[0] == identifier ? comparator : Relations.getInverse(comparator);
             List<int> indexesToCheck = this.calculator.getImpossibles(Convert.ToInt32(matchedIndex.Substring(1)), comparator, this.size);
             foreach (int i in indexesToCheck) {
                 if (innerArray[(int)Rows.Positives][i].ToString().Contains(itemToRelate[0])) {
@@ -317,21 +313,23 @@ namespace Logix
             }
         }
 
-        private List<Relation> createNegativeRelationsToBounds(string leftItem, string rightItem, string comparator, char ident, int size) {
-           RelationFactory relationBuilder = RelationFactory.getInstance();
-           List<Relation> relations = new List<Relation>();
-           string lowestInCat = ident + "1";
-           string highestInCat = ident + size.ToString();
-           if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
-              //left cannot be lowest; right cannot be highest
-              relations.Add(relationBuilder.createRelation(leftItem, lowestInCat, false));
-              relations.Add(relationBuilder.createRelation(rightItem, highestInCat, false));
-           }
-           else if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
-              relations.Add(relationBuilder.createRelation(leftItem, highestInCat, false));
-              relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
+        private List<Relation> createNegativeRelationsToBounds(string leftItem, string rightItem, string comparator, string difference, bool alreadySeen) {
+            RelationFactory relationBuilder = RelationFactory.getInstance();
+            List<Relation> relations = new List<Relation>();
+            if (!alreadySeen) {
+                string lowestInCat = identifier + "1";
+                string highestInCat = identifier + size.ToString();
+                if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
+                    //left cannot be lowest; right cannot be highest
+                    relations.Add(relationBuilder.createRelation(leftItem, lowestInCat, false));
+                    relations.Add(relationBuilder.createRelation(rightItem, highestInCat, false));
+                }
+                else if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
+                    relations.Add(relationBuilder.createRelation(leftItem, highestInCat, false));
+                    relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
+                }
+            }
 
-           }
            return relations;
         }
     }

@@ -79,6 +79,9 @@ namespace Representation
         }
 
         public static string comparativeAmount(string input, bool inverse) {
+            if (!isQuantified(input)) {
+                return null;
+            }
             string comparator = "";
             foreach (string c in Comparators) {
                 if (input.Contains(c)) {
