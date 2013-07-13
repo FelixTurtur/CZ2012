@@ -82,6 +82,32 @@ namespace LogixTests
             Assert.IsTrue(solutionsMatch(providedMatrix, matrix));
         }
 
+        [TestMethod]
+        public void Fourth_Problem_Test() {
+            List<string> clues = new List<string> { "A1!=B4", "A2!=B1","A2!=B2","A3!=B5","A5!=B3","C3=D3","D3!=B5","D4=B4","B4!=A2","A2!=D1","B1!=A1" };
+            clues.AddRange(new List<string> {"A5=C1","C2=B2","B2!=D5","A4=B5","A3=D2","A3!=C5"});
+            Deducer brains = new Deducer(4, 5, new string[] { "", "", "", ""});
+            brains.Concluded += brains_Concluded;
+            brains.setClues(clues);
+            int[,] matrix = brains.go();
+            Assert.IsNotNull(matrix);
+            int[,] providedMatrix = new int[5, 4] { { 1, 2, 2, 1 }, { 2, 3, 3, 3 }, { 3, 1, 4, 2}, { 4, 5, 5, 5 }, { 5, 4, 1, 4 } };
+            Assert.IsTrue(solutionsMatch(providedMatrix, matrix));
+        }
+
+        [TestMethod]
+        public void Fifth_Problem_Test() {
+            List<string> clues = new List<string> {"B1(D)-C4(D)=2","B1!=A2","A2!=B5","A1!=D1","A1=B2","A5=C4","A5(D)-B3(D)=1","B4(D)<A3(D)","B4(D)>C1(D)"};
+            clues.AddRange(new List<string> { "A4!=C2", "A4!=C4", "A4!=C5" });
+            Deducer brains = new Deducer(4, 5, new string[] { "", "", "", "Numeric" });
+            brains.Concluded += brains_Concluded;
+            brains.setClues(clues);
+            int[,] matrix = brains.go();
+            Assert.IsNotNull(matrix);
+            int[,] providedMatrix = new int[5, 4] { { 1, 2, 2, 1 }, { 2, 3, 3, 3 }, { 3, 1, 4, 2 }, { 4, 5, 5, 5 }, { 5, 4, 1, 4 } };
+            Assert.IsTrue(solutionsMatch(providedMatrix, matrix));
+        }
+
         private bool solutionsMatch(int[,] providedMatrix, int[,] matrix) {
             List<string> strung1 = new List<string>();
             List<string> strung2 = new List<string>();

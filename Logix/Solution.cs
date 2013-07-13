@@ -60,7 +60,7 @@ namespace Logix
             string item2 = r.getRightItem();
             List<int> possibles = new List<int>();
             for (int x = 0; x < matrix.GetLength(0) && possibles.Count < 2; x++) {
-                if (rowEmpty(x)) {
+                if (rowEmpty(x) && possibles.Count == 0) {
                     addItem(x, item1);
                     addItem(x, item2);
                     return null;
@@ -75,7 +75,7 @@ namespace Logix
                 if (otherCategoryMention(x, item1, item2)) {
                     continue;
                 }
-                else 
+                else
                     possibles.Add(x);
             }
             if (possibles.Count > 1) {

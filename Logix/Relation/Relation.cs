@@ -16,7 +16,7 @@ namespace Logix
             this.rule = input;
         }
 
-        public string getRule() {
+        public virtual string getRule() {
             return this.rule;
         }
 
@@ -27,6 +27,10 @@ namespace Logix
         public bool isRelative() {
             return this.GetType().Name == "RelativeRelation";
         }
+
+        public bool isConditional() {
+            return this.GetType().Name == "ConditionalRelation";
+        }
         
         public bool isPositive() {
             return !this.rule.Contains(Representation.Relations.Negative);
@@ -34,6 +38,9 @@ namespace Logix
 
         public string getBaseItem(char identifier, Relations.Sides side = Relations.Sides.Related) {
             if (this.rule.Contains(identifier) == false) {
+                return null;
+            }
+            if (isConditional()) {
                 return null;
             }
             if (items.Count > 2) {
@@ -52,11 +59,14 @@ namespace Logix
             if (this.rule.Contains(identifier) == false) {
                 return null;
             }
+            if (isConditional()) {
+                return null;
+            }
             return items[0][0] == identifier ? items[1] : items[0];
         }
 
         public string getLeftItem() {
-            if (isRelative()) return null;
+            if (isRelative() || isConditional()) return null;
             if (rule.Contains(Relations.Negative)) {
                 return rule.Substring(0, rule.IndexOf(Relations.Negative));
             }
@@ -66,7 +76,7 @@ namespace Logix
         }
 
         public string getRightItem() {
-            if (isRelative()) return null;
+            if (isRelative() || isConditional()) return null;
             if (rule.Contains(Relations.Negative)) {
                 return rule.Substring(rule.IndexOf(Relations.Negative) + 1);
             }
@@ -75,6 +85,8 @@ namespace Logix
             }
         }
 
+        internal abstract List<string> separateItems(string input);
+        
         internal string getComparator() {
             return Relations.getComparator(rule);
         }

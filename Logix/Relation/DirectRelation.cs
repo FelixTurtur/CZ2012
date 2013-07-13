@@ -11,7 +11,7 @@ namespace Logix
             base.items = separateItems(input);
         }
 
-        private List<string> separateItems(string input) {
+        internal override List<string> separateItems(string input) {
             List<string> items = new List<string>();
             string item = "";
             for (int i = 0; i <= input.Length; i++) {

@@ -635,7 +635,7 @@
 <solution>{{Eleanor, Buckitt, Wanda Abbott, shop owner},{Gareth, Parkes, Harry Lymes, taxi driver},{Julian, Lemming, Pat Thistle, designer},{Marlene, Dover, Sam Gomez, police office},{Oliver, Newton, R U O'Kaye, bar assistant}}</solution>
 </box>
 </puzzle>
-<puzzle id="15" size="4x5" ordering="numeric" semantic = "">
+<puzzle id="15" size="4x5" ordering="numeric" semantic = "" other="complex">
 <title>Snow Joke</title>
 <text>
 <preamble>Following a sudden, unexpected and unforecast blizzard the five residents of the village of Much-Creedens-in-the-Mett have found themselves unprepared to cope with a few inches of the winter white-stuff - no shovel, no salt, no grit. From the clues, can you work out each resident's address and the less-than-useful item they are using as a stand-in shovel to remove the snow from which part of their property?</preamble>

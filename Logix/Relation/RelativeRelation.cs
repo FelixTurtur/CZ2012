@@ -12,22 +12,18 @@ namespace Logix
             base.items = separateItems(input);
         }
 
-        private List<string> separateItems(string input) {
+        internal override List<string> separateItems(string input) {
             List<string> items = new List<string>();
             string item = "";
             for (int i = 0; i < input.Length; i++) {
-                if (Relations.isPossessive(input[i]) || Relations.isComparator(input[i])) {
-                    if (!string.IsNullOrEmpty(item)) {
-                        items.Add(item);
-                        item = "";
-                    }
-                } else if (Relations.isEqualityChar(input[i])) {
+                if (Relations.isPossessive(input[i]) || Relations.isComparator(input[i]) || Relations.isEqualityChar(input[i])) {
                     if (!string.IsNullOrEmpty(item)) {
                         items.Add(item);
                         item = "";
                     }
                 } else {
                     item += input[i];
+                    //final "item" in a quantified Relative (i.e. the difference) will not be added to items.
                 }
             }
             return items;

@@ -51,6 +51,7 @@
     <Compile Include="Logix.cs" />
     <Compile Include="MatchEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relation\ConditionalRelation.cs" />
     <Compile Include="Relation\DirectRelation.cs" />
     <Compile Include="Relation\Relation.cs" />
     <Compile Include="Relation\RelationFactory.cs" />

@@ -21,6 +21,9 @@ namespace Logix
         }
 
         public Relation createRelation(string input) {
+            if (Relations.isConditional(input)) {
+                return new ConditionalRelation(input);
+            }
             if (Relations.isRelative(input)) {
                 return new RelativeRelation(input); 
             }

@@ -91,3 +91,12 @@ Spoke to Roman and Michael at BBK and in explaining the difficulty I found in fi
 ---------
 Jul 12th
 SolveCompleteEvent in action. Unlike my little finger. Results passed to Controller.
+-------
+Jul 13th
+Added a fourth test, a 4x5. Originally failed because I mistranslated a rule but also meant I spotted that the solution needed an extra conditional in place to prevent a rule being added on a new line if there was already a potential gap in lines currently filled. Quite surprised this didn't cause any issues before now. Must be rare that the puzzle writers allow you to complete a whole row before lots of potential pairings are in place. Due to the code change required I will add in one more test.
+... And just as well. Found a new relation type! "Oliver Ofgard is clearing a step at a house numbered higher than the other resident clearing a step". There are two step options, "Back step" and "Front step" and whilst the first bit (Oliver is clearing a step) can be translated as a list of negatives rather than creating an OR rule, there's no current way of writing up the comparative relation to the other one-of-steps. A simple If.. Then.. Else will be enough to represent this clue. 
+?A4=C1?A4(D)>C3(D):A4(D)>C1(D)
+How to handle this clue? Before the first part is known, the resulting statement cannot be considered, unless both of the second parts (C3(D), C1(D)) are known, in which case the first part can be handled. Maybe it could be coupled with an inverse therefore:
+?C3(D)>C1(D)?A4=C3:A4=C1
+How Deducer should handle Conditionals: They are kept until the front condition can be answered, at which point they simply return the correct new relation for processing and are removed from the clues bank.
+ConditionalRelation class created. Now to add logic to Deducer...

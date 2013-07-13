@@ -20,6 +20,8 @@ namespace LogixTests
             Assert.AreEqual(r.GetType().Name, "RelativeRelation");
             r = relationBuilder.createRelation("A1=B3");
             Assert.AreEqual(r.GetType().Name, "DirectRelation");
+            r = relationBuilder.createRelation("?A1=B2?A1(C)>B1(C):A1(C)>B2(C)");
+            Assert.AreEqual(r.GetType().Name, "ConditionalRelation");
         }
 
         [TestMethod]
