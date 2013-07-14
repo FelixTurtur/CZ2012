@@ -5,16 +5,16 @@ using System.Text;
 using Representation;
 
 namespace Parser {
-    public class Parser {
+    public class CZParser {
 
         private Puzzle puzzle;
 
-        public Parser(Puzzle p) {
+        public CZParser(Puzzle p) {
             puzzle = p;
         }
 
-        public List<string> Read(Puzzle p) {
-            throw new NotImplementedException();
+        public List<string> Read() {
+            CategoryDictionary catWords = new CategoryDictionary(puzzle.getCategories(), puzzle.getItems());
         }
     }
 }

@@ -67,6 +67,14 @@ namespace Representation {
             return id;
         }
 
+        public List<string> getCategories() {
+            return categories;
+        }
+
+        public List<string> getItems() {
+            return items;
+        }
+        
         public void setRules(List<string> rules) {
             throw new NotImplementedException();
         }

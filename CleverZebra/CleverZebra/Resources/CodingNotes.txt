@@ -108,4 +108,4 @@ Taking a step back because I managed to walk through the solution by hand withou
 Jul 14th
 Fifth test finally working! The Number Calculator's getImpossibles was checking the same item as the compared to and therefore missing situations where it could deduce a negative because the items higher were negated. So for B4(D)>C1(D) if we had established that B4 could not be D5 then it wasn't negating C1 against D4 because the function was looking first to see whether B4 was negated a D4 and would then have gone up to D5. Added one/Subtracted one from the starting index here for lower/higher comparatives and all tests working fine, including Problem 5. Finally!!! Taking 161 turns, though, so really need to add in that auto-Inverse event.
 
-Time to move onto the Parser, I think.
+Time to move onto the Parser, I think. Starting to fill out the Category Dictionary, but it's bedtime now. Need to add one item into the dictionary's codes (A1) and words (Zachary) for each non-category-title word in each category.

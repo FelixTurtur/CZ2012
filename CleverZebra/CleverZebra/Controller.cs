@@ -49,8 +49,8 @@ namespace CleverZebra {
         public void Solve(Puzzle puzzle) {
             this.activePuzzle = puzzle;
             try {
-                Parser.Parser parser = new Parser.Parser(puzzle);
-                List<string> rules = parser.Read(puzzle);
+                CZParser parser = new CZParser(puzzle);
+                List<string> rules = parser.Read();
                 puzzle.setRules(rules);
             }
             catch (Exception e) {

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Representation;
 using System.Collections.Generic;
 using System.Xml;
+using Parser;
 
 namespace ParserTests
 {
@@ -10,13 +11,6 @@ namespace ParserTests
     public class ParserTest
     {
         private List<Puzzle> puzzles;
-
-        [TestMethod]
-        public void Initialise_Parser() {
-            Puzzle p = puzzles[0];
-            Parser.Parser parser = new Parser.Parser(p);
-            Assert.IsNotNull(parser);
-        }
 
         [TestInitialize]
         public void loadPuzzles() {
@@ -31,6 +25,21 @@ namespace ParserTests
                 }
                 puzzles.Add(new Puzzle(n));
             }
+        }
+
+        [TestMethod]
+        public void Initialise_Parser() {
+            Puzzle p = puzzles[0];
+            CZParser parser = new CZParser(p);
+            Assert.IsNotNull(parser);
+        }
+
+        [TestMethod]
+        public void First_Puzzle_Test() {
+            Puzzle p = puzzles[0];
+            CZParser parser = new CZParser(p);
+            List<string> result = parser.Read();
+            Assert.IsNotNull(result);
         }
 
     }
