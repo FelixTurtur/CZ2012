@@ -54,10 +54,8 @@
     <Compile Include="Relation\ConditionalRelation.cs" />
     <Compile Include="Relation\DirectRelation.cs" />
     <Compile Include="Relation\Relation.cs" />
-    <Compile Include="Relation\RelationException.cs" />
     <Compile Include="Relation\RelationFactory.cs" />
     <Compile Include="Relation\RelativeRelation.cs" />
-    <Compile Include="Relation\TripleRelativeRelation.cs" />
     <Compile Include="Results.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="SolveCompleteArgs.cs" />

@@ -24,14 +24,6 @@ namespace Logix
             return this.rule.CompareTo(r2.rule);
         }
 
-        public bool isSuperBinary() {
-            return this.GetType().Name == "TripleRelativeRelation";
-        }
-
-        public bool isDirect() {
-            return this.GetType().Name == "DirectRelation";
-        }
-
         public bool isRelative() {
             return this.GetType().Name == "RelativeRelation";
         }
@@ -54,8 +46,7 @@ namespace Logix
             if (items.Count > 2) {
                 if (side == Relations.Sides.Related) { 
                     //If default value then this wasn't called for a Relative Relation.
-                    throw new InconclusiveException("Relation has more items than expected. Cannot identify required item", identifier, this.rule); 
-                }
+                    throw new InconclusiveException(identifier, this.rule); }
                 return items[(int)Relations.Sides.Related] == identifier.ToString() ? items[(int)side] : null;
             }
             if (items.Count < 2) {
@@ -75,7 +66,7 @@ namespace Logix
         }
 
         public string getLeftItem() {
-            if (!isDirect()) return null;
+            if (isRelative() || isConditional()) return null;
             if (rule.Contains(Relations.Negative)) {
                 return rule.Substring(0, rule.IndexOf(Relations.Negative));
             }
@@ -85,7 +76,7 @@ namespace Logix
         }
 
         public string getRightItem() {
-            if (!isDirect()) return null;
+            if (isRelative() || isConditional()) return null;
             if (rule.Contains(Relations.Negative)) {
                 return rule.Substring(rule.IndexOf(Relations.Negative) + 1);
             }
@@ -99,6 +90,5 @@ namespace Logix
         internal string getComparator() {
             return Relations.getComparator(rule);
         }
-
     }
 }
