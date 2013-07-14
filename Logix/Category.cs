@@ -132,6 +132,11 @@ namespace Logix
             return finds == size - 1 ? result : null;
         }
 
+        internal string findTarget(object knownValue, string comparative) {
+            object targetValue = calculator.calculateValue(knownValue, comparative);
+            return findItem(targetValue);
+        }
+
         internal string findItem(object targetValue) {
             for (int i = 1; i <= this.size; i++) {
                 if (innerArray[(int)Rows.Values][i].Equals(targetValue)) {
@@ -139,11 +144,6 @@ namespace Logix
                 }
             }
             return null;
-        }
-
-        internal string findTarget(object knownValue, string comparative) {
-            object targetValue = calculator.calculateValue(knownValue, comparative);
-            return findItem(targetValue);
         }
 
         internal static string[] getMatchedItems(Category c, int index) {
@@ -244,10 +244,10 @@ namespace Logix
                     return results;
                 }
                 else if (items[0] != null && items[1] != null) {
-                    if (alreadySeen) {
+                    /*if (alreadySeen) {
                         //Nothing new learnt
                         return new List<Relation> { r };
-                    }
+                    }*/
                     //create negative relations from comparatives
                     results = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), Relations.comparativeAmount(r.getRule(),false), alreadySeen));
                     if (results == null) results = new List<Relation> { r };
@@ -316,7 +316,8 @@ namespace Logix
         private List<Relation> createNegativeRelationsToBounds(string leftItem, string rightItem, string comparator, string difference, bool alreadySeen) {
             RelationFactory relationBuilder = RelationFactory.getInstance();
             List<Relation> relations = new List<Relation>();
-            if (!alreadySeen) {
+
+            if (difference == null) { //not a Quantified Relation
                 string lowestInCat = identifier + "1";
                 string highestInCat = identifier + size.ToString();
                 if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
@@ -329,8 +330,28 @@ namespace Logix
                     relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
                 }
             }
-
-           return relations;
+            else {
+                int leftPossibles = size;
+                int rightPossibles = size;
+                string calculatedItem = "";
+                string inverseDifference = Relations.getInverse(difference[0].ToString()) + difference.Substring(1);
+                for (int i = 1; i <= size; i++) {
+                    calculatedItem = findTarget(innerArray[(int)Rows.Values][i], difference);
+                    if (calculatedItem == null) {
+                        leftPossibles--;
+                        relations.Add(relationBuilder.createRelation(leftItem, identifier + i.ToString(), false));
+                    }
+                    calculatedItem = findTarget(innerArray[(int)Rows.Values][i], inverseDifference);
+                    if (calculatedItem == null) {
+                        rightPossibles--;
+                        relations.Add(relationBuilder.createRelation(rightItem, identifier + i.ToString(), false));
+                    }
+                }
+                if (leftPossibles == 1 || rightPossibles == 1) {
+                    relations.AddRange(checkDeductibles());
+                }
+            }
+            return relations;
         }
     }
 }

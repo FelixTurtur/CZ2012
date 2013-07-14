@@ -40,5 +40,6 @@ namespace Logix.Calculators
             }
             return results;
         }
+
     }
 }

@@ -14,5 +14,6 @@ namespace Logix.Calculators
         public abstract object calculateValue(object knownValue, string comparative);
 
         public abstract List<int> getImpossibles(int index, string comparator, int size);
+
     }
 }
