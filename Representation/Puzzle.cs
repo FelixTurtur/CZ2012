@@ -50,7 +50,7 @@ namespace Representation {
                     items.Add(i.Value);
                 }
             }
-            this.ProvidedSolution = transformRawSolution(input["box"]["solution"].Value);
+            this.ProvidedSolution = transformRawSolution(input["box"]["solution"].InnerText);
         }
 
         private List<List<string>> transformRawSolution(string p) {

@@ -7,9 +7,13 @@ using Representation;
 namespace Parser {
     public class Parser {
 
-        public Parser() { }
+        private Puzzle puzzle;
 
-        public static List<string> Read(Puzzle p) {
+        public Parser(Puzzle p) {
+            puzzle = p;
+        }
+
+        public List<string> Read(Puzzle p) {
             throw new NotImplementedException();
         }
     }

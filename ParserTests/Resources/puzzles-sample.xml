@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folio name="Puzzles">
+<puzzle id="0" size="4x3" ordering="time" semantic="">
+<title>Blowing in the Wind</title>
+<text>
+<preamble>The March weather is causing mayhem all across Netherlipp and each of these three men have had their headwear unceremoniously ripped from their heads by sudden and violent gusts of wind. From the clues, can you say what type of hat each man lost on what day and where it was blown, making its retrieval almost impossible?</preamble>
+<hints>
+<clue>Zachary Zeffer watched his hat fly into the centre of the dual carriageway and under the wheels of the speeding lorries; this happened two days before Gareth Gale watched his flat cap disappear on the wind.</clue>
+<clue>The bowler rose in the gusty wind like a kite and settled, eventually, at the top of a large poplar tree.</clue>
+<clue>It wasn't on Wednesday that one hat ended up in the river Keigh and floated off down stream.</clue>
+</hints>
+</text>
+<box>
+<category name="Man">
+<item>Brendan Briese</item>
+<item>Gareth Gale</item>
+<item>Zachary Zeffer</item>
+</category>
+<category name="Hat">
+<item>Baseball Cap</item>
+<item>Bowler Hat</item>
+<item>Flat Cap</item>
+</category>
+<category name="Day">
+<item>Monday</item>
+<item>Wednesday</item>
+<item>Friday</item>
+</category>
+<category name="Blown">
+<item>Dual Carriageway</item>
+<item>River</item>
+<item>Treetops</item>
+</category>
+<solution>{{Brenadan Briese, bowler hat, Monday, treetops},{Gareth Gale, flat cap, Friday, river},{Zachary Zeffer, baseball cap, Wednesday, dual carriageway}}</solution>
+</box>
+</puzzle>
+<puzzle id="1" size="4x3" ordering="" semantic="">
+<title>Rainy Day Women</title>
+<text>
+<preamble>The unpredictable March weather continues to be predictably bad and each of these three women got caught in the sort of downpour that has Biblical patriarchs reaching for the plans marked 'Arl'. Not having a brolly, they each ducked through the nearest door to avoid the cloudburst only to find themselves in a shop. From the clues, can you say where each woman was going, the name of the shop whose door she ran through and the item she felt obliged to buy while sheltering?</preamble>
+<hints>
+<clue>The lady who dashed through the door of Lee's Key Cutting and Shoe Repairing emporium felt obliged to have a spare back door key cut.</clue>
+<clue>Denise De Luge was on her way to the dentist when she needed to seek refus through the nearest door; the port in a storm for Stephanie Storm was Port's shop.</clue>
+<clue>The person on her way to work wasn't the one who found herself in a menswear shop and came out with a pair of long socks.</clue>
+<clue>The lady on her way to Netherlipp Market found herself sheltering in a baker's and felt obliged to buy a scone, which didn't do much for the diet she was supposed to be following.</clue>
+</hints>
+</text>
+<box>
+<category name="Woman">
+<item>Denise De Luge</item>
+<item>Rachel Rayner</item>
+<item>Stephanie Storm</item>
+</category>
+<category name="Going to">
+<item>Dentist</item>
+<item>Market</item>
+<item>Work</item>
+</category>
+<category name="Shop">
+<item>Haven's</item>
+<item>Lee's</item>
+<item>Port's</item>
+</category>
+<category name="Item bought">
+<item>Key</item>
+<item>Scone</item>
+<item>Socks</item>
+</category>
+<solution>{{Denise De Luge, dentist, Haven's, socks},{Rachel Rayner, work, Lee's, key},{Stephanie Storm, market, Port's, scone}}</solution>
+</box>
+</puzzle>
+<puzzle id="2" size="4x4" ordering="currency" semantic="gender">
+<title>Raising...</title>
+<text>
+<preamble>This week at RKO (Radio Keighshire Oldies) is Appeal Week raising much needed funds for local good causes. Four DJs have hosted the mid-morning show so far and each has received pledges to play certain songs and auctioned a particular item or opportunity. From the clues, can you say which singer or band's song raised the most during each DJ's show, the item they auctioned and the amount of money the show made as a whole?</preamble>
+<hints>
+<clue>Delia Johnson's show raised more money than the one that auctioned glider lessons at Lower Marsh Airfield but less money than the one whose top song was "Guitar Man" by Bread.</clue>
+<clue>The show in which Bucks Fizz's "Making Your Mind Up" was the top earner raised more cash than the show which auctioned the opportunity to be RKO's Saturday morning DJ next week but less than Debbie Jenkin's show.</clue>
+<clue>Daniel Jeffries' show raised more money than the one that featured "Cracklin' Rosie" by Neil Diamond but less than the one that auctioned the backstage pass for the Netherlipp Apollo's 60s night.</clue>
+<clue>The show that raked in the cash with Johnny Cash's "Ring of Fire" made £250 more than Duncan Joseph's.</clue>
+<clue>A male DJ auctioned a hospitality package for Netherliipp United's match with Athletico Stonekeigh.</clue>
+</hints>
+</text>
+<box>
+<category name="DJ">
+<item>Daniel Jeffries </item>
+<item>Debbie Jenkins </item>
+<item>Delia Johnson </item>
+<item>Duncan Joseph </item>
+</category>
+<category name="Singer/Band">
+<item>Bread </item>
+<item>Bucks Fizz </item>
+<item>Neil Diamond </item>
+<item>Johnny Cash </item>
+</category>
+<category name="Auction">
+<item>Backstage Pass </item>
+<item>Football Hospitality </item>
+<item>Gliding Lessons </item>
+<item>Guest DJ </item>
+</category>
+<category name="Money raised">
+<item>£1,500 </item>
+<item>£1,750 </item>
+<item>£2,000 </item>
+<item>£2,250 </item>
+</category>
+<solution>{{Daniel Jeffries, Bucks Fizz, football hospitality, £2,000},{Debbie Jenkins, Bread, backstage pass, £2,250},{Delia Johnson, Johnny Cash, guest DJ, £1,750},{Duncan Joseph, Neil Diamond, glider lessons, £1,500}}</solution>
+</box>
+</puzzle>
+<puzzle id="3" size="4x4" ordering="" semantic="">
+<title>...the Bar</title>
+<text>
+<preamble>The rules at the Central Criminal Court in Netherlipp are often thought to compel the wearing of wigs by barristers but the events this morning in courts 1 to 4 have shown that not to be the case. Rule 25 subsection F paragraph 5a states 'The attendance of a barrister at the chancery will be suffered on condition of the presence of a headdress' and so when the four barristers arrived at the courts only to realise they had forgotten to bring their wigs, they improvised. From the clues, can you say in which court, presided over by which judge, each barrister appeared and the item they hastily conscripted as a headdress?</preamble>
+<hints>
+<clue>Barrister Damien Dowte, wearing the head of a mop on his head, strode as unselfconsciously as he could, into court at 9am; the judge presiding was not Judge De Cree who wasn't presiding in the court with barrister Garfield Grille, who wasn't at work in court 4.</clue>
+<clue>'Excuse me,' said Judge Deam, hardly able to believe his eyes, 'is that a book on your head?' 'Yes, sir' replied the barrister, '"The Old Curiousity Shop", first edition.'</clue>
+<clue>Judge Rufus Roole, overseeing proceedings in court 3 of the central Court, was not confronted with a barrister wearing an item fashioned from a brown paper bag and some vaguely remembered origami.</clue>
+<clue>Reginald Rangle, putting the case for the defene in court 2, was not the barrister who turned up for work with a knotted handkerchief on his head.</clue>
+<clue>Judge Gaige was presiding in the court numbered one higher than the one where barrister Quentin Quarrell was modelling an unconventional style of headwear.</clue>
+<clue>
+</clue>
+</hints>
+</text>
+<box>
+<category name="Court">
+<item>Court 1</item>
+<item>Court 2</item>
+<item>Court 3</item>
+<item>Court 4</item>
+</category>
+<category name="Judge">
+<item>Judge Deam</item>
+<item>Judge De Cree</item>
+<item>Judge Gaidge</item>
+<item>Judge Roole</item>
+</category>
+<category name="Barrister">
+<item>Damien Dowte</item>
+<item>Garfield Grille</item>
+<item>Quentin Quarrell</item>
+<item>Reginald Rangle</item>
+</category>
+<category name="Headdress">
+<item>Book</item>
+<item>Handkerchief</item>
+<item>Mop</item>
+<item>Paper bag</item>
+</category>
+<solution>{{Court 1, Judge Deam, Garfield Frille, book},{Court 2, Judge De Cree, Reginald Rangle, paper bag},{Court 3, Judge Roole, Quentin Quarrel, handkerchief},{Court 4, Judge Gaige, Damien Dowte, mop}}</solution>
+</box>
+</puzzle>
+<puzzle id="4" size="4x4" ordering="time" semantic = "">
+<title>Tucking In</title>
+<text>
+<preamble>Each of our new friends, the four lads of dormitory B4 at St Keigh's Boarding School, have received a parcel containing something for their tuck box. The school matron, who is in charge of such things, has strict rules about tuck, keeping its consumption to a minimum as a treat. So the lads of B4 sneaked their parcels into the dormitory and enjoyed a midnight feast of the whole lot over four nights. From the clues, can you work out which relative sent which boy what tasty morsel and on which night they wolfed the lot?</preamble>
+<hints>
+<clue>The large fruit cake sent to St Keigh's by one lad's Aunt Amelia wasn't the last tuck to be polished off.</clue>
+<clue>Hamish Hazel gratefully received a food parcel from his  grandmother; Martin masters was sent a package for his tuck box by his aunt.</clue>
+<clue>Chris Cockcroft's package contained a very large tin of biscuits.</clue>
+<clue>Aunt Alison's offering to her nephew was gobbled the day before the offering from one lad's mum and the day after the jumbo tin of toffee was noshed.</clue>
+<clue>The monster bag of wine gums was not sent to Ben Barton.</clue>
+</hints>
+</text>
+<box>
+<category name="Name">
+<item>Barton</item>
+<item>Cockcroft</item>
+<item>Hazel</item>
+<item>Masters</item>
+</category>
+<category name="Tuck">
+<item>Biscuits</item>
+<item>Fruit cake</item>
+<item>Toffee</item>
+<item>Wine gums</item>
+</category>
+<category name="Sent by">
+<item>Aunt Alison</item>
+<item>Aunt Amelia</item>
+<item>Grandmother</item>
+<item>Mother</item>
+</category>
+<category name="Night eaten">
+<item>Monday</item>
+<item>Tuesday</item>
+<item>Wednesday</item>
+<item>Thursday</item>
+</category>
+<solution>{{Ben Barton, fruit cake, Aunt Amelia, Monday},{Chris Cockcroft, birscuits, mother, Thursday},{Hamish Hazel, toffee, grandmother, Tuesday},{Martin Masters, wine gums, Autn Alison, Wednesday}}</solution>
+</box>
+</puzzle>
+<puzzle id="5" size="4x4" ordering="" semantic = "gender">
+<title>Nip and Tuck</title>
+<text>
+<preamble>The Keighshire Universal Therapy and Surgical Hospital for Upgrades and Tweaks, known locally as the Kut'n'Shut, is a cosmetic surgery facility for those people not happy with the way nature or time has arranged their features. This week four local celebrities are resident, having small modifications made to their visages. From the clues, can you work out the field in which each celeb has made his or her name, the part of their face they are having tweaked and the surgeon carrying out the operation?</preamble>
+<hints>
+<clue>Pamela Prowed is unhappy with her nose and is at the Kut'n'Shut to have it repointed; she isn't an author.</clue>
+<clue>Selwyn Smugge is the star of the NetherlippTV programme 'Smugge's Way'; the lead singer of the pop group Vanity Parade is having the wrinkles removed from their forehead.</clue>
+<clue>Samantha Selffe's surgeon is a woman, the movie star's scalpel wielder is male.</clue>
+<clue>Humphrey Hacker is the surgeon who is pinning one celebrity's ears back again - they seem to have a mind of their own.</clue>
+<clue>Neither Vernon Vayne, nor the celebrity having their chin reduced (or enlarged or sharpened or something) is going under the knife wielded by surgeon Lucille Loppett.</clue>
+</hints>
+</text>
+<box>
+<category name="Celebrity">
+<item>Pamela Prowed</item>
+<item>Samantha Selffe</item>
+<item>selwyn Smugge</item>
+<item>Vernon Vayne</item>
+</category>
+<category name="Famed for">
+<item>Author</item>
+<item>Movie star</item>
+<item>Pop singer</item>
+<item>TV star</item>
+</category>
+<category name="Part">
+<item>Chin</item>
+<item>Ears</item>
+<item>Forehead</item>
+<item>Nose</item>
+</category>
+<category name="Surgeon">
+<item>Cherry Chopper</item>
+<item>Conrad Carver</item>
+<item>Humphrey Hacker</item>
+<item>Lucille Loppett</item>
+</category>
+<solution>{{Pamela Prowed, movie star, nose, Conrad Carver},{Samantha Selffe, pop star, forhead, Lucille Loppett},{Selwyn Smugge, TV star, chin Cherry Chopper},{Vernon Vayne, author, ears, Humphrey Hacker}}</solution>
+</box>
+</puzzle>
+<puzzle id="6" size="4x5" ordering="months" semantic = "transport">
+<title>Monster and Wife</title>
+<text>
+<preamble>Karl Borisov killed his wife five times last year - all, of course, on film. Karl is reckoned one of the best monsters in the movie business, and it's in his contract that, if you hire him, you hire her as well, to play a small role as one of the monster's victims - she's not a great actress. From the clues below, can you work out which film was released in each of the listed months, what monster he played in it, and his wife Gloria's smaller role?</preamble>
+<hints>
+<clue>In 'Congo of Terror', Karl appears as an alien cyborg (an organic robot, if you can get your head round that idea), and Gloria plays a passenger in some form of transport; 'Intruder' is not the film that features Karl as a particularly violent, particularly hairy werewolf.</clue>
+<clue>'Shadow of Fear' was realeased in March.</clue>
+<clue>In the January release, which is not called 'It Walks by Night', Karl plays a mutant ape but Gloria doesn't play the 'woman in pub' who dies nastily at the hands of another scary monster.</clue>
+<clue>The film in which Karl played a bunyip (a man-eating Australian monster) came out four months after the one in which Gloria took the role of 'housewife on bus', one of a group of three slain by her husband's character.</clue>
+<clue>The nun on the train in a (very minor) character in the July release, which has a one-word title.</clue>
+<clue>One film features Karl as a vampire and Gloria as a woman in a taxi who is one of his early victims.</clue>
+</hints>
+</text>
+<box>
+<category name="Month">
+<item>January</item>
+<item>March</item>
+<item>May</item>
+<item>July</item>
+<item>September</item>
+</category>
+<category name="Title">
+<item>Bloodbeast</item>
+<item>Congo of terror</item>
+<item>Intruder</item>
+<item>It Walks By Night</item>
+<item>Shadow of Fear</item>
+</category>
+<category name="Karl's Role">
+<item>Alien cyborg</item>
+<item>Bunyip</item>
+<item>Mutant ape</item>
+<item>Vampire</item>
+<item>Werewolf</item>
+</category>
+<category name="Gloria's Role">
+<item>Housewife on bus</item>
+<item>Nun on train</item>
+<item>Policewoman</item>
+<item>Woman in pub</item>
+<item>Woman in taxi</item>
+</category>
+<solution>{{January, Intruder, mutant ape, policewoman},{March, Shadow of Fear, vampire, woman in taxi},{May, Cargo of Terror, alien cyborg, housewife on bus},{July, Bloodbeast, werewolf, nun on train},{September, It Walks By Night, bunyip, woman in pub}}</solution>
+</box>
+</puzzle>
+<puzzle id="7" size="4x5" ordering="time, numeric" semantic = "">
+<title>Cometh the Hour</title>
+<text>
+<preamble>...whereth the slave? Each of our five acquaintances, the slovenly slaves of Ancient Rome, had been commanded to meet their long-suffering master at a specific spot in the city at a particular hour of the day. (The Romans measure time by the number of hours, from 1 to 12, after sunrise.) But, as you might expect, each miserable minion failed to show up at the appointed time. From the clues, can you work out at what hour each slave was supposed to attend which place and the excuse they proffered?</preamble>
+<hints>
+<clue>The slave who was supposed to turn up at prima luce (first light) blamed his dog, who should have woken him.</clue>
+<clue>Cluelus' master was left waiting at the Senate House later in the day than the master waiting at the amphitheatre.</clue>
+<clue>The slave who was late at the banker's stall said he hadn't noticed the candle clock had blown out; this meeting was later in the day than the one missed by Euselus.</clue>
+<clue>The meeting missed by Branelus, who claimed that the pointer on Augusts' Obelisk Clock was badly positioned, was earlier in the day than that of the slave who blamed a leak in the water clock.</clue>
+<clue>One slave was commanded to be at the Flaminian Gate at the 11th hour; Hopelus should have turned up at the 3rd hour, but didn't.</clue>
+<clue>The slave who blamed a cloud obscuring the sundial, who was to meet his master later in the day than the one who should have been at the baths, wasn't Gormlus; the baths was not the site of the first meeting of the day.</clue>
+</hints>
+</text>
+<box>
+<category name="Slave">
+<item>Branelus</item>
+<item>Clueles</item>
+<item>Euselus</item>
+<item>Gormlus</item>
+<item>Hopelus</item>
+</category>
+<category name="Location">
+<item>Amphitheatre</item>
+<item>Baker's stall</item>
+<item>Baths</item>
+<item>Flaminian Gate</item>
+<item>Senate House</item>
+</category>
+<category name="Hour">
+<item>Prima luce</item>
+<item>3rd hour</item>
+<item>6th hour</item>
+<item>8th hour</item>
+<item>11th hour</item>
+</category>
+<category name="Excuse">
+<item>Candle blown out</item>
+<item>Clouds</item>
+<item>Dog overslept</item>
+<item>Obelisk wrong</item>
+<item>Water leak</item>
+</category>
+<solution>{{Branelus, baths, 6th hour, Obelisk wrong},{Cluelus, Senate House, 8th hour, clouds},{Euselus, amphitheatre, prima luce, dogs overslept},{Gormlus, Flaminian Gate, 11th hour, water leak},{Hopelus, banker's stall, 3rd hour, candle blown out}}</solution>
+</box>
+</puzzle>
+<puzzle id="8" size="4x5" ordering="" semantic = "gender">
+<title>First of April Mail</title>
+<text>
+<preamble>Five employees at PennyCorps' administrative complex in Storbury received letters on April 1st containing good or bad news, and each of the five, aware of the date, laughed and threw it in the bin - and four of them were right! From the clues given, can you work out each person's name and job, what their letter was about and who sent it?</preamble>
+<hints>
+<clue>The Security officer discovered - on the evening of April 1st - that her letter had been sent by her younger brother.</clue>
+<clue>Helen Jakin received a red printed 'final warning' regarding an unpaid gas bill - but lives in an all-electric home.</clue>
+<clue>Sam Tilney, whose letter came from his sister but did not bear her signature, doesn't work in Human Resources and was not the recipient of the extremely realistic-looking eviction order.</clue>
+<clue>The woman from Advertising has been with PennyCorp since 1995.</clue>
+<clue>Mandy Nolan from Accounts didn't receive the notification of a £10,000 lottery win, which wasn't sent to the employee from Catering or by anybody's best friend.</clue>
+<clue>The woman whose letter actually came from a workmate wasn't Diane Eden and doesn't work in Accounts.</clue>
+<clue>Anybody could have acquired a sheet of official PennyCorp notepaper and fabricated a letter telling a worker that they were getting a raise - but, in fact, that document, which didn't go to Barry Cobb, did come from PennyCorp and was absolutely genuine.</clue>
+</hints>
+</text>
+<box>
+<category name="Name">
+<item>Barry Cobb</item>
+<item>Diane Eden</item>
+<item>Helen Jakin</item>
+<item>Mandy Nolan</item>
+<item>Sam Tilney</item>
+</category>
+<category name="Department">
+<item>Accounts</item>
+<item>Advertising</item>
+<item>Catering</item>
+<item>Human Resources</item>
+<item>Security</item>
+</category>
+<category name="Received">
+<item>Eviction order</item>
+<item>Final warning</item>
+<item>Lottery win</item>
+<item>Parking ticket</item>
+<item>Raise</item>
+</category>
+<category name="Sender">
+<item>Best friend</item>
+<item>Brother</item>
+<item>PennyCorp</item>
+<item>Sister</item>
+<item>Workmate</item>
+</category>
+<solution>{{Barry Codd, Human Resources, eviction order, best friend},{Diane Eden, Security, lottery win, brother},{Helen Jakin, Advertising, final warning, workmate},{Mandy Nolan, Accounts, raise, PennyCorp},{Sam Tilney, Catering, parking ticket, sister}}</solution>
+</box>
+</puzzle>
+<puzzle id="9" size="4x5" ordering="currency" semantic = "">
+<title>Fortunes of War</title>
+<text>
+<preamble>The title of this problem is also the title of a new book by historian Job Dunn which looks at five Americans who made their fortunes in various ways during the Second World War. From the clues below, can you work out each man's name, where in the USA he came from, how he obtained (not, in most cases, earned) his fortune, and how much he made?</preamble>
+<hints>
+<clue>The man from Mobile, Alabama, who made his fortune from German bullion he and a group of other soldiers stole during the liberation of Italy, was not Anson Burgess and did not end up with $8 million.</clue>
+<clue>Jack Keller's fortune, made in the black market, was six million dollars more than that of the man from Fresno, California.</clue>
+<clue>The man who made his fortune more or less legitimately from the military contracts filled by his family's clothing factory ended up with more money than Lou Mazzini.</clue>
+<clue>Curtis Donleavy from New York City was not the man who made $11 million by dealing in works of art stolen by the Nazis and then stolen from them by his organisation.</clue>
+<clue>The man from St Louis, Missouri, finished up with a modest fortune of just $5 million.</clue>
+</hints>
+</text>
+<box>
+<category name="Name">
+<item>Anson Burgess</item>
+<item>Curtis Donleavy</item>
+<item>Jack Keller</item>
+<item>Lou Mazzini</item>
+<item>Ray Starke</item>
+</category>
+<category name="Home">
+<item>Dayton</item>
+<item>Fresno</item>
+<item>Mobile</item>
+<item>New York City</item>
+<item>St Louis</item>
+</category>
+<category name="Acquired">
+<item>Aircraft Manufacture</item>
+<item>Black market</item>
+<item>Military contracts</item>
+<item>Sold stolen art</item>
+<item>Stole German bullion</item>
+</category>
+<category name="Amount">
+<item>$5 million</item>
+<item>$8 million</item>
+<item>$11 million</item>
+<item>$14 million</item>
+<item>$17 million</item>
+</category>
+<solution>{{Anson Burgess, Fresno, sold stolen art, $11 million},{Curtis Donleavy, New York City, military contracts, $8 million},{Jack Keller, Dayton, black market, $17 million},{Lou Mazzini, St Louis, aircraft manufacture, $5 million},{Ray Starke, Mobile, stolen German Bullion, $14 million}}</solution>
+</box>
+</puzzle>
+<puzzle id="10" size="4x5" ordering="weekdays" semantic = "">
+<title>Night's Out</title>
+<text>
+<preamble>Amanda Night, long term resident of the village of Much Lerning, keeps herself occupied during the week by attending a different minority interest club each night. The clubs are held in different locations around the village and are run by different organisers. From the clues, can you say where Amanda goes each night, what she does and with whom?</preamble>
+<hints>
+<clue>The fern arranging lessons are organised by K Bullcarr but these sessions are not held in Much Learning Village Hall.</clue>
+<clue>The classes organised by A Powse on Friday evenings are not the card playing lessons.</clue>
+<clue>The Community Centre is used by the club organised by O Penning, which takes place two days later in the week than the lessons which are held in the Much Lerning Primary School.</clue>
+<clue>The Goldfish Society, where Amanda goes with her fish Brian, meets in a room at the Much Lerning Library the day before the String art group meets; M T Wallitt does not organise Wednesday's event.</clue>
+<clue>The Village Hall is used on Monday.</clue>
+</hints>
+</text>
+<box>
+<category name="Club">
+<item>Card playing</item>
+<item>Fern arranging</item>
+<item>Goldfish Society</item>
+<item>String art</item>
+<item>wine pouring</item>
+</category>
+<category name="Location">
+<item>Community centre</item>
+<item>Friend's house</item>
+<item>Library</item>
+<item>Local school</item>
+<item>Village hall</item>
+</category>
+<category name="Day">
+<item>Monday</item>
+<item>Tuesday</item>
+<item>Wednesday</item>
+<item>Thursday</item>
+<item>Friday</item>
+</category>
+<category name="Organiser">
+<item>A Powse</item>
+<item>D Marcks</item>
+<item>K Bullcarr</item>
+<item>M T Wallitt</item>
+<item>O Penning</item>
+</category>
+<solution>{{Card playing, Village hall, Monday, M T Wallitt},{Fern arranging, Local school, Tuesday, K Bullcarr},{Goldfish Society, Library, Wednesday, D marcks},{String art, Community centre, Thursday, O Penning},{Wine pouring, Friend's house, Friday, A Powse}}</solution>
+</box>
+</puzzle>
+<puzzle id="11" size="4x5" ordering="initial letter" semantic = "gender">
+<title>Green Stuff</title>
+<text>
+<preamble>Five pupils from Miss Lyme's class at Brunswick Green Primary School participated in the planting of trees on the village's new community woodland last week. From the clues below, can you work out each child's full name, how they earned the privilege of planting a tree, and what sort of tree they planted?</preamble>
+<hints>
+<clue>Hayden - who has a Welsh first name because he has a Welsh mother - planted a beech tree.</clue>
+<clue>Lynn, who was invited to plant a tree because of the success of her butterfly-raising project, did not plant a tree with a name starting with an 'h'.</clue>
+<clue>Young Lincoln, who did not write the poem about animals, planted a hornbeam sapling; he or she was not Claire.</clue>
+<clue>Young Parris, who planted and maintained a productive vegetable garden, didn't plant the hawthorn tree,</clue>
+<clue>Samantha Kelly was not the pupil who planted a pedunculate oak after winning the school's essay contest with a piece about conservation.</clue>
+<clue>Lynn's surname isn't Moss.</clue>
+</hints>
+</text>
+<box>
+<category name="First name">
+<item>Claire</item>
+<item>Hayden</item>
+<item>Lynn</item>
+<item>Philip</item>
+<item>Samantha</item>
+</category>
+<category name="Surname">
+<item>Bottle</item>
+<item>Kelly</item>
+<item>Lincoln</item>
+<item>Moss</item>
+<item>Parris</item>
+</category>
+<category name="How earned">
+<item>Growing vegetables</item>
+<item>Poem about animals</item>
+<item>Raising butterflies</item>
+<item>Won essay contest</item>
+<item>Won painting contest</item>
+</category>
+<category name="Trees planted">
+<item>Beech</item>
+<item>Cherry</item>
+<item>Hawthorn</item>
+<item>Hornbeam</item>
+<item>Oak</item>
+</category>
+<solution>{{Claire, Moss, won essay contest, oak},{Hayden, Parris, growing vegetables, beech},{Lynn, Bottle, raising butterflies, cherry},{Philip, Lincoln, won painting contest, hornbeam},{Samantha, Kelly, poem about animals, hawthorn}}</solution>
+</box>
+</puzzle>
+<puzzle id="12" size="4x5" ordering="time" semantic = "">
+<title>Village Constable</title>
+<text>
+<preamble>Back in the 1950s, PC Alan Richards was the village policeman in Peacethorpe, on the moors north of Northchester, and enjoyed a fairly quiet life. For instance, on Monday, May 2nd, 1955, he received five phone calls, dealt with each in less than an hour and spent the rest of the time digging his garden. From the clues, can you work out who rang him at each of the listed times, where from and what about?</preamble>
+<hints>
+<clue>The 10.00am phone call, which wasn't from Mrs Holt, concerned a missing bicycle, which Alan recovered from the garden of the local drunk - who 'borrowed' it at least once a month - and returned before 10.30am.</clue>
+<clue>Mr Garth from Hazel Cottage rang Alan two hours after one of the other villagers phoned to invite the constable to dinner on Tuesday.</clue>
+<clue>The call about the window broken by a group of young footballers (who Alan admonished and sent on their way after collecting enough from them to pay for the damage) came two hours after Miss Cass' and two hours before the one from Manor Farm.</clue>
+<clue>At 2.00pm, Alan got a call from a teacher at St Anne's School, at the other end of the village from his police house.</clue>
+<clue>Mr Jones, who rang to say that he had finished the car maintenance manual Alan had lent him, didn't phone from Kendall House or the school.</clue>
+<clue>It was the call from Wolfstone Farm that alerted Alan to a horse running loose on the Northchester road, which he was able to secure and return to its owner's field within forty minutes.</clue>
+</hints>
+</text>
+<box>
+<category name="Call time">
+<item>10.00am</item>
+<item>12.00 noon</item>
+<item>2.00pm</item>
+<item>4.00pm</item>
+<item>6.00pm</item>
+</category>
+<category name="Caller">
+<item>Miss Cass</item>
+<item>Mrs Deane</item>
+<item>Mr Garth</item>
+<item>Mrs Holt</item>
+<item>Mr Jones</item>
+</category>
+<category name="From">
+<item>Hazel Cottage</item>
+<item>Kendall House</item>
+<item>Manor Farm</item>
+<item>St Anne's School</item>
+<item>Wolfstone Farm</item>
+</category>
+<category name="Reason">
+<item>Broken window</item>
+<item>Finished borrowed book</item>
+<item>Invitation to dinner</item>
+<item>Loose horse</item>
+<item>Missing bicycle</item>
+</category>
+<solution>{{10.00am, Mrs Deane, Kendall House, missing bicycle},{12.00 noon, Mrs Holt, Wolfstone Farm, loose horse},{2.00pm, Miss Cass, St Anne's School, invitation to dinner},{4.00pm, Mr Garth, Hazel Cottage, broken window},{6.00pm, Mr Jones, Manor Farm, finished borrowed book}}</solution>
+</box>
+</puzzle>
+<puzzle id="13" size="4x5" ordering="ordinal" semantic = "lots">
+<title>Fan's Phone-in</title>
+<text>
+<preamble>with the excitement of the day's football matches over, SportRadio's top presented Hank Erman hosts a phone-in programme for fans returning home to discuss the afternoon's events. Usually the programme is taken up with disgruntled callers demanding the manager's head on a plate or the replacement of the team's entire back four, but the five callers on tonight's show have other grumbles. From these snippets of the programme (not given in their order of appearance), can you give the order in which the caller's spoke, the team they support, and the complaint they feel the rest of the country needs to hear?</preamble>
+<hints>
+<clue>"OK", began Hank, "who's first?" "It's me," said a voice, "I've been to Vilaston and I'm purple with rage."</clue>
+<clue>"Well, that was a passionate call from a Chersterman City fan," said Hank, "let's move on to Landsunder fan Bert Bellyache." "It's Belli ah chee, actually Hank."</clue>
+<clue>"I arrived at the Swanpool ground," said an incensed caller, "and the car park was full. It's unacceptable!"</clue>
+<clue>"Who's our third caller?" Hank asked his producer. "It's Morris Nutter, although it might be Mutter," came the reply.</clue>
+<clue>"That was Grahan Gripe," said Hank, "Do you agree with him that all players need a haircut? Next up it's Barry Beef and don't worry there's still time to get your call in. Now Barry, you're an Oldcastle fan, right?" "Not a chance, no way, never" replied Barry.</clue>
+<clue>"Well," said Hank, "we've arrived at our last call, let's hope it's a more important subject." "It certainly is," replied the caller, "and it's got me really riled. There's definitely less steak in the steak and kidney pies."</clue>
+<clue>"That's another show done," said Hank summing up, "We heard Greg Growse, who got a bit annoyed when I suggested he supported Chesterman and we heard a complaint about the new shirt colour some time before the chap who was annoyed that the programme price had gone up 10p; was he an Oldcastle fan? No, that's right he was from... Oh I give up, goodnight."</clue>
+</hints>
+</text>
+<box>
+<category name="Order">
+<item>First</item>
+<item>Second</item>
+<item>Third</item>
+<item>Fourth</item>
+<item>Fifth</item>
+</category>
+<category name="Caller">
+<item>Barry Beef</item>
+<item>Bert Bellyache</item>
+<item>Graham Gripe</item>
+<item>Greg Growse</item>
+<item>Morris Mutter</item>
+</category>
+<category name="Team">
+<item>Chesterman City</item>
+<item>Landsunder</item>
+<item>Oldcastle Utd</item>
+<item>Swanpool</item>
+<item>Vilaston</item>
+</category>
+<category name="Complaint">
+<item>Car park</item>
+<item>Haircut</item>
+<item>Pies</item>
+<item>Programme price</item>
+<item>Shirt colour</item>
+</category>
+<solution>{{First, Graham Gripe, Vilaston, haircut},{Second, Barry Beef, Swanpool, car park},{Third, Morris Mutter, Chesterman City, shirt colour},{Fourth, Bert Bellyache, Landsunder, programme price},{Fifth, Greg Growse, Oldcastle Utd, pies}}</solution>
+</box>
+</puzzle>
+<puzzle id="14" size="4x5" ordering="" semantic = "">
+<title>Corodale Enders</title>
+<text>
+<preamble>The Netherlipp TV soap "Corodale Enders" has been on our screen for so long that some of its stars find it difficult to separate reality from fiction. From the clues, can you help them to find their true identity, by giving the first name and surname of the person playing each character and their occupation in the series?</preamble>
+<hints>
+<clue>Oliver Newton does not play the part of either a corner shop owner or a graphic designer working from a studio in their attic.</clue>
+<clue>The star named Lemming plays Pat Thistle in the soap; the one called Dover does not play Wanda Abbott or the designer.</clue>
+<clue>Gareth's surname isn't Buckitt and Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
+<clue>Marlene plays the part of Sam Gomez but she is not a taxi driver or a bar assistant.</clue>
+<clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the cafe, but the name of this character is not RU O'Kaye.</clue>
+</hints>
+</text>
+<box>
+<category name="First name">
+<item>Eleanor</item>
+<item>Gareth</item>
+<item>Julian</item>
+<item>Marlene</item>
+<item>Oliver</item>
+</category>
+<category name="Surname">
+<item>Buckitt</item>
+<item>Dover</item>
+<item>Lemming</item>
+<item>Newton</item>
+<item>Parkes</item>
+</category>
+<category name="Character">
+<item>Harry Lymes</item>
+<item>Pat Thistle</item>
+<item>RU O'Kaye</item>
+<item>Sam Gomez</item>
+<item>Wanda Abbott</item>
+</category>
+<category name="Occupation">
+<item>Bar assistant</item>
+<item>Designer</item>
+<item>Police officer</item>
+<item>Shop owner</item>
+<item>Taxi driver</item>
+</category>
+<solution>{{Eleanor, Buckitt, Wanda Abbott, shop owner},{Gareth, Parkes, Harry Lymes, taxi driver},{Julian, Lemming, Pat Thistle, designer},{Marlene, Dover, Sam Gomez, police office},{Oliver, Newton, R U O'Kaye, bar assistant}}</solution>
+</box>
+</puzzle>
+<puzzle id="15" size="4x5" ordering="numeric" semantic = "">
+<title>Snow Joke</title>
+<text>
+<preamble>Following a sudden, unexpected and unforecast blizzard the five residents of the village of Much-Creedens-in-the-Mett have found themselves unprepared to cope with a few inches of the winter white-stuff - no shovel, no salt, no grit. From the clues, can you work out each resident's address and the less-than-useful item they are using as a stand-in shovel to remove the snow from which part of their property?</preamble>
+<hints>
+<clue>The resident using a baking tray as a sort of shovel-cum-scoop to clear out their drive lives at a house numbered two higher than the one where some poor sap is trying to clear the path; the former of these isn't Fred Flatt-Foote, who isn't the person trying to clear away snow with a garden trowel.</clue>
+<clue>Alan Abakk's only hope of clearing the snow at his home, which isn't 1 Addock Avenue, is a rather flimsy fish slice he's found in the kitchen drawer.</clue>
+<clue>Percy Pansdown, who's trying to clear away the snow from his patio, lives at a number 1 higher than the person who is gamely, but ineffectually, shovelling with a ladel.</clue>
+<clue>The children's plastic spade is being used at a lower-numbered house than the one where Norman Napping was caught napping but a higher-numbered house than the one whose back step is some way to being cleared.</clue>
+<clue>Oliver Ofgard is clearing a step at a house numbered higher than the other resident clearing a step.</clue>
+</hints>
+</text>
+<box>
+<category name="Resident">
+<item>Alan Abakk</item>
+<item>Fred Flatt-Foote</item>
+<item>Norman Napping</item>
+<item>Oliver Ofgard</item>
+<item>Percy Pansdown</item>
+</category>
+<category name="Shovel">
+<item>Baking tray</item>
+<item>Fish slice</item>
+<item>ladle</item>
+<item>Plastic spade</item>
+<item>Trowel</item>
+</category>
+<category name="Location">
+<item>Back step</item>
+<item>Drive</item>
+<item>Front step</item>
+<item>Path</item>
+<item>Patio</item>
+</category>
+<category name="Address">
+<item>Addock Avenue</item>
+<item>Botchem Broadway</item>
+<item>cobbled Crescent</item>
+<item>Makeshift Mews</item>
+<item>Stopgap Street</item>
+</category>
+<solution>{{Alan Abakk, fish slice, path, 3 Cobbled Crescent},{Fred Flatt-Foote, ladle, back step, 1 Addock Avenue},{Norman Napping, baking tray, drive, 5 Makeshift mews},{Oliver Ofgard, trowel, front step, 6 Stopgap Street},{Percy Pansdown, plastic spade, patio, 2 Botchem Broadway}}</solution>
+</box>
+</puzzle>
+<puzzle id="16" size="4x5" ordering="numeric" semantic = "scored" other = "preamble-info, sums">
+<title>Duck!</title>
+<text>
+<preamble>The monthly darts tournament at the Broken Arrow public house in the Little Dublin area of Netherlipp is always a tense moment, for anyone else in the bar that is. The darts players at the Broken Arrow are, by popular estimation, the worst in the universe. But the players have been practising and in the first round of clues, can you say where each player's three darts ended up?</preamble>
+<hints>
+<clue>Much to his surprise, Boris Bung scored with his first dart and then hit the landlord's hat (actually a pith hemlet, the landlord's no idiot) with his second.</clue>
+<clue>Harland Hurl's third dart made a satisfying 'thunk' as it hit the door to the snug; his second hadn't hit the pub bar.</clue>
+<clue>Sylvester Sling's first dart hit a customer's book, which was fortunate as she was using it to cover her head at the time; he scored a lower number of points than the player whose dart ended up in a table.</clue>
+<clue>The person whose dart hit the sign 'Gents' on a door just above the 'e' scored with his third dart.</clue>
+<clue>The player who hit the window frame with their first dart and managed to hit the floor with their third wasn't Charlie Chuck.</clue>
+<clue>The thrower who left the landlord hopping when his dart ended up in his shoe, didn't throw the next into the pub bar.</clue>
+</hints>
+</text>
+<box>
+<category name="Thrower">
+<item>Boris Bung</item>
+<item>Charlie Chuck</item>
+<item>Harland Hurl</item>
+<item>Paul Pitch</item>
+<item>Sylvester Sling</item>
+</category>
+<category name="First dart">
+<item>Customer's book</item>
+<item>Landlord's shoe</item>
+<item>Scored 1</item>
+<item>Scored 4</item>
+<item>Window frame</item>
+</category>
+<category name="Second dart">
+<item>Bar</item>
+<item>Gents door</item>
+<item>Landlord's hat</item>
+<item>Table</item>
+<item>scored 6</item>
+</category>
+<category name="Third dart">
+<item>Chair</item>
+<item>Floor</item>
+<item>Scored 3</item>
+<item>Scored 9</item>
+<item>Snug door</item>
+</category>
+<solution>{{Boris Bung, scored 1, landlord's hat, chair},{Charlie Chuck, landlord's shoe, gents door, scored 9},{Harland Hurl, scored 4, table, snug door},{Paul Pitch, window frame, scored 6, floor},{Sylvester Sling, customer's book, bar, scored 3}}</solution>
+</box>
+</puzzle>
+<puzzle id="17" size="4x5" ordering="" semantic = "">
+<title> Riverside Pubs</title>
+<text>
+<preamble>This puzzle is about five pubs which can be found in the Keighshire countryside and which do a roaring trade in spring and summer by advertising the delights of their beer gardens which sit next to small brooks or streams, all of which are ambitiously named as rivers. From the clues, can you work out in whcih village each pub sits, the minimal watercourse it overlooks and the brewery, or none, which owns it and provides it with its ale?</preamble><hints>
+<clue>The Convents Brewery owns the pub on the River Leke; this is neither The Horse and Hare nor the pub at Ayleham, through which village the River Dribbel dribbles.</clue>
+<clue>Queens Brewery in netherlipp owns the pub at Mildford; this is not The Oak and Anchor.</clue>
+<clue>The Rat and Hounds at Pilston is not the pub past which the River Ooze oozes.</clue>
+<clue>The Crown and Penny is on the banks of the River Seap and The Horse and Hare, which is owned by Monks Brewery, is not the pub in the historic village of Bitterborn.</clue>
+<clue>The Fox and Badger is a Free House and Bloomers brewery doesn't own The Oak and Anchor.</clue>
+</hints>
+</text>
+<box>
+<category name="Pub">
+<item>Crown and Penny</item>
+<item>Fox and Badger</item>
+<item>Horse and Hare</item>
+<item>Oak and Anchor</item>
+<item>Rat and Hounds</item>
+</category>
+<category name="Village">
+<item>Ayleham</item>
+<item>Bereburgh</item>
+<item>Bitterborn</item>
+<item>Mildford</item>
+<item>Pilston</item>
+</category>
+<category name="River">
+<item>Dribbel</item>
+<item>Leke</item>
+<item>Ooze</item>
+<item>Seap</item>
+<item>Trickel</item>
+</category>
+<category name="Brewery">
+<item>Bloomers</item>
+<item>Convents</item>
+<item>Free House</item>
+<item>Monks</item>
+<item>Queens</item>
+</category>
+<solution>{{Rat and Hounds, Pilston, Trickel, Bloomers},{Oak and Anchor, Bitterborn, Leke, Convents},{Fox and Badger, Ayleham, Dribbel, Free House},{Crown and Penny, Mildford, Seap, Queens},{Horse and Hare, Bereburgh, Ooze, Monks}}</solution>
+</box>
+</puzzle>
+<puzzle id="18" size="4x5" ordering="" semantic = "street layout">
+<title>Cross Breeds</title>
+<text>
+<preamble>Five of the houses along Baskerville Lane have pet dogs and, following the trend to make specific cross breeds, each is a mixture of two flavours of dog. From the clues, can you work out the name of the family at each house (the numbers run conventionally with the odds on one side, the evens on the other and consecutive odds and evens being neighbours), the name they've applied to the new breed they've created and the regular visitor to the house that sends their pet into paroxysms of barking.</preamble>
+<hints>
+<clue>The Hound family's pet, who likes to give the dustmen the full force of its bark, lives next door to the dallie dog (that's a blend of Dalmatian and collie).</clue>
+<clue>The Pooch family, who live at 3 Baskerville Lane, don't live next door to the Kurrs.</clue>
+<clue>The boxsky (an amalgamation of a boxer and a husky) inhabits 4 Baskerville Lane, which is on the opposite side of the road to the dog whose barking at the postman is legendary in canine circles.</clue>
+<clue>The cross between a Labrador and a beagle - a beagrador (or I suppose they could have called it a labragle) - never lets the arrival of the window cleaner go unannounced but doesn't live with the Welp family; the spanoodle (a poodle merged with a spaniel) lives next door.</clue>
+<clue>The Yappa family's pet is a cross between a great Dane and a greyhound - great hound sounded too generic, so they chose greydane.</clue>
+<clue>The dog at 6 Baskerville Lane wakes early to 'greet' the milkman.</clue>
+</hints>
+</text>
+<box>
+<category name="Number">
+<item>1</item>
+<item>3</item>
+<item>4</item>
+<item>6</item>
+<item>8</item>
+</category>
+<category name="Surname">
+<item>Hound</item>
+<item>Kurr</item>
+<item>Pooch</item>
+<item>Welp</item>
+<item>Yappa</item>
+</category>
+<category name="Breed">
+<item>Beagrador</item>
+<item>Boxsky</item>
+<item>Dallie</item>
+<item>Greydane</item>
+<item>Spanoodle</item>
+</category>
+<category name="Visitor">
+<item>Dustman</item>
+<item>Meter reader</item>
+<item>Milkman</item>
+<item>Postman</item>
+<item>Window cleaner</item>
+</category>
+<solution>{{1,Welp, spanoodle, postman},{3, Pooch, beagrador, window cleaner},{4, Hound, boxsky, dustman},{6, Kurr, dallie, milkman},{8, Yappa, greydane, meter reader}}</solution>
+</box>
+</puzzle>
+<puzzle id="19" size="4x5" ordering="" semantic = "gender">
+<title>Media Campaign</title>
+<text>
+<preamble>The editors of five Keighshire papers each called one of their cub reporters into their office and gave them a similar project. Each reporter was to become the paper's official social media correspondent (no, sadly, there was no extra remuneration involved) and to begin a virtual campaign for some cause or other that the paper could then use for promotional purposes. From the clues, can you say for which paper each reporter works, the social media network they chose and the subject of the campaign they started?</preamble>
+<hints>
+<clue>Gideon Gosseppe decided to play it safe and start a campaign for lower taxes.</clue>
+<clue>Lydia Lybal left her editor's office and immediately began her campaign on the Myscope network.</clue>
+<clue>Sylvia Slandar, who has worked for the 'Stonekeigh Advertiser' since leaving university last summer, wasn't' the reporter whose Double Summer Time campaign for daylight saving will mean more light in the morning... or is it the evening? - the details don't really matter - is gathering speed on Mugbook.</clue>
+<clue>Seymour Scandell, who doesn't work for the 'Netherlipp Clarion', hasn't begun a campaign for more bank holidays.</clue>
+<clue>The cub reporter for the 'Storbury Globe', who began their campaign on Youpipe, isn't Debbis De Fayme, who has never used the Chirrup social network.</clue>
+<clue>The cub reporter for the 'Norchester Argus' is a woman, the reporter who started the campaign on the Pimport website is a man; the latter of these two isn't the 'Wallingfen Recorder' reporter who started a campaign to raise speed limits (or maybe lower them, they're waiting to see which way the wind blows).</clue>
+</hints>
+</text>
+<box>
+<category name="Reporter">
+<item>Debbie De Fayme</item>
+<item>Gideon Gosseppe</item>
+<item>Lydia Lybal</item>
+<item>Seymour Scandell</item>
+<item>Sylvia Slandar</item>
+</category>
+<category name="Paper">
+<item>Netherlipp Clarion</item>
+<item>Northchester Argus</item>
+<item>Stonekeigh Advertiser</item>
+<item>Storbury Globe</item>
+<item>Wallingfen Recorder</item>
+</category>
+<category name="Social Media">
+<item>Chirrup</item>
+<item>Mugbook</item>
+<item>Myscope</item>
+<item>Pimport</item>
+<item>Youpipe</item>
+</category>
+<category name="Campaign">
+<item>Bank hols</item>
+<item>Daylight saving</item>
+<item>Fuel prices</item>
+<item>Speed limits</item>
+<item>Taxes</item>
+</category>
+<solution>{{Debbie De Fayme, Northchester Argus, Mugbook, daylight saving}, {Gideon Gosseppe, Netherlipp Clarion, Pimport, taxes},{Lydia Lybal, Wallingfen Recorder, Myscope, speed limits},{Seymour Scandell, Storbury Globe, Youpipe, fuel prices},{Sylvia Slandar, Stonekeigh Advertiser, Chirrup, bank hols}}</solution>
+</box>
+</puzzle>
+</folio>
