@@ -237,8 +237,8 @@ namespace Logix {
         /// </summary>
         /// <param name="r"></param>
         internal void addRelationToClues(Relation r) {
-            if (clues.Contains(r.getRule())) return;
-            if (usedClues.Contains(r.getRule()) && r.isDirect()) return;
+            if (clues.Contains(r.getRule()) || clues.Contains(r.getFlippedRule())) return;
+            if (r.isDirect() && (usedClues.Contains(r.getRule()) || usedClues.Contains(r.getFlippedRule()))) return;
             this.clues.Add(r.getRule());
         }
 

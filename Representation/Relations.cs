@@ -28,11 +28,11 @@ namespace Representation
         private static List<string> Comparators = new List<string> { ">", "<", "+", "-", "*", "/" };
         private static List<string> GreaterThanTerms = new List<string> { ">", "-", "/" };
         private static List<string> LessThanTerms = new List<string> { "<", "+", "*" };
-        private static List<string> EqualityChars = new List<string> { "!=", "=" };
+        private static List<string> EqualityTerms = new List<string> { "!=", "=" };
         private static List<char> PossessiveChars = new List<char> { '(', ')' };
 
-        public static bool isEqualityChar(char c) {
-            foreach (string e in EqualityChars) {
+        public static bool isEqualityTerm(char c) {
+            foreach (string e in EqualityTerms) {
                 if (e.Contains(c)) { return true; }
             }
             return false;
@@ -52,6 +52,10 @@ namespace Representation
                 }
             }
             return null;
+        }
+
+        public static string getEqualityTerm(string rule) {
+            return rule.Contains(Negative) ? Negative : Positive;
         }
 
         public static bool isPossessive(char c) {

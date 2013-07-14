@@ -318,40 +318,51 @@ namespace Logix
             List<Relation> relations = new List<Relation>();
 
             if (difference == null) { //not a Quantified Relation
-                string lowestInCat = identifier + "1";
-                string highestInCat = identifier + size.ToString();
-                if (Relations.checkDirection(comparator) == Relations.Directions.Higher) {
-                    //left cannot be lowest; right cannot be highest
-                    relations.Add(relationBuilder.createRelation(leftItem, lowestInCat, false));
-                    relations.Add(relationBuilder.createRelation(rightItem, highestInCat, false));
-                }
-                else if (Relations.checkDirection(comparator) == Relations.Directions.Lower) {
-                    relations.Add(relationBuilder.createRelation(leftItem, highestInCat, false));
-                    relations.Add(relationBuilder.createRelation(rightItem, lowestInCat, false));
+                string inverseComparator = Relations.getInverse(comparator);
+                for (int i = 1; i <= size; i++) {
+                    if (hasNoPossibleOpposite(leftItem, i, comparator, rightItem, alreadySeen)) {
+                        relations.Add(relationBuilder.createRelation(leftItem, identifier.ToString() + i, false));
+                    }
+                    if (hasNoPossibleOpposite(rightItem, i, inverseComparator, leftItem, alreadySeen)) {
+                        relations.Add(relationBuilder.createRelation(rightItem, identifier.ToString() + i, false));
+                    }
                 }
             }
             else {
-                int leftPossibles = size;
-                int rightPossibles = size;
                 string calculatedItem = "";
                 string inverseDifference = Relations.getInverse(difference[0].ToString()) + difference.Substring(1);
                 for (int i = 1; i <= size; i++) {
                     calculatedItem = findTarget(innerArray[(int)Rows.Values][i], difference);
                     if (calculatedItem == null) {
-                        leftPossibles--;
                         relations.Add(relationBuilder.createRelation(leftItem, identifier + i.ToString(), false));
                     }
                     calculatedItem = findTarget(innerArray[(int)Rows.Values][i], inverseDifference);
                     if (calculatedItem == null) {
-                        rightPossibles--;
                         relations.Add(relationBuilder.createRelation(rightItem, identifier + i.ToString(), false));
                     }
                 }
-                if (leftPossibles == 1 || rightPossibles == 1) {
-                    relations.AddRange(checkDeductibles());
+            }
+            relations.AddRange(checkDeductibles());
+            return relations;
+        }
+
+        private bool hasNoPossibleOpposite(string item1, int index, string comparator, string item2, bool alreadySeen) {
+            if (index == 1 && Relations.checkDirection(comparator) == Relations.Directions.Higher) {
+                return !alreadySeen;
+            }
+            if (index == size && Relations.checkDirection(comparator) == Relations.Directions.Lower) {
+                return !alreadySeen;
+            }
+            if (innerArray[(int)Rows.Negatives][index].ToString().Contains(item1)) {
+                return false;
+            }
+            List<int> indexesToCheck = this.calculator.getImpossibles(index, comparator, this.size);
+            foreach (int i in indexesToCheck) {
+                if (!innerArray[(int)Rows.Negatives][i].ToString().Contains(item2)) {
+                    return false;
                 }
             }
-            return relations;
+            return true;
         }
     }
 }

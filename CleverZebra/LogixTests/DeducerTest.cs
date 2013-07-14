@@ -98,7 +98,7 @@ namespace LogixTests
         [TestMethod]
         public void Fifth_Problem_Test() {
             List<string> clues = new List<string> {"B1(D)-C4(D)=2", "B1!=C4", "B1=C2","B1!=A2","A2!=B5","A1!=D1","A1=B2","A5=C5","A5(D)-B3(D)=1", "A5!=B3","B4(D)<A3(D)", "B4!=A3"};
-            clues.AddRange(new List<string> { "B4(D)>C1(D)", "C1(D)<B4(D)<A3(D)", "A4!=C2", "A4!=C4", "A4!=C5", "?A4=C1?A4(D)>C3(D):A4(D)>C1(D)", "A4!=D1", "B4!=C1" });
+            clues.AddRange(new List<string> { "B4(D)>C1(D)", "C1(D)<A3(D)", "A4!=C2", "A4!=C4", "A4!=C5", "?A4=C1?A4(D)>C3(D):A4(D)>C1(D)", "A4!=D1", "B4!=C1" });
             Deducer brains = new Deducer(4, 5, new string[] { "", "", "", "Numeric" });
             brains.Concluded += brains_Concluded;
             brains.setClues(clues);

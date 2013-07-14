@@ -20,6 +20,17 @@ namespace Logix
             return this.rule;
         }
 
+        public virtual string getFlippedRule() {
+            if (this.GetType().Name != "DirectRelation") {
+                return getRule();
+            }
+            return this.getRightItem() + this.getEqualityTerm() + this.getLeftItem();
+        }
+
+        private string getEqualityTerm() {
+            return Relations.getEqualityTerm(getRule());
+        }
+
         public int CompareTo(Relation r2) {
             return this.rule.CompareTo(r2.rule);
         }
@@ -94,5 +105,6 @@ namespace Logix
         internal string getComparator() {
             return Relations.getComparator(rule);
         }
+
     }
 }
