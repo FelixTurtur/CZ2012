@@ -18,7 +18,7 @@ namespace Logix
                 if (i == input.Length && !string.IsNullOrEmpty(item)) {
                     items.Add(item);
                 }
-                else if (Representation.Relations.isEqualityChar(input[i])) {
+                else if (Representation.Relations.isEqualityTerm(input[i])) {
                     if (!string.IsNullOrEmpty(item)) {
                         items.Add(item);
                         item = "";

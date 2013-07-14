@@ -95,7 +95,7 @@ namespace Logix {
                 List<Relation> relations = considerRelationToCategories(relationBuilder.createRelation(clue));
                 usedClues.Add(clues[0]);
                 clues.RemoveAt(0);
-                if (turn % ABSURDIO_SPACING == 0) {
+                if (turn % ABSURDIO_SPACING == 0 || clues.Count() == 1) {
                     relations.AddRange(Absurdio());
                 }
                 if (relations != null && relations.Count() > 0) {
@@ -237,8 +237,8 @@ namespace Logix {
         /// </summary>
         /// <param name="r"></param>
         internal void addRelationToClues(Relation r) {
-            if (clues.Contains(r.getRule())) return;
-            if (usedClues.Contains(r.getRule()) && usedClues.Count() > 10 && r.isDirect()) return;
+            if (clues.Contains(r.getRule()) || clues.Contains(r.getFlippedRule())) return;
+            if (r.isDirect() && (usedClues.Contains(r.getRule()) || usedClues.Contains(r.getFlippedRule()))) return;
             this.clues.Add(r.getRule());
         }
 
