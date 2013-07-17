@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <folio name="Puzzles">
-<puzzle id="0" size="4x3" ordering="time" semantic="">
+<puzzle id="0" size="4x3" ordering="days" semantic="">
 <title>Blowing in the Wind</title>
 <text>
 <preamble>The March weather is causing mayhem all across Netherlipp and each of these three men have had their headwear unceremoniously ripped from their heads by sudden and violent gusts of wind. From the clues, can you say what type of hat each man lost on what day and where it was blown, making its retrieval almost impossible?</preamble>

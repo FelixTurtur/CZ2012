@@ -109,7 +109,7 @@
 <solution>{{Daniel Jeffries, Bucks Fizz, football hospitality, £2,000},{Debbie Jenkins, Bread, backstage pass, £2,250},{Delia Johnson, Johnny Cash, guest DJ, £1,750},{Duncan Joseph, Neil Diamond, glider lessons, £1,500}}</solution>
 </box>
 </puzzle>
-<puzzle id="3" size="4x4" ordering="" semantic="">
+<puzzle id="3" size="4x4" ordering="numeric" semantic="">
 <title>...the Bar</title>
 <text>
 <preamble>The rules at the Central Criminal Court in Netherlipp are often thought to compel the wearing of wigs by barristers but the events this morning in courts 1 to 4 have shown that not to be the case. Rule 25 subsection F paragraph 5a states 'The attendance of a barrister at the chancery will be suffered on condition of the presence of a headdress' and so when the four barristers arrived at the courts only to realise they had forgotten to bring their wigs, they improvised. From the clues, can you say in which court, presided over by which judge, each barrister appeared and the item they hastily conscripted as a headdress?</preamble>
@@ -276,7 +276,7 @@
 <solution>{{January, Intruder, mutant ape, policewoman},{March, Shadow of Fear, vampire, woman in taxi},{May, Cargo of Terror, alien cyborg, housewife on bus},{July, Bloodbeast, werewolf, nun on train},{September, It Walks By Night, bunyip, woman in pub}}</solution>
 </box>
 </puzzle>
-<puzzle id="7" size="4x5" ordering="time, numeric" semantic = "">
+<puzzle id="7" size="4x5" ordering="time" semantic = "">
 <title>Cometh the Hour</title>
 <text>
 <preamble>...whereth the slave? Each of our five acquaintances, the slovenly slaves of Ancient Rome, had been commanded to meet their long-suffering master at a specific spot in the city at a particular hour of the day. (The Romans measure time by the number of hours, from 1 to 12, after sunrise.) But, as you might expect, each miserable minion failed to show up at the appointed time. From the clues, can you work out at what hour each slave was supposed to attend which place and the excuse they proffered?</preamble>
@@ -411,7 +411,7 @@
 <solution>{{Anson Burgess, Fresno, sold stolen art, $11 million},{Curtis Donleavy, New York City, military contracts, $8 million},{Jack Keller, Dayton, black market, $17 million},{Lou Mazzini, St Louis, aircraft manufacture, $5 million},{Ray Starke, Mobile, stolen German Bullion, $14 million}}</solution>
 </box>
 </puzzle>
-<puzzle id="10" size="4x5" ordering="weekdays" semantic = "">
+<puzzle id="10" size="4x5" ordering="days" semantic = "">
 <title>Night's Out</title>
 <text>
 <preamble>Amanda Night, long term resident of the village of Much Lerning, keeps herself occupied during the week by attending a different minority interest club each night. The clubs are held in different locations around the village and are run by different organisers. From the clues, can you say where Amanda goes each night, what she does and with whom?</preamble>
@@ -455,7 +455,7 @@
 <solution>{{Card playing, Village hall, Monday, M T Wallitt},{Fern arranging, Local school, Tuesday, K Bullcarr},{Goldfish Society, Library, Wednesday, D marcks},{String art, Community centre, Thursday, O Penning},{Wine pouring, Friend's house, Friday, A Powse}}</solution>
 </box>
 </puzzle>
-<puzzle id="11" size="4x5" ordering="initial letter" semantic = "gender">
+<puzzle id="11" size="4x5" ordering="" semantic = "gender" other="initial letter" >
 <title>Green Stuff</title>
 <text>
 <preamble>Five pupils from Miss Lyme's class at Brunswick Green Primary School participated in the planting of trees on the village's new community woodland last week. From the clues below, can you work out each child's full name, how they earned the privilege of planting a tree, and what sort of tree they planted?</preamble>
@@ -857,7 +857,7 @@
 </category>
 </box>
 </puzzle>
-<puzzle id="20" size="4x5" ordering="word length" semantic = "">
+<puzzle id="20" size="4x5" ordering="" semantic = "" other="word length">
 <title>Sporting Drones</title>
 <text>
 <preamble>On a summer weekend, each of our friends from the Drones Club was invited to play one of his acquaintances at a sport at which he was by no means expert - which is, of course, why the other man, seeking an easy victory, chose to challenge him in the first place. From the clues, can you work out the name and occupation of the man who challenged each Drone, and the sport at which he comprehensively defeated him?</preamble>
@@ -947,7 +947,7 @@
 <solution>{{Keighshire Hall, Daphne Ditch, Kidzone, £4},{Netherlipp Mall, Melissa Maroon, Hubby Hold, free},{Stonekeigh Gardens, Stephanie Seed, park Your Pooch, £2},{Northchester Northfield, Pauline park, Bag Drop, £1},{River Centre, Laurinda Leeve, CarFinder, £3}}</solution>
 </box>
 </puzzle>
-<puzzle id="22" size="4x5" ordering="alphabetic" semantic = "" other="alphabetic position">
+<puzzle id="22" size="4x5" ordering="" semantic = "" other="alphabetic position">
 <title>War in Print</title>
 <text>
 <preamble>At this year's Storbury Skirmish, the town's annual military hobby fair, there were five different stalls run by booksellers from various locations and specialising in books about different periods or aspects of military history. From the clues below, can you work out the name of each bookshop and stall, the person running it, where the stall is based and its speciality?</preamble>
@@ -1221,7 +1221,7 @@
 <solution>{{Louise, Kate Gill, Supermodel, Tax exile},{Richard, Tony Bruce, columnist, Iin rehab},{Sean, Delia Benn, TV chef, On holiday},{Simon, Lenny Moss, Government Minister, In court},{Veronica, AA Smith, Comedian, In prison}}</solution>
 </box>
 </puzzle>
-<puzzle id="28" size="4x5" ordering="years" semantic = "" other="years difference">
+<puzzle id="28" size="4x5" ordering="years" semantic = "">
 <title>Scandal at the Castle</title>
 <text>
 <preamble>Last year, there was a major scandal at Dansburgh Castle, the medieval fortress that is Eastshire's biggest tourist attraction. Five of the exhibits in the Castle Museum, supposedly found on the site in the past year, proved to have been discovered years earlier and miles away, and purchased by site director Reynard Fox. From the clues, can you work out where in the castle each exhibit was supposedly found and when and where it was actually unearthed?</preamble>
@@ -1267,7 +1267,7 @@
 <solution>{{Bowl, South Tower, 1961, Canterbury city gate},{Goblet, Keep, 1983, Rievaulx Abbey},{Helmet, Chapel, 1950, Warwick Castle},{Knife, Gatehouse, 1972, Framlingham castle},{Wine jar, Lady Anne's Tower, 1994, York city walls}}</solution>
 </box>
 </puzzle>
-<puzzle id="29" size="4x5" ordering="dates" semantic="" other="dates difference">
+<puzzle id="29" size="4x5" ordering="dates" semantic="">
 <title>Near Misses</title>
 <text>
 <preamble>The Perrill family took a fortnight's 'staycation' in Westshire last year and had a really good time - despite five narrow escapes from death and/or disaster. From the clues given, can you work out which beach they were visiting on each of the listed days, which family member had chosen it and what happened there?</preamble>
@@ -1411,10 +1411,10 @@
 <solution>{{Keighshire Tribune, Sandra Socker, Vicar, Sam Slide, Drifters, Gyrating}, {Netherlipp Clarion, Olivia O'Nair, Council leader, Sid Snappe, Tramps, canoodling},{Northchester Argus, Roger Rector, Radio DJ, Cheryl Shutter, Hobos, Slumped},{Stonekeigh Advertiser, Chester Chambers, Footballer, Sharon Shoot, Vagrants, Cavorting}}</solution>
 </box>
 </puzzle>
-<puzzle id="32" size="4x6" ordering="left-right" semantic = "" other="universal constraint, sums">
+<puzzle id="32" size="4x6" ordering="left-right, currency" semantic = "" other="universal constraint, sums">
 <title>Dress for Hire</title>
 <text>
-<preamble>Sphagnum Sisters dress hire shop in Netherlipp High Street has been providing formal wear for the residents of Keighshire ever since Sybil Sphagnum began the business in 1928. This week the shop window display comprises mannequins displaying three dinner jackets and three evening gowns. From the clues, can you name the style name of each jacket or dress, its colour and the price charged for one night's hire?</preamble>
+<preamble>Sphagnum Sisters dress hire shop in Netherlipp High Street has been providing formal wear for the residents of Keighshire ever since Sybil Sphagnum began the business in 1928. This week the shop window display comprises mannequins displaying three dinner jackets and three evening gowns. From the clues, can you name position of each item, the style name of each jacket or dress, its colour and the price charged for one night's hire?</preamble>
 <hints>
 <clue>The three jackets are items 1, 3 and 6.</clue>
 <clue>To hire the Ascot jacket and dress number 5 will cost £150 a night; the cost for the hire of jacket number 1 and the purple dress is a very reasonable £130.</clue>
@@ -1588,7 +1588,7 @@
 <solution>{{Brenda Buss, Oxford Square, Waterloo Arch, Litter on line},{Fenella Ferry, Knights Station, Fleet Circus, Tannoy malfunction},{Thomas Tramme, Marble Street, Leicester Bridge, Wi-fi failure}}</solution>
 </box>
 </puzzle>
-<puzzle id="36" size="4x3" ordering="currency" semantic = "">
+<puzzle id="36" size="4x3" ordering="" semantic = "" other="mathematical">
 <title>I Feel Fine</title>
 <text>
 <preamble>After last week's transport problems, the three city-goers have this week chosen to drive themselves to their appointments in town. But things didn't go too well and, having found places to leave their cars, they transgressed a parking law and found a fine attached to their windscreen when they returned. From the clues, can you say near which city landmark each parked, which law they broke and how much they were fined?</preamble>
@@ -1632,7 +1632,7 @@
 <clue>Bernice, who isn't in the car at the head of the queue, is telling her husband that it's his turn to pick up the milk; she knows for sure because it's always turn.</clue>
 <clue>Chloe and Zachary are sat in their car not speaking - except to bicker that is.</clue>
 <clue>Xavier is in the car third in line.</clue>
-<clue>Yves, who is not the man who wants to paint the hall in Evening Breeze while his new wife is insisting on Twilight Zephyr, isn't in thr fourth car in line.</clue>
+<clue>Yves, who is not the man who wants to paint the hall in Evening Breeze while his new wife is insisting on Twilight Zephyr, isn't in the fourth car in line.</clue>
 </hints>
 </text>
 <box>

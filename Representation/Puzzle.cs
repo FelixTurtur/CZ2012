@@ -47,7 +47,7 @@ namespace Representation {
             foreach (XmlNode n in cats) {
                 categories.Add(n.Attributes["name"].Value);
                 foreach (XmlNode i in n.ChildNodes) {
-                    items.Add(i.Value);
+                    items.Add(i.InnerText);
                 }
             }
             this.ProvidedSolution = transformRawSolution(input["box"]["solution"].InnerText);
@@ -86,6 +86,10 @@ namespace Representation {
                 return "Unknown";
             }
             return items[(cat * width) + (index - 1)];
+        }
+
+        public string[] getKeywords() {
+            return ordering.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }
