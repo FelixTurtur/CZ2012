@@ -89,5 +89,42 @@ namespace Parser
         public List<string> getQuantifiers() {
             return quantifiers;
         }
+
+        internal string findItem(string word) {
+            string result = "";
+            for (int i = 0; i < disassociatives.Count; i++) {
+                if (word == disassociatives[i]) {
+                    if (result.Length > 0) {
+                        result += ",";
+                    }
+                    result += "Td";
+                }
+            }
+            for (int i = 0; i < numbers.Count; i++) {
+                if (word == numbers[i]) {
+                    if (result.Length > 0) {
+                        result += ",";
+                    }
+                    result += "Nu(" + word + ")";
+                }
+            }
+            for (int i = 0; i < quantifiers.Count; i++) {
+                if (word == quantifiers[i]) {
+                    if (result.Length > 0) {
+                        result += ",";
+                    }
+                    result += "Tq(" + word + ")";
+                }
+            }
+            for (int i = 0; i < prepositions.Count; i++) {
+                if (word == prepositions[i]) {
+                    if (result.Length > 0) {
+                        result += ",";
+                    }
+                    result += "Tp(" + word + ")";
+                }
+            }
+            return result;
+        }
     }
 }
