@@ -76,7 +76,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\puzzles-sample.xml" />
+    <Content Include="Resources\puzzles-sample.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\puzzles.xml" />
   </ItemGroup>
   <Choose>

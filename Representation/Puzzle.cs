@@ -39,7 +39,7 @@ namespace Representation {
             XmlNodeList hints = input["text"]["hints"].GetElementsByTagName("clue");
             clues = new List<string>();
             foreach (XmlNode n in hints) {
-                clues.Add(n.Value);
+                clues.Add(n.InnerText);
             }
             XmlNodeList cats = input["box"].GetElementsByTagName("category");
             categories = new List<string>();

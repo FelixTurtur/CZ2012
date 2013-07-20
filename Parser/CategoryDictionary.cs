@@ -27,13 +27,13 @@ namespace Parser
                         foreach (string itemWord in splitItem) {
                             if (shouldBeConsidered(itemWord, categories)) {
                                 codes.Add(catIdentifier.ToString() + (j + 1));
-                                words.Add(itemWord);
+                                words.Add(itemWord.ToLower());
                             }
                         }
                     }
                     else {
                         codes.Add(catIdentifier.ToString() + (j + 1));
-                        words.Add(items[(i * catHeight) + j]);
+                        words.Add(items[(i * catHeight) + j].ToLower());
                     }
                 }
             }
@@ -53,7 +53,7 @@ namespace Parser
         internal string findItemMatches(string word) {
             string result = "";
             for (int i = 0; i < codes.Count; i++) {
-                if (words[i] == word || words[i] + "'s" == word) {
+                if (words[i] == word.ToLower() || words[i] + "'s" == word.ToLower()) {
                     if (result.Length > 0) {
                         result += ",";
                     }
@@ -61,7 +61,7 @@ namespace Parser
                 }
             }
             for (int i = 0; i < categoryTitles.Count; i++) {
-                if (categoryTitles[i] == word) {
+                if (categoryTitles[i] == word.ToLower()) {
                     if (result.Length > 0) {
                         result += ",";
                     }

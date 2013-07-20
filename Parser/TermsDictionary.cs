@@ -7,20 +7,18 @@ namespace Parser
 {
     public class TermsDictionary
     {
-        internal List<string> disassociatives;
-        internal List<string> associatives;
+        internal List<string> disassociatives; //e.g. "not"; signifies negative relationship.
         internal List<string> numbers;
-        internal List<string> quantifiers;
-        internal List<string> prepositions;
+        internal List<string> quantifiers; //e.g. "days"; signifies the unit in a comparative relationship.
+        internal List<string> prepositions; //e.g. "before"; signifies direction of comparative relationship.
 
         public TermsDictionary(string[] keywords) {
             disassociatives = setupStandardDisassociatives();
-            associatives = setupStandardAssociatives();
-            quantifiers = new List<string>() {"of"};
+            quantifiers = new List<string>();
             numbers = new List<string>();
             prepositions = new List<string>();
             if (keywords.Count() > 0) {
-                prepositions.AddRange(new List<string> { "before", "after", "less", "greater", "more", "lower", "higher", "ahead", "behind", "front", "rear" });
+                prepositions.AddRange(new List<string> { "before", "after", "less", "greater", "more", "lower", "higher", "ahead", "behind", "front", "rear", "begins", "ends" });
                 foreach (string key in keywords) {
                     numbers.AddRange(getNumericTermsForKey(key));
                     prepositions.AddRange(getPrepositionsForKey(key));
@@ -29,12 +27,15 @@ namespace Parser
             }
         }
 
-        private List<string> setupStandardAssociatives() {
-            return new List<string> { };
-        }
-
         private List<string> setupStandardDisassociatives() {
             return new List<string> {"neither", "nor", "not", "isn't", "doesn't", "wasn't", "didn't" };
+        }
+
+        private bool isFormerReferencer(string word) {
+            return word == "former" || word == "first";
+        }
+        private bool isLatterReferencer(string word) {
+            return word == "latter" || word == "second";
         }
 
         private List<string> getQuantifiersForKey(string key)
@@ -90,41 +91,48 @@ namespace Parser
             return quantifiers;
         }
 
-        internal string findItem(string word) {
-            string result = "";
+        internal string defineItem(string word) {
+            double result;
+            if (double.TryParse(word, out result)) {
+                return word; //All numbers should be kept.
+            }
+            if (word == "of") {
+                return word;
+            }
+            if (word == "with") {
+                return "Tw";
+            }
+            if (word == "either") {
+                return "Te";
+            }
             for (int i = 0; i < disassociatives.Count; i++) {
-                if (word == disassociatives[i]) {
-                    if (result.Length > 0) {
-                        result += ",";
-                    }
-                    result += "Td";
+                if (word.ToLower() == disassociatives[i]) {
+                    return "Td";
                 }
             }
+            if (isFormerReferencer(word.ToLower())) {
+                return "Tf";
+            }
+            else if (isLatterReferencer(word.ToLower())) {
+                return "Tl";
+            }
             for (int i = 0; i < numbers.Count; i++) {
-                if (word == numbers[i]) {
-                    if (result.Length > 0) {
-                        result += ",";
-                    }
-                    result += "Nu(" + word + ")";
+                if (word.ToLower() == numbers[i]) {
+                    return "Tn(" + word + ")";
                 }
             }
             for (int i = 0; i < quantifiers.Count; i++) {
-                if (word == quantifiers[i]) {
-                    if (result.Length > 0) {
-                        result += ",";
-                    }
-                    result += "Tq(" + word + ")";
+                if (word.ToLower() == quantifiers[i]) {
+                    return "Tq(" + word + ")";
                 }
             }
             for (int i = 0; i < prepositions.Count; i++) {
-                if (word == prepositions[i]) {
-                    if (result.Length > 0) {
-                        result += ",";
-                    }
-                    result += "Tp(" + word + ")";
+                if (word.ToLower() == prepositions[i]) {
+                    return "Tp(" + word + ")";
                 }
             }
-            return result;
+            return string.Empty;
         }
+
     }
 }
