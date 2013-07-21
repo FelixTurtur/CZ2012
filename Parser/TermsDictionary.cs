@@ -98,7 +98,7 @@ namespace Parser
                 return word; //All numbers should be kept.
             }
             if (word == "of") {
-                return word;
+                return "To";
             }
             if (word == "with") {
                 return "Tw";
@@ -135,5 +135,13 @@ namespace Parser
             return string.Empty;
         }
 
+
+        internal bool completesPattern(string tag) {
+            throw new NotImplementedException();
+        }
+
+        internal bool continuesPattern(string tag) {
+            throw new NotImplementedException();
+        }
     }
 }

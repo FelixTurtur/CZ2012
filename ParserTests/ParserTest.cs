@@ -53,7 +53,7 @@ namespace ParserTests
             }
             List<string> puz1Quants = new List<string> { "day", "days", "night", "nights" };
             for (int i = 0; i < puz1Quants.Count; i++) {
-                Assert.AreEqual(puz1Quants[i], parser.tagger.puzzleWords.getQuantifiers()[i]);
+                Assert.AreEqual(puz1Quants[i], parser.tagger.terms.getQuantifiers()[i]);
             }
         }
 
@@ -72,10 +72,10 @@ namespace ParserTests
                         continue;
                     }
                     auxCat1 = parser.tagger.catWords.findItemMatches(word);
-                    auxCat2 = parser.tagger.puzzleWords.defineItem(word);
+                    auxCat2 = parser.tagger.terms.defineItem(word);
                     firstTagPattern.Add(string.IsNullOrEmpty(auxCat1) ? auxCat2 : string.IsNullOrEmpty(auxCat2) ? auxCat1 : auxCat1 + "," + auxCat2);
             }
-            List<string> testTags = new List<string> {"A5", "B4", "Td", "of", "Te", "D4", "D4", "D2", "." };
+            List<string> testTags = new List<string> {"A5", "B4", "Td", "To", "Te", "D4", "D4", "D2", "." };
             List<string> producedTags = justTags(firstTagPattern);
             for (int i = 0; i < testTags.Count; i++) {
                 Assert.AreEqual(testTags[i], producedTags[i]);
@@ -93,11 +93,11 @@ namespace ParserTests
         }
 
         [TestMethod]
-        public void Check_Tagging() {
+        public void Check_Complete_Tagging() {
             Puzzle p = puzzles[1];
             CZParser parser = new CZParser(p);
             parser.tagger.catWords = new CategoryDictionary(p.getCategories(), p.getItems());
-            parser.tagger.puzzleWords = new TermsDictionary(p.getKeywords());
+            parser.tagger.terms = new TermsDictionary(p.getKeywords());
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
             List<string> correctTags = new List<string>() {"C2 D1 D1", "A1 B1 ; A3 C3", "B3 D3", "B2 D2" };

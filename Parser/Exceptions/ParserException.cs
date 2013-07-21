@@ -7,7 +7,8 @@ namespace Parser {
     public class ParserException : ApplicationException {
 
         public ParserException(string message, Exception e) 
-            : base(message) { }
+            : base(message, e) { }
 
+        public ParserException(string message) : base(message) { }
     }
 }
