@@ -65,7 +65,7 @@ namespace ParserTests
             List<string> firstTagPattern = new List<string>();
             string auxCat1 = "";
             string auxCat2 = "";
-            var words = Tagger.separateWordsAndPunctuation("Oliver Newton does not play the part of either a corner shop owner or a graphic designer working from a studio in their attic");
+            var words = Tagger.separateWordsAndPunctuation("Oliver Newton does not play the part of either a corner shop owner or a graphic designer working from a studio in their attic.");
             foreach (string word in words) {
                     if (word.Length == 1 && char.IsPunctuation(word[0])) {
                         firstTagPattern.Add(word);
@@ -75,7 +75,7 @@ namespace ParserTests
                     auxCat2 = parser.tagger.puzzleWords.defineItem(word);
                     firstTagPattern.Add(string.IsNullOrEmpty(auxCat1) ? auxCat2 : string.IsNullOrEmpty(auxCat2) ? auxCat1 : auxCat1 + "," + auxCat2);
             }
-            List<string> testTags = new List<string> {"A5", "B4", "Td", "of", "Te", "D4", "D4", "D2" };
+            List<string> testTags = new List<string> {"A5", "B4", "Td", "of", "Te", "D4", "D4", "D2", "." };
             List<string> producedTags = justTags(firstTagPattern);
             for (int i = 0; i < testTags.Count; i++) {
                 Assert.AreEqual(testTags[i], producedTags[i]);

@@ -18,7 +18,7 @@ namespace Parser
             numbers = new List<string>();
             prepositions = new List<string>();
             if (keywords.Count() > 0) {
-                prepositions.AddRange(new List<string> { "before", "after", "less", "greater", "more", "lower", "higher", "ahead", "behind", "front", "rear", "begins", "ends" });
+                prepositions.AddRange(new List<string> { "before", "after", "less", "greater", "more", "lower", "higher", "ahead", "behind", "front", "rear", "begins", "ends", "beginning", "ending" });
                 foreach (string key in keywords) {
                     numbers.AddRange(getNumericTermsForKey(key));
                     prepositions.AddRange(getPrepositionsForKey(key));
@@ -50,6 +50,7 @@ namespace Parser
                 case "date": return new List<string> { "day", "days", "week", "weeks" };
                 case "time": return new List<string> { "hour", "hours" };
                 case "ordinals": return null;
+                case "alphabet": return new List<string> { "letter", "word" };
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);
             }
@@ -62,9 +63,9 @@ namespace Parser
                 case "days":
                 case "months":
                 case "years": return new List<string> { "earlier", "later" };
+                case "currency": return new List<string> { "expensive", "dearer", "cheap", "cheaper", "economical" };
                 case "numeric":
                 case "left-right":
-                case "currency":
                 case "ordinals": return null;
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);

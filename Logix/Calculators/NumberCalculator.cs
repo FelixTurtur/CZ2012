@@ -41,5 +41,18 @@ namespace Logix.Calculators
             return results;
         }
 
+        public override bool checkPredicate(object item, string comparator, string bound) {
+            try {
+                if (Representation.Relations.checkDirection(comparator) == Relations.Directions.Lower) {
+                    return Convert.ToInt32(item) < Convert.ToInt32(item);
+                }
+                else {
+                    return Convert.ToInt32(item) > Convert.ToInt32(item);
+                }
+            }
+            catch (Exception e) {
+                throw new LogicException(this.GetType().Name + " unable to check predicate: " + item.ToString() + comparator + bound, e);
+            }
+        }
     }
 }

@@ -1088,7 +1088,7 @@
 <solution>{{1, Kay James, Cheese rolls, Black coffee},{2,Alma Budd, Sausage rolls, Mineral water},{3, Eva Dunn, Ham rolls, Beer},{4, Rose Shaw, Salami sandwiches, Cola},{5, Jill Keen, Pork pies, Onion soup},{6, Pam Owen, Chicken sandwiches, Chocolate}}</solution>
 </box>
 </puzzle>
-<puzzle id="25" size="4x5" ordering="" semantic = "surname" other="universal constraint">
+<puzzle id="25" size="4x5" ordering="alphabet" semantic = "surname" other="universal constraint">
 <title>Consulting Detectives</title>
 <text>
 <preamble>The most famous 'consulting detective' in Victorian and Edwardian London was, of course, Sherlock Holmes, but he was just the tip o fhte iceberg with a number of others plying their trade on the streets of the capital. From the clues given, can you work out where each of those listed had rooms, the name of his friend and chronicler and the name of his housekeeper?</preamble>

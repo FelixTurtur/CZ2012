@@ -15,5 +15,7 @@ namespace Logix.Calculators
 
         public abstract List<int> getImpossibles(int index, string comparator, int size);
 
-    }
+        public abstract bool checkPredicate(object item, string comparator, string bound);
+ 
+   }
 }

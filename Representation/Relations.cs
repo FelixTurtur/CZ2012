@@ -82,7 +82,7 @@ namespace Representation
             return input.Contains(Conditional);
         }
 
-        public static string comparativeAmount(string input, bool inverse) {
+        public static string getComparativeAmount(string input, bool inverse) {
             if (!isQuantified(input)) {
                 return null;
             }

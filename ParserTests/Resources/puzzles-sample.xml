@@ -231,7 +231,7 @@
 <solution>{{Pamela Prowed, movie star, nose, Conrad Carver},{Samantha Selffe, pop star, forhead, Lucille Loppett},{Selwyn Smugge, TV star, chin Cherry Chopper},{Vernon Vayne, author, ears, Humphrey Hacker}}</solution>
 </box>
 </puzzle>
-<puzzle id="6" size="4x5" ordering="months" semantic = "transport">
+<puzzle id="6" size="4x5" ordering="months, item length" semantic = "transport">
 <title>Monster and Wife</title>
 <text>
 <preamble>Karl Borisov killed his wife five times last year - all, of course, on film. Karl is reckoned one of the best monsters in the movie business, and it's in his contract that, if you hire him, you hire her as well, to play a small role as one of the monster's victims - she's not a great actress. From the clues below, can you work out which film was released in each of the listed months, what monster he played in it, and his wife Gloria's smaller role?</preamble>
@@ -490,7 +490,7 @@
 <item>Won essay contest</item>
 <item>Won painting contest</item>
 </category>
-<category name="Trees planted">
+<category name="Tree planted">
 <item>Beech</item>
 <item>Cherry</item>
 <item>Hawthorn</item>

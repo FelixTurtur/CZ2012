@@ -13,5 +13,8 @@ namespace Logix.Calculators
         public override List<int> getImpossibles(int index, string comparator, int size) {
             throw new NotImplementedException();
         }
+        public override bool checkPredicate(object item, string comparator, string bound) {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -195,67 +195,95 @@ namespace Logix
         }
 
         public List<Relation> considerRelationToCategory(Relation r, bool alreadySeen) {
-            if (!r.getRule().Contains(identifier)) {
-              //cannot use this relation
-              return new List<Relation> { r };
-            }
-            if (r.isConditional()) {
-                if (((ConditionalRelation)r).getRule().Contains(identifier)) {
-                    bool? conditionMet = checkDeterminability(r);
-                    if (conditionMet.HasValue) {
-                        if (conditionMet.Value) {
-                            return new List<Relation> { RelationFactory.getInstance().createRelation(((ConditionalRelation)r).getIfTrueStatement()) };
+            try {
+                if (!r.getRule().Contains(identifier)) {
+                    //cannot use this relation
+                    return new List<Relation> { r };
+                }
+                if (r.isConditional()) {
+                    if (((ConditionalRelation)r).getRule().Contains(identifier)) {
+                        bool? conditionMet = checkDeterminability(r);
+                        if (conditionMet.HasValue) {
+                            if (conditionMet.Value) {
+                                return new List<Relation> { RelationFactory.getInstance().createRelation(((ConditionalRelation)r).getIfTrueStatement()) };
+                            }
+                            return new List<Relation> { RelationFactory.getInstance().createRelation(((ConditionalRelation)r).getIfFalseStatement()) };
                         }
-                        return new List<Relation> { RelationFactory.getInstance().createRelation(((ConditionalRelation)r).getIfFalseStatement()) };
                     }
+                    return new List<Relation> { r };
                 }
-                return new List<Relation> { r };
-            }
-            if (r.isDirect()) {
-              //direct relation
-                if (!alreadySeen) {
-                    Category.Rows row = r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives;
-                    addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
-                }
-                return null;
-            }
-            if (r.isRelative()) {
-                string[] items = { r.getBaseItem(identifier, Relations.Sides.Left), r.getBaseItem(identifier, Relations.Sides.Right) };
-                string leftMatch = checkForMatch(items[0]);
-                string rightMatch = checkForMatch(items[1]);
-                List<Relation> results = new List<Relation>();
-                if (!string.IsNullOrEmpty(leftMatch) && !string.IsNullOrEmpty(rightMatch)) {
-                    //both sides already matched 
+                if (r.isDirect()) {
+                    //direct relation
+                    if (!alreadySeen) {
+                        Category.Rows row = r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives;
+                        addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
+                    }
                     return null;
                 }
-                else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
-                    //if either of the two items has a value, then something can be learnt for the other, if not a complete match
-                    if (Representation.Relations.isQuantified(r.getRule())) {
-                        string unknownItem = leftMatch == null ? items[0] : items[1];
-                        object knownValue = retrieveValue(leftMatch ?? rightMatch);
-                        bool inverse = leftMatch == null ? true : false;
-                        string targetItem = findTarget(knownValue, Relations.comparativeAmount(r.getRule(), inverse));
-                        addRelation(targetItem, unknownItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
-                        results.Add(RelationFactory.getInstance().createRelation(targetItem, unknownItem, r.isPositive()));
+                if (r.isRelative()) {
+                    string[] items = { r.getBaseItem(identifier, Relations.Sides.Left), r.getBaseItem(identifier, Relations.Sides.Right) };
+                    if (items[0] == items[1]) {
+                        //Single-item Relative
+                        if (items[0] != identifier.ToString()) {
+                            //cannot discover anything within this category
+                            return new List<Relation> { r };
+                        }
+                        string relatedItem = r.getRelatedItem(identifier);
+                        return createImpossiblesForItem(relatedItem, Relations.getComparator(r.getRule()), Relations.getComparativeAmount(r.getRule(), false));
                     }
-                    else {
-                        results = considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                    string leftMatch = checkForMatch(items[0]);
+                    string rightMatch = checkForMatch(items[1]);
+                    List<Relation> results = new List<Relation>();
+                    if (!string.IsNullOrEmpty(leftMatch) && !string.IsNullOrEmpty(rightMatch)) {
+                        //both sides already matched 
+                        return null;
+                    }
+                    else if (!string.IsNullOrEmpty(leftMatch) || !string.IsNullOrEmpty(rightMatch)) {
+                        //if either of the two items has a value, then something can be learnt for the other, if not a complete match
+                        if (Representation.Relations.isQuantified(r.getRule())) {
+                            string unknownItem = leftMatch == null ? items[0] : items[1];
+                            object knownValue = retrieveValue(leftMatch ?? rightMatch);
+                            bool inverse = leftMatch == null ? true : false;
+                            string targetItem = findTarget(knownValue, Relations.getComparativeAmount(r.getRule(), inverse));
+                            addRelation(targetItem, unknownItem, r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives);
+                            results.Add(RelationFactory.getInstance().createRelation(targetItem, unknownItem, r.isPositive()));
+                        }
+                        else {
+                            results = considerComparative(leftMatch ?? items[0], Relations.getComparator(r.getRule()), rightMatch ?? items[1]);
+                        }
+                        return results;
+                    }
+                    else if (items[0] != null && items[1] != null) {
+                        //create negative relations from comparatives
+                        results = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), Relations.getComparativeAmount(r.getRule(), false), alreadySeen));
+                        if (results == null) results = new List<Relation> { r };
+                        else results.Add(r);
                     }
                     return results;
                 }
-                else if (items[0] != null && items[1] != null) {
-                    /*if (alreadySeen) {
-                        //Nothing new learnt
-                        return new List<Relation> { r };
-                    }*/
-                    //create negative relations from comparatives
-                    results = (createNegativeRelationsToBounds(items[0], items[1], r.getComparator(), Relations.comparativeAmount(r.getRule(),false), alreadySeen));
-                    if (results == null) results = new List<Relation> { r };
-                    else results.Add(r);
+                throw new ArgumentException("Relation type not recognised: " + r.GetType().ToString());
+            }
+            catch (Exception e) {
+                throw e;
+            }
+        }
+
+        private List<Relation> createImpossiblesForItem(string relatedItem, string comparator, string bound) {
+            try {
+                List<Relation> results = new List<Relation>();
+                for (int i = 0; i < size; i++) {
+                    if (calculator.checkPredicate(innerArray[(int)Rows.Values][i], comparator, bound)) {
+                        continue;
+                    }
+                    else {
+                        results.Add(RelationFactory.getInstance().createRelation(relatedItem, identifier.ToString() + i, false));
+                    }
                 }
                 return results;
             }
-            throw new ArgumentException("Relation type not recognised: " + r.GetType().ToString());
+            catch (LogicException l) {
+                throw l;
+            }
         }
 
         private bool? checkDeterminability(Relation r) {
