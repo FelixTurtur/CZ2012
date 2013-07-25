@@ -105,5 +105,17 @@ namespace ParserTests
                 Assert.IsTrue(correctTags.Contains(clue));
             }
         }
+
+        [TestMethod]
+        public void Check_Relation_Forming() {
+            Puzzle p = puzzles[1];
+            CZParser parser = new CZParser(p);
+            List<string> relations = parser.Read();
+            List<string> manualRelations = new List<string> {"C2=D1", "A1=B1", "A3=C3", "B3!=D3", "B2=D2" };
+            foreach (string rule in manualRelations) {
+                Assert.IsTrue(relations.Contains(rule));
+            }
+
+        }
     }
 }
