@@ -53,8 +53,17 @@ namespace Parser
 
         internal bool Contains(string p) {
             foreach (string item in items) {
+                if (item == null) {
+                    return false;
+                }
                 if (item == p)
                     return true;
+                else {
+                    foreach (string bit in item.Split(new char[] { '{', '}' }, StringSplitOptions.RemoveEmptyEntries)) {
+                        if (bit == p)
+                            return true;
+                    }
+                }
             }
             return false;
         }
@@ -72,5 +81,6 @@ namespace Parser
                 items[i] = newItem;
             }
         }
+
     }
 }

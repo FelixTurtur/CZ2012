@@ -96,11 +96,10 @@ namespace ParserTests
         public void Check_Complete_Tagging() {
             Puzzle p = puzzles[1];
             CZParser parser = new CZParser(p);
-            parser.tagger.catWords = new CategoryDictionary(p.getCategories(), p.getItems());
-            parser.tagger.terms = new TermsDictionary(p.getKeywords());
+            parser.tagger = new Tagger(p.getCategories(), p.getItems(), p.getKeywords());
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
-            List<string> correctTags = new List<string>() {"C2 D1 D1", "A1 B1 ; A3 C3", "B3 D3", "B2 D2" };
+            List<string> correctTags = new List<string>() {"C2 D1", "A1 B1 ; A3 C3", "B3 Td D3", "B2 D2" };
             Assert.AreEqual(correctTags.Count, taggedClues.Count);
             foreach (string clue in taggedClues) {
                 Assert.IsTrue(correctTags.Contains(clue));

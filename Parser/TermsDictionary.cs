@@ -135,13 +135,5 @@ namespace Parser
             return string.Empty;
         }
 
-
-        internal bool completesPattern(string tag) {
-            throw new NotImplementedException();
-        }
-
-        internal bool continuesPattern(string tag) {
-            throw new NotImplementedException();
-        }
     }
 }
