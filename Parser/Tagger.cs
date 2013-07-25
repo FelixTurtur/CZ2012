@@ -196,6 +196,18 @@ namespace Parser
                 buffer.Add(tag);
             }
             else if (isTermTag(tag)) {
+                if (tag == "To") {
+                    if (pairsWithOf(previous)) {
+                        return previous + " " + tag;
+                    }
+                    else return null;
+                }
+                if (tag == "Tw") {
+                    if (pairsWithWith(previous)) {
+                        return previous + " " + tag;
+                    }
+                    else return null;
+                }
                 buffer.Add(tag);
             }
             else if (isConsiderable(tag)) {

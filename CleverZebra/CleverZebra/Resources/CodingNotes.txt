@@ -128,3 +128,4 @@ Jul 25th
 Completing more of the Tagger's methods. Realised that multiple-options will have to be in braces so isTermTag can work based on string[0] == 'T'. isMixedTag is already checking each part, once split by commas or braces, as isTerm or isCat, so no amendments needed.
 Created PatternBank for matching term patterns. This now contains the logic for checking whether one termTag should be followed/preceded by anything and its methods are used by term-focused logic in Tagger.
 Check_Complete_Tagging now working :) Can either move on to the Translator next or test out more complicated clues. (This test included no comparatives.)
+Ran all tests and Check_Dictionary_Creation failed because it does parser.Read() and it had some comparative statements in there. Fixed that up and now all's working. I win. So I guess next up is Translator. 
