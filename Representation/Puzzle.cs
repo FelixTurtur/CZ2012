@@ -15,7 +15,7 @@ namespace Representation {
         private List<string> clues;
         private List<string> categories;
         private List<string> items;
-        private string ordering;
+        private List<string> keywords;
         private string semanticTag;
         private string otherTag;
 
@@ -31,7 +31,6 @@ namespace Representation {
         public void parseXMLToPuzzle(XmlNode input) {
             id = Convert.ToInt32(input.Attributes[0].Value);
             string size = input.Attributes["size"].Value;
-            ordering = input.Attributes["ordering"].Value;
             semanticTag = input.Attributes["semantic"].Value;
             otherTag = input.Attributes["other"] == null ? "" : input.Attributes["other"].Value;
             name = input["title"].Value;
@@ -46,6 +45,7 @@ namespace Representation {
             items = new List<string>();
             foreach (XmlNode n in cats) {
                 categories.Add(n.Attributes["name"].Value);
+                keywords.Add(n.Attributes["keyword"].Value);
                 foreach (XmlNode i in n.ChildNodes) {
                     items.Add(i.InnerText);
                 }
@@ -89,7 +89,7 @@ namespace Representation {
         }
 
         public string[] getKeywords() {
-            return ordering.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            return keywords.ToArray();
         }
     }
 }

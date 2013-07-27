@@ -16,35 +16,43 @@ namespace Parser
         private static string NEGATIVE = "Td";
         private static string FORMER = "Tf";
         private static string LATTER = "Tl";
+        private static string THIS = "Tt";
+        private List<List<string>> keyQuantifiers;
 
         public TermsDictionary(string[] keywords) {
             disassociatives = setupStandardDisassociatives();
             quantifiers = new List<string>();
             numbers = new List<string>();
             prepositions = new List<string>();
-            if (keywords.Count() > 0) {
-                prepositions.AddRange(new List<string> { "before", "after", "less", "greater", "more", "lower", "higher", "ahead", "behind", "front", "rear", "begins", "ends", "beginning", "ending" });
-                foreach (string key in keywords) {
-                    numbers.AddRange(getNumericTermsForKey(key));
-                    prepositions.AddRange(getPrepositionsForKey(key));
-                    quantifiers.AddRange(getQuantifiersForKey(key));
+            for (int i = 0; i < keywords.Count(); i++) {
+                addQuantifiers(keywords[i]);
+                if (!string.IsNullOrEmpty(keywords[i])) {
+                    numbers.AddRange(getNumericTermsForKey(keywords[i]));
+                    setStandardPrepositions();
+                    prepositions.AddRange(getPrepositionsForKey(keywords[i]));
                 }
             }
+        }
+
+        private void setStandardPrepositions() {
+            if (prepositions.Count == 0) {
+                prepositions.AddRange(new List<string> { "before", "after", "less", "greater", "more", "lower", "higher", "ahead", "behind", "front", "rear", "begins", "ends", "beginning", "ending" });
+            }
+        }
+
+        private void addQuantifiers(string key) {
+            keyQuantifiers.Add(getQuantifiersForKey(key));
         }
 
         private List<string> setupStandardDisassociatives() {
             return new List<string> {"neither", "nor", "not", "isn't", "doesn't", "wasn't", "didn't" };
         }
 
-        private bool isFormerReferencer(string word) {
-            return word == "former" || word == "first";
-        }
-        private bool isLatterReferencer(string word) {
-            return word == "latter" || word == "second";
-        }
-
         private List<string> getQuantifiersForKey(string key)
         {
+            if (string.IsNullOrEmpty(key)) {
+                return new List<string>() { };
+            }
             switch (key) {
                 case "left-right": return new List<string> { "left", "right" };
                 case "days": return new List<string> { "day", "days", "night", "nights" };
@@ -54,7 +62,7 @@ namespace Parser
                 case "currency": return new List<string> { "pounds", "dollars" };
                 case "date": return new List<string> { "day", "days", "week", "weeks" };
                 case "time": return new List<string> { "hour", "hours" };
-                case "ordinals": return null;
+                case "ordinals": return new List<string>() { };
                 case "alphabet": return new List<string> { "letter", "word" };
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);
@@ -111,6 +119,9 @@ namespace Parser
             if (word == "either") {
                 return EITHER;
             }
+            if (word == "this") {
+                return THIS;
+            }
             for (int i = 0; i < disassociatives.Count; i++) {
                 if (word.ToLower() == disassociatives[i]) {
                     return NEGATIVE;
@@ -127,9 +138,9 @@ namespace Parser
                     return "Tn(" + word + ")";
                 }
             }
-            for (int i = 0; i < quantifiers.Count; i++) {
-                if (word.ToLower() == quantifiers[i]) {
-                    return "Tq(" + word + ")";
+            for (int i = 0; i < keyQuantifiers.Count; i++) {
+                if (keyQuantifiers[i].Contains(word.ToLower())) {
+                    return "Tq(" + Convert.ToChar('A' + i) + ")";
                 }
             }
             for (int i = 0; i < prepositions.Count; i++) {
@@ -148,8 +159,20 @@ namespace Parser
             return tag == WITH;
         }
 
+        internal static bool isThis(string tag) {
+            return tag == THIS;
+        }
+
         internal static bool isNegative(string p) {
             return p == NEGATIVE;
         }
+
+        private bool isFormerReferencer(string word) {
+            return word == "former" || word == "first";
+        }
+        private bool isLatterReferencer(string word) {
+            return word == "latter" || word == "second";
+        }
+
     }
 }

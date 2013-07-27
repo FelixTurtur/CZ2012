@@ -17,11 +17,14 @@ namespace Parser
 
         public override string ToString() {
             string result = "";
-            foreach (string s in items) {
-                if (string.IsNullOrEmpty(result)) {
+            foreach (string item in items) {
+                if (string.IsNullOrEmpty(item)) {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(result)) {
                     result += ",";
                 }
-                result += s;
+                result += item;
             }
             return result;
         }
@@ -82,5 +85,33 @@ namespace Parser
             }
         }
 
+        internal bool hasCombinedCats() {
+            if (isEmpty()) {
+                return false;
+            }
+            return !this.ToString().Contains("T");
+        }
+
+        internal bool hasMixedTags() {
+            if (isEmpty()) {
+                return false;
+            }
+            if (!this.ToString().Contains("T")) {
+                return false;
+            }
+            string[] bits = this.ToString().Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string t in bits) {
+                if (Tagger.isCatTag(t)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal bool stretchesOverWhitespace() {
+            //Buffers of Combined cat tags ("B2,B") do not stretch
+            //Buffers of Term tags (other than To) do stretch
+            return !this.hasCombinedCats();
+        }
     }
 }

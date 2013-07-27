@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Parser
 {
@@ -58,11 +59,11 @@ namespace Parser
                 }
             }
             for (int i = 0; i < categoryTitles.Count; i++) {
-                if (categoryTitles[i] == word.ToLower()) {
+                if (categoryTitles[i].ToLower() == word.ToLower()) {
                     if (result.Length > 0) {
                         result += ",";
                     }
-                    result += ('A' + i).ToString();
+                    result += (Convert.ToChar('A' + i)).ToString();
                 }
             }
             return result;

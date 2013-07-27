@@ -29,7 +29,7 @@
 <category name="Blown">
 <item>Dual Carriageway</item>
 <item>River</item>
-<item>Treetops</item>
+<item>Tree</item>
 </category>
 <solution>{{Brenadan Briese, bowler hat, Monday, treetops},{Gareth Gale, flat cap, Friday, river},{Zachary Zeffer, baseball cap, Wednesday, dual carriageway}}</solution>
 </box>
@@ -77,7 +77,7 @@
 <clue>Delia Johnson's show raised more money than the one that auctioned glider lessons at Lower Marsh Airfield but less money than the one whose top song was "Guitar Man" by Bread.</clue>
 <clue>The show in which Bucks Fizz's "Making Your Mind Up" was the top earner raised more cash than the show which auctioned the opportunity to be RKO's Saturday morning DJ next week but less than Debbie Jenkin's show.</clue>
 <clue>Daniel Jeffries' show raised more money than the one that featured "Cracklin' Rosie" by Neil Diamond but less than the one that auctioned the backstage pass for the Netherlipp Apollo's 60s night.</clue>
-<clue>The show that raked in the cash with Johnny Cash's "Ring of Fire" made £250 more than Duncan Joseph's.</clue>
+<clue>The show that raked in the cash with Johnny Cash's "Ring of Fire" made ï¿½250 more than Duncan Joseph's.</clue>
 <clue>A male DJ auctioned a hospitality package for Netherliipp United's match with Athletico Stonekeigh.</clue>
 </hints>
 </text>
@@ -101,12 +101,12 @@
 <item>Guest DJ </item>
 </category>
 <category name="Money raised">
-<item>£1,500 </item>
-<item>£1,750 </item>
-<item>£2,000 </item>
-<item>£2,250 </item>
+<item>ï¿½1,500 </item>
+<item>ï¿½1,750 </item>
+<item>ï¿½2,000 </item>
+<item>ï¿½2,250 </item>
 </category>
-<solution>{{Daniel Jeffries, Bucks Fizz, football hospitality, £2,000},{Debbie Jenkins, Bread, backstage pass, £2,250},{Delia Johnson, Johnny Cash, guest DJ, £1,750},{Duncan Joseph, Neil Diamond, glider lessons, £1,500}}</solution>
+<solution>{{Daniel Jeffries, Bucks Fizz, football hospitality, ï¿½2,000},{Debbie Jenkins, Bread, backstage pass, ï¿½2,250},{Delia Johnson, Johnny Cash, guest DJ, ï¿½1,750},{Duncan Joseph, Neil Diamond, glider lessons, ï¿½1,500}}</solution>
 </box>
 </puzzle>
 <puzzle id="3" size="4x4" ordering="" semantic="">
@@ -330,7 +330,7 @@
 <clue>Helen Jakin received a red printed 'final warning' regarding an unpaid gas bill - but lives in an all-electric home.</clue>
 <clue>Sam Tilney, whose letter came from his sister but did not bear her signature, doesn't work in Human Resources and was not the recipient of the extremely realistic-looking eviction order.</clue>
 <clue>The woman from Advertising has been with PennyCorp since 1995.</clue>
-<clue>Mandy Nolan from Accounts didn't receive the notification of a £10,000 lottery win, which wasn't sent to the employee from Catering or by anybody's best friend.</clue>
+<clue>Mandy Nolan from Accounts didn't receive the notification of a ï¿½10,000 lottery win, which wasn't sent to the employee from Catering or by anybody's best friend.</clue>
 <clue>The woman whose letter actually came from a workmate wasn't Diane Eden and doesn't work in Accounts.</clue>
 <clue>Anybody could have acquired a sheet of official PennyCorp notepaper and fabricated a letter telling a worker that they were getting a raise - but, in fact, that document, which didn't go to Barry Cobb, did come from PennyCorp and was absolutely genuine.</clue>
 </hints>
@@ -600,7 +600,7 @@
 <clue>The star named Lemming plays Pat Thistle in the soap; the one called Dover does not play Wanda Abbott or the designer.</clue>
 <clue>Gareth's surname isn't Buckitt and Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
 <clue>Marlene plays the part of Sam Gomez but she is not a taxi driver or a bar assistant.</clue>
-<clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the café, but the name of this character is not RU O'Kaye.</clue>
+<clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the cafï¿½, but the name of this character is not RU O'Kaye.</clue>
 </hints>
 </text>
 <box>
@@ -1418,11 +1418,11 @@
 <preamble>Sphagnum Sisters dress hire shop in Netherlipp High Street has been providing formal wear for the residents of Keighshire ever since Sybil Sphagnum began the business in 1928. This week the shop window display comprises mannequins displaying three dinner jackets and three evening gowns. From the clues, can you name the style name of each jacket or dress, its colour and the price charged for one night's hire?</preamble>
 <hints>
 <clue>The three jackets are items 1, 3 and 6.</clue>
-<clue>To hire the Ascot jacket and dress number 5 will cost £150 a night; the cost for the hire of jacket number 1 and the purple dress is a very reasonable £130.</clue>
-<clue>The Wimbledon item, which isn't jacket 3, is hired out for £80 a night and the red garment costs £75 to hire for one night.</clue>
-<clue>The Henley styled item, which is shown immediately to the left of a dress, has a hire charge of £5 lower than the green garment and £5 higher than dress 4; the green garment is shown somewhere to the right of the least expensive item to hire and dress 4 isn't the Proms styled item, which doesn't hire out at £65 a night.</clue>
+<clue>To hire the Ascot jacket and dress number 5 will cost ï¿½150 a night; the cost for the hire of jacket number 1 and the purple dress is a very reasonable ï¿½130.</clue>
+<clue>The Wimbledon item, which isn't jacket 3, is hired out for ï¿½80 a night and the red garment costs ï¿½75 to hire for one night.</clue>
+<clue>The Henley styled item, which is shown immediately to the left of a dress, has a hire charge of ï¿½5 lower than the green garment and ï¿½5 higher than dress 4; the green garment is shown somewhere to the right of the least expensive item to hire and dress 4 isn't the Proms styled item, which doesn't hire out at ï¿½65 a night.</clue>
 <clue>The Cheltenham styled item is a jet black; jacket number 6 is a deep navy blue.</clue>
-<clue>The grey garment is positioned to the immediate right of the one that costs £70 to hire.</clue>
+<clue>The grey garment is positioned to the immediate right of the one that costs ï¿½70 to hire.</clue>
 </hints>
 </text>
 <box>
@@ -1451,14 +1451,14 @@
 <item>Red</item>
 </category>
 <category name="Cost">
-<item>£60</item>
-<item>£65</item>
-<item>£70</item>
-<item>£75</item>
-<item>£80</item>
-<item>£85</item>
+<item>ï¿½60</item>
+<item>ï¿½65</item>
+<item>ï¿½70</item>
+<item>ï¿½75</item>
+<item>ï¿½80</item>
+<item>ï¿½85</item>
 </category>
-<solution>{{1, Cheltenham, Black, £60},{2,Wimbledon, Green, £80},{3, Henley, Red, £75},{4, Glyndenbourne, Purple, £70},{5, Proms, Grey, £85},{6, Ascot, Navy blue, £65}}</solution>
+<solution>{{1, Cheltenham, Black, ï¿½60},{2,Wimbledon, Green, ï¿½80},{3, Henley, Red, ï¿½75},{4, Glyndenbourne, Purple, ï¿½70},{5, Proms, Grey, ï¿½85},{6, Ascot, Navy blue, ï¿½65}}</solution>
 </box>
 </puzzle>
 <puzzle id="33" size="4x5" ordering="years" semantic = "years difference">
@@ -1467,7 +1467,7 @@
 <preamble>For the past five years, the annual Eddsbury Festival of Art and Culture has been held in February in the Eddsbury Town Hall and various other locations around town, and has included a competition for best new drama written by a local dramatist. From the clues, can you work out the writer and title of each year's winning play and what it is about?</preamble>
 <hints>
 <clue>The murder mystery 'Huffman', based on a real-life case from teh 1920s, took the silver Lady Vargrave trophy awarded to the winning entry the year before it went to Nigel Orton.</clue>
-<clue>Isaac Jonson took the trophy the year after it went to a play about the plight of a homeless man living on the streets of Eddsbury, written by someone who lives in a Georgian mansion valued at £800,000.</clue>
+<clue>Isaac Jonson took the trophy the year after it went to a play about the plight of a homeless man living on the streets of Eddsbury, written by someone who lives in a Georgian mansion valued at ï¿½800,000.</clue>
 <clue>In 2012, the prize went to a rather bleak and decidely unfunny 'comedy' called 'Midnight'.</clue>
 <clue>'The Lights Went out' and the play about local politics in the 1940s won the prize two years apart - though not necessarily in that order.</clue>
 <clue>In 2010, Rachel Shaw's play won, prompting some people to compain that it had only won because she was a woman and others to protest because her uncle was a borough councillor and a member of the selection committee.</clue>
@@ -1617,11 +1617,11 @@
 <item>Restricted parking</item>
 </category>
 <category name="Fine">
-<item>£10</item>
-<item>£20</item>
-<item>£40</item>
+<item>ï¿½10</item>
+<item>ï¿½20</item>
+<item>ï¿½40</item>
 </category>
-<solution>{{Brendan Buss, cathedral, One-hour parking, £20},{Fenella Ferry, Museum, Restricted parking, £40},{Thomas Tramme, City Hall, Pay and Display, £10}}</solution>
+<solution>{{Brendan Buss, cathedral, One-hour parking, ï¿½20},{Fenella Ferry, Museum, Restricted parking, ï¿½40},{Thomas Tramme, City Hall, Pay and Display, ï¿½10}}</solution>
 </box>
 </puzzle>
 <puzzle id="37" size="4x4" ordering="ordinals" semantic = "Head of queue">

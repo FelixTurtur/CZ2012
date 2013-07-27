@@ -38,7 +38,7 @@ namespace ParserTests
         public void Check_Dictionary_Creation() {
             Puzzle p = puzzles[0];
             CZParser parser = new CZParser(p);
-            List<string> puzzle1Items = new List<string> { "brendan", "briese", "gareth", "gale", "zachary", "zeffer", "baseball", "cap", "bowler", "hat", "flat", "cap", "monday", "wednesday", "friday", "dual", "carriageway", "river", "treetops" };
+            List<string> puzzle1Items = new List<string> { "brendan", "briese", "gareth", "gale", "zachary", "zeffer", "baseball", "cap", "bowler", "hat", "flat", "cap", "monday", "wednesday", "friday", "dual", "carriageway", "river", "tree" };
             for (int i = 0; i < puzzle1Items.Count; i++) {
                 Assert.AreEqual(puzzle1Items[i], parser.tagger.catWords.getItems()[i]);
             }
@@ -83,7 +83,7 @@ namespace ParserTests
         }
 
         [TestMethod]
-        public void Check_Complete_Tagging() {
+        public void Check_First_Tagging() {
             Puzzle p = puzzles[1];
             CZParser parser = new CZParser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
@@ -96,11 +96,38 @@ namespace ParserTests
         }
 
         [TestMethod]
-        public void First_Parser_Test() {
+        public void Check_First_Translating() {
             Puzzle p = puzzles[1];
             CZParser parser = new CZParser(p);
             List<string> relations = parser.Read();
             List<string> manualRelations = new List<string> {"C2=D1", "A1=B1", "A3=C3", "B3!=D3", "B2=D2" };
+            foreach (string rule in manualRelations) {
+                Assert.IsTrue(relations.Contains(rule));
+            }
+            foreach (string rule in relations) {
+                Assert.IsTrue(manualRelations.Contains(rule));
+            }
+        }
+
+        [TestMethod]
+        public void Check_Second_Tagging() {
+            Puzzle p = puzzles[0];
+            CZParser parser = new CZParser(p);
+            List<string> taggedClues = parser.tagger.tagClues(p.getClues());
+            Assert.IsNotNull(taggedClues);
+            List<string> correctTags = new List<string>() { "A3 D1 ; Tt Tn(two) Tq(C) Tp(before) A2 B3", "B2 , D3", "Td C2 D2" };
+            Assert.AreEqual(correctTags.Count, taggedClues.Count);
+            foreach (string clue in taggedClues) {
+                Assert.IsTrue(correctTags.Contains(clue));
+            }
+        }
+
+        [TestMethod]
+        public void Check_Second_Translating() {
+            Puzzle p = puzzles[0];
+            CZParser parser = new CZParser(p);
+            List<string> relations = parser.Read();
+            List<string> manualRelations = new List<string> { "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "D2!=C2" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }

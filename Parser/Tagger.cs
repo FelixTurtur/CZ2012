@@ -7,11 +7,14 @@ namespace Parser
     class Tagger {
         internal CategoryDictionary catWords;
         internal TermsDictionary terms;
+        internal List<string> keywords;
         private ParsingBuffer buffer;
 
-        public Tagger(List<string> categories, List<string> items, string[] keywords) {
+        public Tagger(List<string> categories, List<string> items, string[] keys) {
             catWords = new CategoryDictionary(categories, items);
-            terms = new TermsDictionary(keywords);
+            terms = new TermsDictionary(keys);
+            keywords = new List<string>();
+            keywords.AddRange(keys);
         }
 
         internal List<string> tagClues(List<string> clues) {
@@ -66,6 +69,9 @@ namespace Parser
             for (int i = 0; i < tagLine.Count; i++) {
                 if (string.IsNullOrEmpty(tagLine[i])) {
                     whitespaceGap = true;
+                    if (!buffer.isEmpty() && !buffer.stretchesOverWhitespace()) {
+                        buffer.Clear();
+                    }
                     continue;
                 }
                 if (i > 0 && tagLine[i] == lastNonBlank) {
@@ -76,11 +82,11 @@ namespace Parser
                     result += addTag(ref heldTag, newItem);
                 }
                 else {
-                    if (isCombinedCatTag(buffer.ToString())) {
+                    if (buffer.hasCombinedCats()) {
                         string aux = evaluateCatTags(lastNonBlank, tagLine[i], ref heldTag);
                         result += addTag(ref heldTag, aux);
                     }
-                    else if (isMixedTag(buffer.ToString())) {
+                    else if (buffer.hasMixedTags()) {
                         if (isCatTag(tagLine[i])) {
                             if (buffer.Contains(tagLine[i])) {
                                 result += addTag(ref heldTag, tagLine[i]);
@@ -182,8 +188,10 @@ namespace Parser
                 heldTag += tag + " ";
                 return null;
             }
-            if (isCatTag(tag)) {
-                return tag;
+            if (isCatTag(tag))  {
+                if (tag.Length > 1) 
+                    return tag;
+                return null;
             }
             else if (isCombinedCatTag(tag)) {
                 //check previous item
@@ -194,13 +202,16 @@ namespace Parser
                 buffer.Add(tag);
             }
             else if (isTermTag(tag)) {
-                if (tag == "To") {
+                if (TermsDictionary.isThis(tag)) {
+                    return tag;
+                }
+                if (TermsDictionary.isOf(tag)) {
                     if (pairsWithOf(previous)) {
                         return previous + " " + tag;
                     }
                     else return null;
                 }
-                if (tag == "Tw") {
+                if (TermsDictionary.isWith(tag)) {
                     if (pairsWithWith(previous)) {
                         return previous + " " + tag;
                     }
@@ -259,13 +270,14 @@ namespace Parser
                 buffer.Add(tag);
                 string aux = buffer.ToString();
                 buffer.Clear();
-                return aux;
+                return aux.Replace(",", " ");
             }
             else if (PatternBank.continuesTagPattern(buffer.ToString(), tag)) {
                 buffer.Add(tag);
                 return null;
             }
-            else return evaluateTag(previous, tag, ref heldTag);
+            buffer.Clear();
+            return evaluateTag(previous, tag, ref heldTag);
         }
 
         private string getCatTagFromCombo(string tag) {
