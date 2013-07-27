@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <folio name="Puzzles">
-<puzzle id="0" size="4x3" ordering="time" semantic="">
+<puzzle id="0" size="4x3" ordering="days" semantic="">
 <title>Blowing in the Wind</title>
 <text>
 <preamble>The March weather is causing mayhem all across Netherlipp and each of these three men have had their headwear unceremoniously ripped from their heads by sudden and violent gusts of wind. From the clues, can you say what type of hat each man lost on what day and where it was blown, making its retrieval almost impossible?</preamble>
@@ -21,7 +21,7 @@
 <item>Bowler Hat</item>
 <item>Flat Cap</item>
 </category>
-<category name="Day">
+<category name="Day" keyword="days">
 <item>Monday</item>
 <item>Wednesday</item>
 <item>Friday</item>
@@ -40,7 +40,7 @@
 <preamble>The unpredictable March weather continues to be predictably bad and each of these three women got caught in the sort of downpour that has Biblical patriarchs reaching for the plans marked 'Arl'. Not having a brolly, they each ducked through the nearest door to avoid the cloudburst only to find themselves in a shop. From the clues, can you say where each woman was going, the name of the shop whose door she ran through and the item she felt obliged to buy while sheltering?</preamble>
 <hints>
 <clue>The lady who dashed through the door of Lee's Key Cutting and Shoe Repairing emporium felt obliged to have a spare back door key cut.</clue>
-<clue>Denise De Luge was on her way to the dentist when she needed to seek refus through the nearest door; the port in a storm for Stephanie Storm was Port's shop.</clue>
+<clue>Denise De Luge was on her way to the dentist when she needed to seek refuge through the nearest door; the port in a storm for Stephanie Storm was Port's shop.</clue>
 <clue>The person on her way to work wasn't the one who found herself in a menswear shop and came out with a pair of long socks.</clue>
 <clue>The lady on her way to Netherlipp Market found herself sheltering in a baker's and felt obliged to buy a scone, which didn't do much for the diet she was supposed to be following.</clue>
 </hints>
@@ -100,7 +100,7 @@
 <item>Gliding Lessons </item>
 <item>Guest DJ </item>
 </category>
-<category name="Money raised">
+<category name="Money raised" keyword="currency">
 <item>£1,500 </item>
 <item>£1,750 </item>
 <item>£2,000 </item>
@@ -109,7 +109,7 @@
 <solution>{{Daniel Jeffries, Bucks Fizz, football hospitality, £2,000},{Debbie Jenkins, Bread, backstage pass, £2,250},{Delia Johnson, Johnny Cash, guest DJ, £1,750},{Duncan Joseph, Neil Diamond, glider lessons, £1,500}}</solution>
 </box>
 </puzzle>
-<puzzle id="3" size="4x4" ordering="numeric" semantic="">
+<puzzle id="3" size="4x4" ordering="" semantic="">
 <title>...the Bar</title>
 <text>
 <preamble>The rules at the Central Criminal Court in Netherlipp are often thought to compel the wearing of wigs by barristers but the events this morning in courts 1 to 4 have shown that not to be the case. Rule 25 subsection F paragraph 5a states 'The attendance of a barrister at the chancery will be suffered on condition of the presence of a headdress' and so when the four barristers arrived at the courts only to realise they had forgotten to bring their wigs, they improvised. From the clues, can you say in which court, presided over by which judge, each barrister appeared and the item they hastily conscripted as a headdress?</preamble>
@@ -151,7 +151,7 @@
 <solution>{{Court 1, Judge Deam, Garfield Frille, book},{Court 2, Judge De Cree, Reginald Rangle, paper bag},{Court 3, Judge Roole, Quentin Quarrel, handkerchief},{Court 4, Judge Gaige, Damien Dowte, mop}}</solution>
 </box>
 </puzzle>
-<puzzle id="4" size="4x4" ordering="time" semantic = "">
+<puzzle id="4" size="4x4" ordering="days" semantic = "">
 <title>Tucking In</title>
 <text>
 <preamble>Each of our new friends, the four lads of dormitory B4 at St Keigh's Boarding School, have received a parcel containing something for their tuck box. The school matron, who is in charge of such things, has strict rules about tuck, keeping its consumption to a minimum as a treat. So the lads of B4 sneaked their parcels into the dormitory and enjoyed a midnight feast of the whole lot over four nights. From the clues, can you work out which relative sent which boy what tasty morsel and on which night they wolfed the lot?</preamble>
@@ -182,7 +182,7 @@
 <item>Grandmother</item>
 <item>Mother</item>
 </category>
-<category name="Night eaten">
+<category name="Night eaten" keyword="days">
 <item>Monday</item>
 <item>Tuesday</item>
 <item>Wednesday</item>
@@ -231,7 +231,7 @@
 <solution>{{Pamela Prowed, movie star, nose, Conrad Carver},{Samantha Selffe, pop star, forhead, Lucille Loppett},{Selwyn Smugge, TV star, chin Cherry Chopper},{Vernon Vayne, author, ears, Humphrey Hacker}}</solution>
 </box>
 </puzzle>
-<puzzle id="6" size="4x5" ordering="months" semantic = "transport">
+<puzzle id="6" size="4x5" ordering="months, item length" semantic = "transport">
 <title>Monster and Wife</title>
 <text>
 <preamble>Karl Borisov killed his wife five times last year - all, of course, on film. Karl is reckoned one of the best monsters in the movie business, and it's in his contract that, if you hire him, you hire her as well, to play a small role as one of the monster's victims - she's not a great actress. From the clues below, can you work out which film was released in each of the listed months, what monster he played in it, and his wife Gloria's smaller role?</preamble>
@@ -245,14 +245,14 @@
 </hints>
 </text>
 <box>
-<category name="Month">
+<category name="Month" keyword="months">
 <item>January</item>
 <item>March</item>
 <item>May</item>
 <item>July</item>
 <item>September</item>
 </category>
-<category name="Title">
+<category name="Title" keyword="length">
 <item>Bloodbeast</item>
 <item>Congo of terror</item>
 <item>Intruder</item>
@@ -276,7 +276,7 @@
 <solution>{{January, Intruder, mutant ape, policewoman},{March, Shadow of Fear, vampire, woman in taxi},{May, Cargo of Terror, alien cyborg, housewife on bus},{July, Bloodbeast, werewolf, nun on train},{September, It Walks By Night, bunyip, woman in pub}}</solution>
 </box>
 </puzzle>
-<puzzle id="7" size="4x5" ordering="time" semantic = "">
+<puzzle id="7" size="4x5" ordering="time, numeric" semantic = "">
 <title>Cometh the Hour</title>
 <text>
 <preamble>...whereth the slave? Each of our five acquaintances, the slovenly slaves of Ancient Rome, had been commanded to meet their long-suffering master at a specific spot in the city at a particular hour of the day. (The Romans measure time by the number of hours, from 1 to 12, after sunrise.) But, as you might expect, each miserable minion failed to show up at the appointed time. From the clues, can you work out at what hour each slave was supposed to attend which place and the excuse they proffered?</preamble>
@@ -304,7 +304,7 @@
 <item>Flaminian Gate</item>
 <item>Senate House</item>
 </category>
-<category name="Hour">
+<category name="Hour" keyword="ordinal">
 <item>Prima luce</item>
 <item>3rd hour</item>
 <item>6th hour</item>
@@ -401,7 +401,7 @@
 <item>Sold stolen art</item>
 <item>Stole German bullion</item>
 </category>
-<category name="Amount">
+<category name="Amount" keyword="currency">
 <item>$5 million</item>
 <item>$8 million</item>
 <item>$11 million</item>
@@ -411,7 +411,7 @@
 <solution>{{Anson Burgess, Fresno, sold stolen art, $11 million},{Curtis Donleavy, New York City, military contracts, $8 million},{Jack Keller, Dayton, black market, $17 million},{Lou Mazzini, St Louis, aircraft manufacture, $5 million},{Ray Starke, Mobile, stolen German Bullion, $14 million}}</solution>
 </box>
 </puzzle>
-<puzzle id="10" size="4x5" ordering="days" semantic = "">
+<puzzle id="10" size="4x5" ordering="weekdays" semantic = "">
 <title>Night's Out</title>
 <text>
 <preamble>Amanda Night, long term resident of the village of Much Lerning, keeps herself occupied during the week by attending a different minority interest club each night. The clubs are held in different locations around the village and are run by different organisers. From the clues, can you say where Amanda goes each night, what she does and with whom?</preamble>
@@ -438,7 +438,7 @@
 <item>Local school</item>
 <item>Village hall</item>
 </category>
-<category name="Day">
+<category name="Day" keyword="days">
 <item>Monday</item>
 <item>Tuesday</item>
 <item>Wednesday</item>
@@ -455,7 +455,7 @@
 <solution>{{Card playing, Village hall, Monday, M T Wallitt},{Fern arranging, Local school, Tuesday, K Bullcarr},{Goldfish Society, Library, Wednesday, D marcks},{String art, Community centre, Thursday, O Penning},{Wine pouring, Friend's house, Friday, A Powse}}</solution>
 </box>
 </puzzle>
-<puzzle id="11" size="4x5" ordering="" semantic = "gender" other="initial letter" >
+<puzzle id="11" size="4x5" ordering="initial letter" semantic = "gender">
 <title>Green Stuff</title>
 <text>
 <preamble>Five pupils from Miss Lyme's class at Brunswick Green Primary School participated in the planting of trees on the village's new community woodland last week. From the clues below, can you work out each child's full name, how they earned the privilege of planting a tree, and what sort of tree they planted?</preamble>
@@ -490,7 +490,7 @@
 <item>Won essay contest</item>
 <item>Won painting contest</item>
 </category>
-<category name="Trees planted">
+<category name="Tree planted" keyword="alphabet">
 <item>Beech</item>
 <item>Cherry</item>
 <item>Hawthorn</item>
@@ -514,7 +514,7 @@
 </hints>
 </text>
 <box>
-<category name="Call time">
+<category name="Call time" keyword="time">
 <item>10.00am</item>
 <item>12.00 noon</item>
 <item>2.00pm</item>
@@ -560,7 +560,7 @@
 </hints>
 </text>
 <box>
-<category name="Order">
+<category name="Order" keyword="ordinal">
 <item>First</item>
 <item>Second</item>
 <item>Third</item>
@@ -600,7 +600,7 @@
 <clue>The star named Lemming plays Pat Thistle in the soap; the one called Dover does not play Wanda Abbott or the designer.</clue>
 <clue>Gareth's surname isn't Buckitt and Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
 <clue>Marlene plays the part of Sam Gomez but she is not a taxi driver or a bar assistant.</clue>
-<clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the café, but the name of this character is not RU O'Kaye.</clue>
+<clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the cafe, but the name of this character is not RU O'Kaye.</clue>
 </hints>
 </text>
 <box>
@@ -669,12 +669,12 @@
 <item>Path</item>
 <item>Patio</item>
 </category>
-<category name="Address">
-<item>Addock Avenue</item>
-<item>Botchem Broadway</item>
-<item>cobbled Crescent</item>
-<item>Makeshift Mews</item>
-<item>Stopgap Street</item>
+<category name="Address" keyword="numeric">
+<item>1 Addock Avenue</item>
+<item>2 Botchem Broadway</item>
+<item>3 Cobbled Crescent</item>
+<item>5 Makeshift Mews</item>
+<item>6 Stopgap Street</item>
 </category>
 <solution>{{Alan Abakk, fish slice, path, 3 Cobbled Crescent},{Fred Flatt-Foote, ladle, back step, 1 Addock Avenue},{Norman Napping, baking tray, drive, 5 Makeshift mews},{Oliver Ofgard, trowel, front step, 6 Stopgap Street},{Percy Pansdown, plastic spade, patio, 2 Botchem Broadway}}</solution>
 </box>

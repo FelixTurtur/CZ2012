@@ -22,6 +22,8 @@ namespace Representation
         }
         public static string Positive = "=";
         public static string Negative = "!=";
+        public static string LessThan = "<";
+        public static string GreaterThan = ">";
         private static char Conditional = '?';
         private static char ConditionalDivider = ':';
         //Comparators are listed in pairs of opposites

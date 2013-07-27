@@ -115,7 +115,7 @@ namespace ParserTests
             CZParser parser = new CZParser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
-            List<string> correctTags = new List<string>() { "A3 D1 ; Tt Tn(two) Tq(C) Tp(before) A2 B3", "B2 , D3", "Td C2 D2" };
+            List<string> correctTags = new List<string>() { "A3 D1 ; Tt Tn(2) Tq(C) Tp(-) A2 B3", "B2 , D3", "Td C2 D2" };
             Assert.AreEqual(correctTags.Count, taggedClues.Count);
             foreach (string clue in taggedClues) {
                 Assert.IsTrue(correctTags.Contains(clue));
@@ -127,7 +127,7 @@ namespace ParserTests
             Puzzle p = puzzles[0];
             CZParser parser = new CZParser(p);
             List<string> relations = parser.Read();
-            List<string> manualRelations = new List<string> { "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "D2!=C2" };
+            List<string> manualRelations = new List<string> { "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "C2!=D2" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }

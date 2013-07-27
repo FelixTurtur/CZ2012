@@ -43,9 +43,11 @@ namespace Representation {
             XmlNodeList cats = input["box"].GetElementsByTagName("category");
             categories = new List<string>();
             items = new List<string>();
+            keywords = new List<string>();
             foreach (XmlNode n in cats) {
                 categories.Add(n.Attributes["name"].Value);
-                keywords.Add(n.Attributes["keyword"].Value);
+                var keyNode = n.Attributes["keyword"];
+                keywords.Add(keyNode == null ? "" : keyNode.Value);
                 foreach (XmlNode i in n.ChildNodes) {
                     items.Add(i.InnerText);
                 }

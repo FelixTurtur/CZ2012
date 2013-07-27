@@ -21,7 +21,7 @@
 <item>Bowler Hat</item>
 <item>Flat Cap</item>
 </category>
-<category name="Day">
+<category name="Day" keyword="days">
 <item>Monday</item>
 <item>Wednesday</item>
 <item>Friday</item>
@@ -100,7 +100,7 @@
 <item>Gliding Lessons </item>
 <item>Guest DJ </item>
 </category>
-<category name="Money raised">
+<category name="Money raised" keyword="currency">
 <item>£1,500 </item>
 <item>£1,750 </item>
 <item>£2,000 </item>
@@ -151,7 +151,7 @@
 <solution>{{Court 1, Judge Deam, Garfield Frille, book},{Court 2, Judge De Cree, Reginald Rangle, paper bag},{Court 3, Judge Roole, Quentin Quarrel, handkerchief},{Court 4, Judge Gaige, Damien Dowte, mop}}</solution>
 </box>
 </puzzle>
-<puzzle id="4" size="4x4" ordering="time" semantic = "">
+<puzzle id="4" size="4x4" ordering="days" semantic = "">
 <title>Tucking In</title>
 <text>
 <preamble>Each of our new friends, the four lads of dormitory B4 at St Keigh's Boarding School, have received a parcel containing something for their tuck box. The school matron, who is in charge of such things, has strict rules about tuck, keeping its consumption to a minimum as a treat. So the lads of B4 sneaked their parcels into the dormitory and enjoyed a midnight feast of the whole lot over four nights. From the clues, can you work out which relative sent which boy what tasty morsel and on which night they wolfed the lot?</preamble>
@@ -182,7 +182,7 @@
 <item>Grandmother</item>
 <item>Mother</item>
 </category>
-<category name="Night eaten">
+<category name="Night eaten" keyword="days">
 <item>Monday</item>
 <item>Tuesday</item>
 <item>Wednesday</item>
@@ -245,14 +245,14 @@
 </hints>
 </text>
 <box>
-<category name="Month">
+<category name="Month" keyword="months">
 <item>January</item>
 <item>March</item>
 <item>May</item>
 <item>July</item>
 <item>September</item>
 </category>
-<category name="Title">
+<category name="Title" keyword="length">
 <item>Bloodbeast</item>
 <item>Congo of terror</item>
 <item>Intruder</item>
@@ -304,7 +304,7 @@
 <item>Flaminian Gate</item>
 <item>Senate House</item>
 </category>
-<category name="Hour">
+<category name="Hour" keyword="ordinal">
 <item>Prima luce</item>
 <item>3rd hour</item>
 <item>6th hour</item>
@@ -401,7 +401,7 @@
 <item>Sold stolen art</item>
 <item>Stole German bullion</item>
 </category>
-<category name="Amount">
+<category name="Amount" keyword="currency">
 <item>$5 million</item>
 <item>$8 million</item>
 <item>$11 million</item>
@@ -438,7 +438,7 @@
 <item>Local school</item>
 <item>Village hall</item>
 </category>
-<category name="Day">
+<category name="Day" keyword="days">
 <item>Monday</item>
 <item>Tuesday</item>
 <item>Wednesday</item>
@@ -490,7 +490,7 @@
 <item>Won essay contest</item>
 <item>Won painting contest</item>
 </category>
-<category name="Tree planted">
+<category name="Tree planted" keyword="alphabet">
 <item>Beech</item>
 <item>Cherry</item>
 <item>Hawthorn</item>
@@ -514,7 +514,7 @@
 </hints>
 </text>
 <box>
-<category name="Call time">
+<category name="Call time" keyword="time">
 <item>10.00am</item>
 <item>12.00 noon</item>
 <item>2.00pm</item>
@@ -560,7 +560,7 @@
 </hints>
 </text>
 <box>
-<category name="Order">
+<category name="Order" keyword="ordinal">
 <item>First</item>
 <item>Second</item>
 <item>Third</item>
@@ -669,12 +669,12 @@
 <item>Path</item>
 <item>Patio</item>
 </category>
-<category name="Address">
-<item>Addock Avenue</item>
-<item>Botchem Broadway</item>
-<item>cobbled Crescent</item>
-<item>Makeshift Mews</item>
-<item>Stopgap Street</item>
+<category name="Address" keyword="numeric">
+<item>1 Addock Avenue</item>
+<item>2 Botchem Broadway</item>
+<item>3 Cobbled Crescent</item>
+<item>5 Makeshift Mews</item>
+<item>6 Stopgap Street</item>
 </category>
 <solution>{{Alan Abakk, fish slice, path, 3 Cobbled Crescent},{Fred Flatt-Foote, ladle, back step, 1 Addock Avenue},{Norman Napping, baking tray, drive, 5 Makeshift mews},{Oliver Ofgard, trowel, front step, 6 Stopgap Street},{Percy Pansdown, plastic spade, patio, 2 Botchem Broadway}}</solution>
 </box>
