@@ -8,19 +8,14 @@ namespace Parser {
         internal Tagger tagger;
         public CZParser(Puzzle p) {
             puzzle = p;
+            tagger = new Tagger(puzzle.getCategories(), puzzle.getItems(), puzzle.getKeywords());
         }
 
         public List<string> Read() {
-            tagger = new Tagger(puzzle.getCategories(), puzzle.getItems(), puzzle.getKeywords());
-            List<string> taggedClues = tagger.tagClues(puzzle.getClues());
-            List<string> relations = transformTagsToRelations(taggedClues);
-            return relations;
-        }
-
-        internal List<string> transformTagsToRelations(List<string> tags) {
-            List<string> results = new List<string>() { };
-            foreach (string tag in tags) {
-                results.Add(Translator.makeRelation(tag));
+            List<string> tagLines = tagger.tagClues(puzzle.getClues());
+            List<string> results = new List<string>();
+            foreach (string line in tagLines) {
+                results.AddRange(Translator.makeRelations(line));
             }                
             return results;
         }

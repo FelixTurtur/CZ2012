@@ -144,7 +144,7 @@ namespace Parser
             return hasCat && hasTerm;
         }
 
-        private bool isCatTag(string tag) {
+        internal static bool isCatTag(string tag) {
             if (tag.Length == 1 && !char.IsPunctuation(tag[0])) {
                 return true;
             }

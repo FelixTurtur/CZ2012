@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Parser {
     internal class PatternBank {
 
-        private static List<string> patterns = new List<string> { "Tn,Tq,Tp", "Tn,TP", "Tf,To", "Tp,Tw" };
+        private static List<string> patterns = new List<string> { "Tn,Tq,Tp", "Tn,TP", "Tf,To", "Tp,Tw", "Tp, Tn" };
 
         internal static bool completesTagPattern(string buffer, string tag) {
             string[] patterns = matchCurrentBuffer(buffer);

@@ -10,6 +10,12 @@ namespace Parser
         internal List<string> numbers;
         internal List<string> quantifiers; //e.g. "days"; signifies the unit in a comparative relationship.
         internal List<string> prepositions; //e.g. "before"; signifies direction of comparative relationship.
+        private static string OF = "To";
+        private static string WITH = "Tw";
+        private static string EITHER = "Te";
+        private static string NEGATIVE = "Td";
+        private static string FORMER = "Tf";
+        private static string LATTER = "Tl";
 
         public TermsDictionary(string[] keywords) {
             disassociatives = setupStandardDisassociatives();
@@ -97,24 +103,24 @@ namespace Parser
                 return word; //All numbers should be kept.
             }
             if (word == "of") {
-                return "To";
+                return OF;
             }
             if (word == "with") {
-                return "Tw";
+                return WITH;
             }
             if (word == "either") {
-                return "Te";
+                return EITHER;
             }
             for (int i = 0; i < disassociatives.Count; i++) {
                 if (word.ToLower() == disassociatives[i]) {
-                    return "Td";
+                    return NEGATIVE;
                 }
             }
             if (isFormerReferencer(word.ToLower())) {
-                return "Tf";
+                return FORMER;
             }
             else if (isLatterReferencer(word.ToLower())) {
-                return "Tl";
+                return LATTER;
             }
             for (int i = 0; i < numbers.Count; i++) {
                 if (word.ToLower() == numbers[i]) {
@@ -134,5 +140,16 @@ namespace Parser
             return string.Empty;
         }
 
+        internal static bool isOf(string tag) {
+            return tag == OF;
+        }
+
+        internal static bool isWith(string tag) {
+            return tag == WITH;
+        }
+
+        internal static bool isNegative(string p) {
+            return p == NEGATIVE;
+        }
     }
 }

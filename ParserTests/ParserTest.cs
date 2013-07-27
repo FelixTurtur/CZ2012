@@ -35,18 +35,9 @@ namespace ParserTests
         }
 
         [TestMethod]
-        public void First_Parser_Test() {
-            Puzzle p = puzzles[1];
-            CZParser parser = new CZParser(p);
-            List<string> result = parser.Read();
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
         public void Check_Dictionary_Creation() {
             Puzzle p = puzzles[0];
             CZParser parser = new CZParser(p);
-            parser.Read();
             List<string> puzzle1Items = new List<string> { "brendan", "briese", "gareth", "gale", "zachary", "zeffer", "baseball", "cap", "bowler", "hat", "flat", "cap", "monday", "wednesday", "friday", "dual", "carriageway", "river", "treetops" };
             for (int i = 0; i < puzzle1Items.Count; i++) {
                 Assert.AreEqual(puzzle1Items[i], parser.tagger.catWords.getItems()[i]);
@@ -61,7 +52,6 @@ namespace ParserTests
         public void Check_Dictionary_Tagging() {
             Puzzle p = puzzles[14];
             CZParser parser = new CZParser(p);
-            parser.tagger = new Tagger(p.getCategories(), p.getItems(), p.getKeywords());
             List<string> firstTagPattern = new List<string>();
             string auxCat1 = "";
             string auxCat2 = "";
@@ -96,7 +86,6 @@ namespace ParserTests
         public void Check_Complete_Tagging() {
             Puzzle p = puzzles[1];
             CZParser parser = new CZParser(p);
-            parser.tagger = new Tagger(p.getCategories(), p.getItems(), p.getKeywords());
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
             List<string> correctTags = new List<string>() {"C2 D1", "A1 B1 ; A3 C3", "B3 Td D3", "B2 D2" };
@@ -107,7 +96,7 @@ namespace ParserTests
         }
 
         [TestMethod]
-        public void Check_Relation_Forming() {
+        public void First_Parser_Test() {
             Puzzle p = puzzles[1];
             CZParser parser = new CZParser(p);
             List<string> relations = parser.Read();
@@ -115,7 +104,9 @@ namespace ParserTests
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }
-
+            foreach (string rule in relations) {
+                Assert.IsTrue(manualRelations.Contains(rule));
+            }
         }
     }
 }
