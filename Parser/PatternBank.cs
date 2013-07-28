@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 namespace Parser {
     internal class PatternBank {
 
-        private static List<string> patterns = new List<string> { "Tn,Tq,Tp", "Tn,Tp,Tq", "Tn,TP", "Tf,To", "Tp,Tw", "Tp, Tn" };
+        private static List<string> termPatterns = new List<string> { "Tx,Tq,Tp", "Tx,Tp,Tq", "Tx,Tp", "Tf,To", "Tp,Tw", "Tp, Tx" };
+        private static List<string> relationPatterns =
+            new List<string> { "C,C", "C,Td,C", "C,Tx,Tq,Tp,C", "C,Tx,Tp,Tq,C", "C,Tx,Tp,C", "C,Tp,Tx" };
 
         internal static bool completesTagPattern(string buffer, string tag) {
-            string[] patterns = matchCurrentBuffer(buffer);
-            foreach (string p in patterns) {
+            string[] matchedPatterns = matchCurrentBuffer(buffer);
+            foreach (string p in matchedPatterns) {
                 if (completesPattern(p, buffer, tag)) {
                     return true;
                 }
@@ -20,8 +22,8 @@ namespace Parser {
         }
 
         internal static bool continuesTagPattern(string buffer, string tag) {
-            string[] patterns = matchCurrentBuffer(buffer);
-            foreach (string p in patterns) {
+            string[] matchedPatterns = matchCurrentBuffer(buffer);
+            foreach (string p in matchedPatterns) {
                 if (continuesPattern(p, buffer, tag)) {
                     return true;
                 }
@@ -31,7 +33,7 @@ namespace Parser {
 
         private static string[] matchCurrentBuffer(string buffer) {
             List<string> matches = new List<string>();
-            foreach (string p in patterns) {
+            foreach (string p in termPatterns) {
                 if (expressesPattern(buffer, p))
                     matches.Add(p);
             }
@@ -62,5 +64,37 @@ namespace Parser {
             }
             return buffer;
         }
-    }
+
+        internal static bool holdsTagPattern(ParsingBuffer buffer) {
+            if (buffer.isEmpty()) {
+                return false;
+            }
+            string bufferPattern = getShortTagVersion(buffer.ToString());
+            return relationPatterns.Contains(bufferPattern);
+        }
+
+        internal static int getPatternNumber(string p) {
+            string s = getShortTagVersion(p);
+            for (int i = 0; i < relationPatterns.Count; i++) {
+                if (s == relationPatterns[i])
+                    return i;
+            }
+            throw new ParserException("Pattern not found in bank: " + p);
+        }
+
+         private static string getShortTagVersion(string tagline) {
+            string bufferPattern = "";
+            foreach (string tag in tagline.ToString().Split(new char[] { ',' })) {
+                if (Tagger.isCatTag(tag)) {
+                    bufferPattern += string.IsNullOrEmpty(bufferPattern) ? "C" : ",C";
+                }
+                else {
+                    string shortTag = removeParentheticals(tag);
+                    bufferPattern += string.IsNullOrEmpty(bufferPattern) ? shortTag : "," + shortTag;
+                }
+            }
+            return bufferPattern;
+        }
+
+   }
 }

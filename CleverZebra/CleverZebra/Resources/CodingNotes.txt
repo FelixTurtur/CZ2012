@@ -138,3 +138,9 @@ Cracked it! TermDictionary should return in the brackets of q the category lette
 Changed where category keywords were stored and how they were held in TermsDictionary, and now Tagger's tagClues function returns Tq(C). Think I may need to do the same for the numbers and direction words, though. Thinking of pairs of words to indicate direction and need to create a text-to-int function.
 
 Text-to-int complete, comparative handling complete, Translator therefore complete at this complexity level and Second translation test passed!
+-------
+Jul 28th
+Creating next level of tests for parser (tagging and translating).
+Quite complex! Have added relation patterns to pattern bank and am starting to get Translator to handle longer phrases beyond the first few patterns met. A chain of category items with Td can now be handled using a buffer technique again. (The same ParsingBuffer class is being used to accomplish, making use of the ToString() function and a couple of others made necessary. With time it would be good to split this into two classes, but for now it's doing what I need it to.) The realisation of the need for a buffer came when drafting the algorithm for handling two patterns:
+B2 Td C2 Td A4 and B4 A3 Td D4. The buffer allows the flow of logic to move left-right across the pattern, making a relation when a complete pattern is found and holding onto the final item to begin the next pattern.
+Only patterns C,C and C,Td,C have been fleshed out for now. The final pattern required for the third puzzle is a more complicated one - B3 A Tx(1) Tp(+) C C3 and for now my brain is too fried to continue. Need to consider the categories and put the correct on into a Tq() tag and then it can be passed to the getRelationsUsingBuffer() function and pattern logic filled in.

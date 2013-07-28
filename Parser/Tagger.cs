@@ -32,7 +32,9 @@ namespace Parser
             string auxCat2 = "";
             foreach (string word in words) {
                 if(word.Length==1 && char.IsPunctuation(word[0])) {
-                    firstTagPattern.Add(word);
+                    if (word == "." || word == ";") {
+                        firstTagPattern.Add(word);
+                    }
                     continue;
                 }
                 auxCat1 = catWords.findItemMatches(word);
@@ -70,6 +72,8 @@ namespace Parser
                 if (string.IsNullOrEmpty(tagLine[i])) {
                     whitespaceGap = true;
                     if (!buffer.isEmpty() && !buffer.stretchesOverWhitespace()) {
+                        string catMention = buffer.pullCategoryTitle();
+                        result += string.IsNullOrEmpty(catMention) ? "" : catMention + " ";
                         buffer.Clear();
                     }
                     continue;
@@ -117,22 +121,155 @@ namespace Parser
                 whitespaceGap = false;
                 lastNonBlank = tagLine[i];
             }
-            return result.Trim();
+            return finaliseResult(result);
         }
 
         private string addTag(ref string heldTag, string p) {
-            if (string.IsNullOrEmpty(heldTag)) {
-                if (string.IsNullOrEmpty(p)) {
-                    return null;
-                }
-                return p + " ";
-            }
             if (string.IsNullOrEmpty(p)) {
                 return null;
             }
-            string addition = heldTag.Trim() + " " + p + " ";
-            heldTag = "";
-            return addition;
+            string pretag = "";
+            if (!string.IsNullOrEmpty(heldTag)) {
+                pretag = heldTag;
+                heldTag = "";
+            }
+            return pretag + p + " ";
+        }
+
+        private string evaluateTag(string previous, string tag, ref string heldTag) {
+            if (tagMustBeHeld(tag)) {
+                heldTag += tag + " ";
+                return null;
+            }
+            if (isCatTag(tag))  {
+                return tag;
+            }
+            else if (isCombinedCatTag(tag)) {
+                //check previous item
+                if (previous != "," && tag.Contains(previous)) {
+                    //already covered by previous recorded tag
+                    return null;
+                }
+                buffer.Add(tag);
+            }
+            else if (isTermTag(tag)) {
+                if (TermsDictionary.isThis(tag)) {
+                    return tag;
+                }
+                if (TermsDictionary.isOf(tag)) {
+                    if (pairsWithOf(previous)) {
+                        return previous + " " + tag;
+                    }
+                    else return null;
+                }
+                if (TermsDictionary.isWith(tag)) {
+                    if (pairsWithWith(previous)) {
+                        return previous + " " + tag;
+                    }
+                    else return null;
+                }
+                buffer.Add(tag);
+            }
+            else if (isConsiderable(tag)) {
+            }
+            return null;
+        }
+
+        private string evaluateCatTags(string previous, string tag, ref string heldTag) {
+            //buffer contains cat items (from a multi-option tag)
+            if(tag.Length == 1 && char.IsPunctuation(tag[0])) {
+                buffer.Clear();
+                if (!string.IsNullOrEmpty(heldTag)) {
+                    heldTag += ',';
+                }
+                heldTag += tag;
+                return null;
+            }
+            if (buffer.Contains(tag)) {
+                //could be a two-option tag after a three-option tag.
+                if (isCatTag(tag)) {
+                    buffer.Clear();
+                    return tag;
+                }
+                else {
+                    foreach (string bit in tag.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)) {
+                        if (!isCatTag(bit)) {
+                            tag = removeTagFromGroupTag(tag, bit);
+                        }
+                    }
+                    if (isCatTag(tag)) {
+                        buffer.Clear();
+                        return tag;
+                    }
+                }
+                buffer.Add(tag);
+                return null;
+            }
+            else {
+                //we have a term/combo cat-term tag
+                if (isTermTag(tag)) {
+                    string category = buffer.pullCategoryTitle();
+                    //drop previous buffer, start considering term with cat mention, if necessary
+                    buffer.Clear();
+                    return string.IsNullOrEmpty(category) ? evaluateTag(previous, tag, ref heldTag) : category + " " + evaluateTag(previous, tag, ref heldTag);
+                }
+                else {
+                    try {
+                        if (buffer.Contains(getCatTagFromCombo(tag))) {
+                            buffer.Clear();
+                            return getCatTagFromCombo(tag);
+                        }
+                    }
+                    catch (ParserException p) {
+                        throw p;
+                    }
+                    throw new ParserException("Wasn't expecting this buffer: " + buffer.ToString() + " to be followed by " + tag);
+                }
+            }
+        }
+
+        private string evaluateTermTags(string previous, string tag, ref string heldTag) {
+            if (PatternBank.completesTagPattern(buffer.ToString(),tag)) {
+                buffer.Add(tag);
+                string aux = buffer.ToString();
+                buffer.Clear();
+                return aux.Replace(",", " ");
+            }
+            else if (PatternBank.continuesTagPattern(buffer.ToString(), tag)) {
+                buffer.Add(tag);
+                return null;
+            }
+            buffer.Clear();
+            return evaluateTag(previous, tag, ref heldTag);
+        }
+
+        private string finaliseResult(string result) {
+            if (result.Contains("Tp") && !result.Contains("Tq")) {
+                return result.Trim();
+            }
+            else {
+                //no need for category titles
+                foreach (string bit in result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) {
+                    if (isCatTag(bit) && bit.Length == 1) {
+                        result = result.Replace(bit + " ", "");
+                        if (result.EndsWith(bit)) {
+                            result = result.Substring(0, result.Length - 1);
+                        }
+                    }
+                }
+                result = result.Replace("  ", " ");
+                return result.Trim();
+            }
+        }
+
+        private bool tagMustBeHeld(string tag) {
+            if (tag.Length == 1 && char.IsPunctuation(tag[0])) {
+                return true;
+            }
+            if (isDisassociative(tag)) {
+                return true;
+            }
+            return false;
         }
 
         private bool isMixedTag(string tag) {
@@ -183,101 +320,15 @@ namespace Parser
             return true;
         }
 
-        private string evaluateTag(string previous, string tag, ref string heldTag) {
-            if (tagMustBeHeld(tag)) {
-                heldTag += tag + " ";
-                return null;
-            }
-            if (isCatTag(tag))  {
-                if (tag.Length > 1) 
-                    return tag;
-                return null;
-            }
-            else if (isCombinedCatTag(tag)) {
-                //check previous item
-                if (tag.Contains(previous)) {
-                    //already covered by previous recorded tag
-                    return null;
+        private string removeTagFromGroupTag(string tag, string badTag) {
+            string newTag = "";
+            foreach (string bit in tag.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries)) {
+                if (bit.Trim() == badTag.Trim()) {
+                    continue;
                 }
-                buffer.Add(tag);
+                newTag += string.IsNullOrEmpty(newTag) ? bit : "," + bit;
             }
-            else if (isTermTag(tag)) {
-                if (TermsDictionary.isThis(tag)) {
-                    return tag;
-                }
-                if (TermsDictionary.isOf(tag)) {
-                    if (pairsWithOf(previous)) {
-                        return previous + " " + tag;
-                    }
-                    else return null;
-                }
-                if (TermsDictionary.isWith(tag)) {
-                    if (pairsWithWith(previous)) {
-                        return previous + " " + tag;
-                    }
-                    else return null;
-                }
-                buffer.Add(tag);
-            }
-            else if (isConsiderable(tag)) {
-            }
-            return null;
-        }
-
-        private bool tagMustBeHeld(string tag) {
-            if (tag.Length == 1 && char.IsPunctuation(tag[0])) {
-                return true;
-            }
-            if (isDisassociative(tag)) {
-                return true;
-            }
-            return false;
-        }
-
-        private string evaluateCatTags(string previous, string tag, ref string heldTag) {
-            //buffer contains cat items (from a multi-option tag)
-            if (buffer.Contains(tag)) {
-                //could be a two-option tag after a three-option tag. Unlikely, but safeguarding.
-                if (isCatTag(tag)) {
-                    return tag;
-                }
-                else buffer.Add(tag);
-                return null;
-            }
-            else {
-                //we have a term/combo cat-term tag
-                if (isTermTag(tag)) {
-                    //drop inconclusive buffer, start considering term
-                    buffer.Clear();
-                    return evaluateTermTags(previous, tag, ref heldTag);
-                }
-                else {
-                    try {
-                        if (buffer.Contains(getCatTagFromCombo(tag))) {
-                            return getCatTagFromCombo(tag);
-                        }
-                    }
-                    catch (ParserException p) {
-                        throw p;
-                    }
-                    throw new ParserException("Wasn't expecting this buffer: " + buffer.ToString() + " to be followed by " + tag);
-                }
-            }
-        }
-
-        private string evaluateTermTags(string previous, string tag, ref string heldTag) {
-            if (PatternBank.completesTagPattern(buffer.ToString(),tag)) {
-                buffer.Add(tag);
-                string aux = buffer.ToString();
-                buffer.Clear();
-                return aux.Replace(",", " ");
-            }
-            else if (PatternBank.continuesTagPattern(buffer.ToString(), tag)) {
-                buffer.Add(tag);
-                return null;
-            }
-            buffer.Clear();
-            return evaluateTag(previous, tag, ref heldTag);
+            return newTag;
         }
 
         private string getCatTagFromCombo(string tag) {
@@ -289,6 +340,11 @@ namespace Parser
             throw new ParserException("Wasn't expecting to not find a cat tag in here: " + tag);
         }
 
+        /// <summary>
+        /// Removes excess whitespace and category titles
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
         private bool pairsWithOf(string tag) {
             if (tag == "Tf" || tag == "Tl") {
                 return true;

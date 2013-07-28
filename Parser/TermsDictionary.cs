@@ -13,6 +13,7 @@ namespace Parser
         private static string OF = "To";
         private static string WITH = "Tw";
         private static string EITHER = "Te";
+        private static string NOR = "Tr";
         private static string NEGATIVE = "Td";
         private static string FORMER = "Tf";
         private static string LATTER = "Tl";
@@ -28,7 +29,7 @@ namespace Parser
                 if (!string.IsNullOrEmpty(keywords[i])) {
                     numbers.AddRange(getNumericTermsForKey(keywords[i]));
                     setStandardPrepositions();
-                    prepositions.AddRange(getPrepositionsForKey(keywords[i]));
+                    prepositions.AddRange(getPrepositionsForKey(keywords[i]) ?? new List<string>());
                 }
             }
         }
@@ -139,7 +140,7 @@ namespace Parser
                 }
                 for (int i = 0; i < numbers.Count; i++) {
                     if (word.ToLower() == numbers[i]) {
-                        return "Tn(" + makeNumber(word) + ")";
+                        return "Tx(" + makeNumber(word) + ")";
                     }
                 }
                 for (int i = 0; i < quantifiers.Count; i++) {

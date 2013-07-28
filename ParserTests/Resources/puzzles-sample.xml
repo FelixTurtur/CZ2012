@@ -119,12 +119,10 @@
 <clue>Judge Rufus Roole, overseeing proceedings in court 3 of the central Court, was not confronted with a barrister wearing an item fashioned from a brown paper bag and some vaguely remembered origami.</clue>
 <clue>Reginald Rangle, putting the case for the defene in court 2, was not the barrister who turned up for work with a knotted handkerchief on his head.</clue>
 <clue>Judge Gaige was presiding in the court numbered one higher than the one where barrister Quentin Quarrell was modelling an unconventional style of headwear.</clue>
-<clue>
-</clue>
 </hints>
 </text>
 <box>
-<category name="Court">
+<category name="Court" keyword="numeric">
 <item>Court 1</item>
 <item>Court 2</item>
 <item>Court 3</item>
@@ -133,7 +131,7 @@
 <category name="Judge">
 <item>Judge Deam</item>
 <item>Judge De Cree</item>
-<item>Judge Gaidge</item>
+<item>Judge Gaige</item>
 <item>Judge Roole</item>
 </category>
 <category name="Barrister">

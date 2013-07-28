@@ -62,7 +62,7 @@ namespace Parser
                 if (item == p)
                     return true;
                 else {
-                    foreach (string bit in item.Split(new char[] { '{', '}' }, StringSplitOptions.RemoveEmptyEntries)) {
+                    foreach (string bit in item.Split(new char[] { '{', '}', ',' }, StringSplitOptions.RemoveEmptyEntries)) {
                         if (bit == p)
                             return true;
                     }
@@ -112,6 +112,18 @@ namespace Parser
             //Buffers of Combined cat tags ("B2,B") do not stretch
             //Buffers of Term tags (other than To) do stretch
             return !this.hasCombinedCats();
+        }
+
+        internal string pullCategoryTitle() {
+            if (string.IsNullOrEmpty(items[1]) && !string.IsNullOrEmpty(items[0])) {
+                //if we've used more than one buffer space, cannot assume mention of category title
+                foreach (string bit in items[0].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)) {
+                    if (Tagger.isCatTag(bit) && bit.Length == 1) {
+                        return bit;
+                    }
+                }
+            }
+            return null;
         }
     }
 }
