@@ -26,6 +26,8 @@ namespace Representation {
         public Puzzle() { }
         public Puzzle(XmlNode n) {
             parseXMLToPuzzle(n);
+            width = keywords.Count;
+            height = ProvidedSolution.Count;
         }
 
         public void parseXMLToPuzzle(XmlNode input) {

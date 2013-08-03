@@ -31,6 +31,7 @@ namespace CleverZebra
             this.Close();
         }
 
+        #region initialiser
         internal void InitializeComponent()
         {
             this.lbPuzzles = new System.Windows.Forms.ListBox();
@@ -158,6 +159,7 @@ namespace CleverZebra
             this.PerformLayout();
 
         }
+        #endregion
 
         private List<string> getPuzzlesList() {
             List<string> puzzles = new List<string> {"puzzle1, puzzle2"};
@@ -183,7 +185,6 @@ namespace CleverZebra
             this.Hide();
             frmSolver solver = new frmSolver();
             this.AddOwnedForm(solver);
-            solver.InitializeComponent();
             solver.Show();
         }
 

@@ -8,6 +8,8 @@ using Logix;
 using Representation;
 
 namespace CleverZebra {
+    internal delegate void SolverBoxUpdateHandler(Controller c, SolutionBoxEventArgs e);
+
     internal class Controller {
 
         #region Singletonia
@@ -23,6 +25,7 @@ namespace CleverZebra {
 
         private List<Puzzle> puzzles;
         private Puzzle activePuzzle;
+        internal SolverBoxUpdateHandler Updater;
 
         public void loadPuzzles(XmlDocument sourceDoc = null) {
             if (sourceDoc == null) {
@@ -59,6 +62,7 @@ namespace CleverZebra {
             Representation.Results stats = null;
             try {
                 Logix.Logix logix = new Logix.Logix();
+                logix.updater += logix_update;
                 solution = logix.Solve(activePuzzle);
                 stats = logix.getLastResults();
             }
@@ -66,6 +70,12 @@ namespace CleverZebra {
                 throw new Logix.LogicException("Unable to solve puzzle id: " + activePuzzle.getId(), e);
             }
             reportSuccess(solution, stats);
+        }
+
+        public void logix_update(Logix.Logix sender, SolutionBoxEventArgs e) {
+            if (Updater != null) {
+                Updater(this, e);
+            }
         }
 
         private void reportSuccess(List<List<string>> solution, Results stats) {
@@ -90,6 +100,30 @@ namespace CleverZebra {
                 titles.Add(p.name);
             }
             return titles;
+        }
+
+        internal string getActiveTitle() {
+            return this.activePuzzle.name;
+        }
+
+        internal string getActivePreamble() {
+            return this.activePuzzle.getPreamble();
+        }
+
+        internal List<string> getActiveClues() {
+            return this.activePuzzle.getClues();
+        }
+
+        internal int getActiveWidth() {
+            return this.activePuzzle.width;
+        }
+
+        internal int getActiveHeight() {
+            return this.activePuzzle.height;
+        }
+
+        internal List<string> getCategoryTitles() {
+            return this.activePuzzle.getCategories();
         }
     }
 }

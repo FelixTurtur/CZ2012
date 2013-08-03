@@ -6,16 +6,22 @@ using Representation;
 
 
 namespace Logix {
+    public delegate void LogixUpdateHandler(Logix sender, SolutionBoxEventArgs e);
+
     public class Logix {
 
         public SolveCompleteHandler solveHandler;
+        public LogixUpdateHandler updater;
         private Representation.Results latestResults;
+        private Puzzle p;
 
         public Logix() { }
 
         public List<List<string>> Solve(Puzzle p) {
+            this.p = p;
             Deducer brains = new Deducer(p.height, p.width);
             brains.Concluded += brains_solveComplete;
+            brains.Update += brains_Update;
             brains.setClues(p.getClues());
             int[,] solutionMatrix = new int[p.height, p.width];
             
@@ -27,6 +33,14 @@ namespace Logix {
             }
             //Translate matrix solution to verbal solution
             return translateSolution(p, solutionMatrix);
+        }
+
+        void brains_Update(Deducer sender, SolutionUpdateArgs e) {
+            if (updater != null) {
+                int category = e.item[0] - 'A';
+                int catItem =  Convert.ToInt32(e.item.Substring(1));
+                updater(this, new SolutionBoxEventArgs(p.getNameAt(category, catItem), e.line, category));
+            }
         }
 
         private static List<List<string>> translateSolution(Puzzle p, int[,] solutionMatrix) {

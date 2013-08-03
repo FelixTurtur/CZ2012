@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Logix
 {
-    class Solution
+    public delegate void SolutionUpdateHandler (Solution sender, SolutionUpdateArgs e);
+    
+    public class Solution
     {
         int[,] matrix;
         char LEFTCHAR = 'A';
-        int rowsAdded;
+        public event SolutionUpdateHandler Updater;
 
         public Solution(int breadth, int depth) {
             matrix = new int[depth, breadth];
-            rowsAdded = 0;
         }
         internal bool isComplete() {
             for (int x = 0; x < matrix.GetLength(0); x++) {
@@ -41,19 +42,17 @@ namespace Logix
             return true;
         }
 
-        private void addRow(int[] items) {
-            int i = 0;
-            rowsAdded++;
-            foreach (int item in items) {
-                matrix[rowsAdded,i++] = item;
-            }
-        }
         private void addItem(int x, string item) {
             int y = item[0] - LEFTCHAR;
-            int val = Convert.ToInt32(item[1].ToString());
+            int val = Convert.ToInt32(item.Substring(1));
             matrix[x, y] = val;
         }
 
+        private void onUpdate(SolutionUpdateArgs a) {
+            if (Updater != null) {
+                Updater(this, a);
+            }
+        }
         internal List<Relation> considerRelationInSolution(Relation r) {
             if (!r.isDirect() || !r.isPositive()) { return new List<Relation> { r }; }
             string item1 = r.getLeftItem();

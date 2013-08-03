@@ -6,10 +6,12 @@ using System.Linq;
 
 namespace Logix {
     public delegate void SolveCompleteHandler(Deducer sender, SolveCompleteArgs e);
-    
+    public delegate void DeducerUpdateHandler(Deducer sender, SolutionUpdateArgs e);
+
     public class Deducer
     {
         public event SolveCompleteHandler Concluded;
+        public event DeducerUpdateHandler Update;
         private RelationFactory relationBuilder;
         private List<Category> cats;
         private string[] keywords;
@@ -40,6 +42,13 @@ namespace Logix {
                 cats[i].Matched += Deducer_Matched;
             }
             solution = new Solution(x,y);
+            solution.Updater += solution_Updater;
+        }
+
+        void solution_Updater(Solution sender, SolutionUpdateArgs e) {
+            if (Update != null) {
+                Update(this, e);
+            }
         }
 
         internal void enterCategoryValues(char ident, object[] vals) {
