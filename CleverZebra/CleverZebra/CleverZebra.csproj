@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller.cs" />
+    <Compile Include="GUI\frmSolver.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUI\frmMainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,7 +68,7 @@
     <Compile Include="GUI\frmOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\frmSolvingWindow.cs">
+    <Compile Include="GUI\frmPuzzles.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -73,14 +76,17 @@
     <Compile Include="Resources\CZButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="GUI\frmSolver.resx">
+      <DependentUpon>frmSolver.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmMainMenu.resx">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmOptions.resx">
       <DependentUpon>frmOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\frmSolvingWindow.resx">
-      <DependentUpon>frmSolvingWindow.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\frmPuzzles.resx">
+      <DependentUpon>frmPuzzles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -92,6 +98,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\CleverZebra.Properties.Resources.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,9 +124,9 @@
       <Project>{f6d508c8-99a3-44a0-b419-22883cef30b5}</Project>
       <Name>Logix</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Parser\Parser.csproj">
+    <ProjectReference Include="..\..\Parser\CZParser.csproj">
       <Project>{13c2bde5-57cf-46ba-badf-7e8f9e21d4b8}</Project>
-      <Name>Parser</Name>
+      <Name>CZParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Representation\Representation.csproj">
       <Project>{998c262f-7013-4ed9-98a7-78bb8cddbc92}</Project>

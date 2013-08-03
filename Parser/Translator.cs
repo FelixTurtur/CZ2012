@@ -5,16 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using Representation;
 
-namespace Parser
+namespace CZParser
 {
     class Translator
     {
         private static ParsingBuffer buffer = new ParsingBuffer(5);
+        private List<char> keyCategories;
 
-        internal static List<string> makeRelations(string line) {
+        public Translator(string[] keys) {
+            keyCategories = new List<char>();
+            char cat = 'A';
+            for (int i = 0; i < keys.Length; i++, cat++) {
+                if (!string.IsNullOrEmpty(keys[i])) {
+                    keyCategories.Add(cat);
+                }
+            }
+        }
+
+        internal List<string> makeRelations(string line) {
             List<string> relations = new List<string>();
             if (containsMultipleStatements(line)) {
-                //split
                 relations.AddRange(getRelationsFromMultiLine(line));
             }
             else {
@@ -24,13 +34,12 @@ namespace Parser
         }
 
         private static bool containsMultipleStatements(string line) {
-            string[] lines = line.Split(new char[] { '.', ';' }, StringSplitOptions.RemoveEmptyEntries);
-            if (lines.Count() > 1)
+            if (line.Contains(".") || line.Contains(";"))
                 return true;
             return false;
         }
 
-        private static List<string> getRelationsFromMultiLine(string line) {
+        private List<string> getRelationsFromMultiLine(string line) {
             List<string> relations = new List<string>();
             string[] lines = line.Split(new string[] { ". ", "; " }, StringSplitOptions.RemoveEmptyEntries);
             if (line.Contains("; Tt Tx") || line.Contains(". Tt Tx") || line.Contains("; Tt Tp") || line.Contains(". Tt Tp")) {
@@ -75,8 +84,8 @@ namespace Parser
                 relations.AddRange(leftRelation);
                 string leftItem = getFirstItem(leftRelation[0]);
                 relations.Add(leftItem + Representation.Relations.Negative + getFirstCat(lines[1]));
-                string lineEnder = line.Contains("; Td") ? "; " : ". ";
-                relations.AddRange(getRelationsFromMultiLine(line.Replace(lines[0] + lineEnder, "")));
+                if (line.Length > lines[0].Length + "; Td A1".Length)
+                    relations.AddRange(getRelationsFromMultiLine(line.Substring(lines[0].Length + "; Td".Length)));
             }
             else if (line.Contains("Tf")) {
                 //a negative/comparative relation and a second relation to the former item to be created
@@ -129,7 +138,7 @@ namespace Parser
             return p.Substring(0, p.IndexOf(' '));
         }
 
-        private static List<string> getRelationsFromLine(string line) {
+        private List<string> getRelationsFromLine(string line) {
             line = line.Trim();
             if (isCatPair(line)) {
                 return new List<string> { line.Substring(0, line.IndexOf(" ")) + Representation.Relations.Positive + line.Substring(line.IndexOf(" ") + 1) };
@@ -165,9 +174,25 @@ namespace Parser
             else if (!line.StartsWith("T") && !line.Contains("Tp")) {
                 return formRelationsUsingBuffer(line);
             }
+            else if (line.Contains("Tp")) {
+                //first remove any category initials that are not comparative
+                line = removeNonCompCats(line);
+                return new List<string> { makeRelation(line) };
+            }
             else {
                 throw new ParserException("Unable to handle tag pattern: " + line);
             }
+        }
+
+        private string removeNonCompCats(string line) {
+            foreach (string bit in line.Split(new char[] { ' ' })) {
+                if (bit.Length == 1) {
+                    if (!keyCategories.Contains(bit[0])) {
+                        line = line.Remove(line.IndexOf(bit + " "), 2);
+                    }
+                }
+            }
+            return line;
         }
 
         private static List<string> formRelationsUsingBuffer(string line) {
@@ -191,15 +216,43 @@ namespace Parser
 
         private static string makeRelation(string p) {
             try {
+                string[] bits = p.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (PatternBank.getPatternNumber(p)) {
-                    case 0: return p.Substring(0, p.IndexOf(',')) + Relations.Positive + p.Substring(p.IndexOf(',') + 1);
-                    case 1: return p.Substring(0, p.IndexOf(',')) + Relations.Negative + p.Substring(p.LastIndexOf(',') + 1);
+                    case 0: return bits[0] + Relations.Positive + bits[1];
+                    case 1: return bits[0] + Relations.Negative + bits[2];
+                    case 2:
+                    case 3: return formRelation(bits[0], bits[4], bits[1] + " " + bits[2] + " " + bits[3]);
+                    case 4: return twoTermRelative(bits[0], bits[1], bits[2], bits[3], bits[4]);
+                    case 5: return twoTermRelative(bits[0], bits[3], bits[1], bits[2], bits[4]);
+                    case 6: return oneTermRelative(bits[0], bits[1], bits[2], bits[3]);
+                    case 7: return oneTermRelative(bits[0], bits[1], bits[2], bits[3]);
+                    case 8: return oneTermRelative(bits[0], bits[2], bits[1], bits[3]);
                     default:
                         throw new ParserException("No logic to handle pattern number " + PatternBank.getPatternNumber(p));
                 }
             }
             catch (Exception e) {
                 throw e;
+            }
+        }
+
+        private static string oneTermRelative(string left, string owned, string term, string right) {
+            string direction = term.Contains("+") ? Relations.GreaterThan : Relations.LessThan;
+            string relatedCat = Relations.makeRelatedCat(owned);
+            if (Tagger.isCatTag(right)) {
+                return left + relatedCat + direction + right + relatedCat;
+            }
+            return left + relatedCat + direction + right.Substring(3, right.Length - 4);
+        }
+
+        private static string twoTermRelative(string left, string owned, string amount, string comparator, string right) {
+            string relatedCat = Relations.makeRelatedCat(owned);
+            string difference = amount.Substring(3, amount.Length - 4);
+            if (comparator.Contains("+")) {
+                return left + relatedCat + Relations.Subtract + right + relatedCat + Relations.Positive + difference; 
+            }
+            else {
+                return right + relatedCat + Relations.Subtract + left + relatedCat + Relations.Positive + difference;
             }
         }
 
@@ -221,7 +274,7 @@ namespace Parser
             }
             if (string.IsNullOrEmpty(amount)) {
                 //unquantified relation
-                direction = direction == "-" ? Representation.Relations.LessThan : Representation.Relations.GreaterThan;
+                direction = direction == "-" ? Relations.LessThan : Relations.GreaterThan;
                 return leftItem + "(" + category + ")" + direction + rightItem + "(" + category + ")";
             }
             else {

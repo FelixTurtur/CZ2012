@@ -33,8 +33,8 @@ namespace Representation {
             string size = input.Attributes["size"].Value;
             semanticTag = input.Attributes["semantic"].Value;
             otherTag = input.Attributes["other"] == null ? "" : input.Attributes["other"].Value;
-            name = input["title"].Value;
-            preamble = input["text"]["preamble"].Value;
+            name = input["title"].InnerText.Trim();
+            preamble = input["text"]["preamble"].InnerText;
             XmlNodeList hints = input["text"]["hints"].GetElementsByTagName("clue");
             clues = new List<string>();
             foreach (XmlNode n in hints) {
@@ -92,6 +92,10 @@ namespace Representation {
 
         public string[] getKeywords() {
             return keywords.ToArray();
+        }
+
+        public string getPreamble() {
+            return preamble;
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Representation;
 using System.Collections.Generic;
 using System.Xml;
-using Parser;
+using CZParser;
 
 namespace ParserTests
 {
@@ -30,14 +30,14 @@ namespace ParserTests
         [TestMethod]
         public void Initialise_Parser() {
             Puzzle p = puzzles[1];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             Assert.IsNotNull(parser);
         }
 
         [TestMethod]
         public void Check_Dictionary_Creation() {
             Puzzle p = puzzles[0];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> puzzle1Items = new List<string> { "brendan", "briese", "gareth", "gale", "zachary", "zeffer", "baseball", "cap", "bowler", "hat", "flat", "cap", "monday", "wednesday", "friday", "dual", "carriageway", "river", "tree" };
             for (int i = 0; i < puzzle1Items.Count; i++) {
                 Assert.AreEqual(puzzle1Items[i], parser.tagger.catWords.getItems()[i]);
@@ -51,7 +51,7 @@ namespace ParserTests
         [TestMethod]
         public void Check_Dictionary_Tagging() {
             Puzzle p = puzzles[14];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> firstTagPattern = new List<string>();
             string auxCat1 = "";
             string auxCat2 = "";
@@ -85,7 +85,7 @@ namespace ParserTests
         [TestMethod]
         public void Check_First_Tagging() {
             Puzzle p = puzzles[1];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
             List<string> correctTags = new List<string>() {"C2 D1", "A1 B1 ; A3 C3", "B3 Td D3", "B2 D2" };
@@ -98,7 +98,7 @@ namespace ParserTests
         [TestMethod]
         public void Check_First_Translating() {
             Puzzle p = puzzles[1];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> relations = parser.Read();
             List<string> manualRelations = new List<string> {"C2=D1", "A1=B1", "A3=C3", "B3!=D3", "B2=D2" };
             foreach (string rule in manualRelations) {
@@ -112,7 +112,7 @@ namespace ParserTests
         [TestMethod]
         public void Check_Second_Tagging() {
             Puzzle p = puzzles[0];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
             List<string> correctTags = new List<string>() { "A3 D1 ; Tt Tx(2) Tq(C) Tp(-) A2 B3", "B2 D3", "Td C2 D2" };
@@ -125,7 +125,7 @@ namespace ParserTests
         [TestMethod]
         public void Check_Second_Translating() {
             Puzzle p = puzzles[0];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> relations = parser.Read();
             List<string> manualRelations = new List<string> { "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "C2!=D2" };
             foreach (string rule in manualRelations) {
@@ -139,7 +139,7 @@ namespace ParserTests
         [TestMethod]
         public void Check_Third_Tagging() {
             Puzzle p = puzzles[3];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
             List<string> correctTags = new List<string>() { "C1 D3 ; Td B2 Td C2 Td A4", "B1 D1", "B4 A3 Td D4", "C4 A2 Td D2", "B3 A Tx(1) Tp(+) C C3" };
@@ -152,9 +152,9 @@ namespace ParserTests
         [TestMethod]
         public void Check_Third_Translating() {
             Puzzle p = puzzles[3];
-            CZParser parser = new CZParser(p);
+            Parser parser = new Parser(p);
             List<string> relations = parser.Read();
-            List<string> manualRelations = new List<string> { };
+            List<string> manualRelations = new List<string> {"C1=D3", "C1!=B2", "B2!=C2", "C2!=A4", "B1=D1", "B4=A3", "A3!=D4", "C4=A2", "A2!=D2", "B3(A)-C3(A)=1" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }

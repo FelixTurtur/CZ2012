@@ -3,6 +3,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Logix;
 using System.Collections.Generic;
+using Representation;
 
 namespace LogixTests
 {
@@ -10,7 +11,7 @@ namespace LogixTests
     public class DeducerTest
     {
         private RelationFactory relationBuilder;
-        private Results results;
+        private Representation.Results results;
 
 
         [TestInitialize]

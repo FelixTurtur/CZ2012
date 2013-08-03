@@ -22,6 +22,7 @@ namespace Representation
         }
         public static string Positive = "=";
         public static string Negative = "!=";
+        public static string Subtract = "-";
         public static string LessThan = "<";
         public static string GreaterThan = ">";
         private static char Conditional = '?';
@@ -142,5 +143,9 @@ namespace Representation
             return rule.Substring(0, rule.IndexOf(ConditionalDivider));
         }
 
+
+        public static string makeRelatedCat(string p) {
+            return PossessiveChars[0] + p + PossessiveChars[1];
+        }
     }
 }

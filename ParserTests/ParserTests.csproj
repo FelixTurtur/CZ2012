@@ -60,9 +60,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Parser\Parser.csproj">
+    <ProjectReference Include="..\Parser\CZParser.csproj">
       <Project>{13c2bde5-57cf-46ba-badf-7e8f9e21d4b8}</Project>
-      <Name>Parser</Name>
+      <Name>CZParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\Representation\Representation.csproj">
       <Project>{998c262f-7013-4ed9-98a7-78bb8cddbc92}</Project>

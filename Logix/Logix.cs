@@ -9,7 +9,7 @@ namespace Logix {
     public class Logix {
 
         public SolveCompleteHandler solveHandler;
-        private Results latestResults;
+        private Representation.Results latestResults;
 
         public Logix() { }
 
@@ -50,8 +50,8 @@ namespace Logix {
             this.latestResults = new Results(e.isSuccessful, e.turns, e.timeTaken);
         }
 
-        public List<object> getLastResults() {
-            return latestResults.listResults();
+        public Results getLastResults() {
+            return latestResults;
         }
     }
 }

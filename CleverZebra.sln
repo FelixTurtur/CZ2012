@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogixTests", "CleverZebra\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logix", "Logix\Logix.csproj", "{F6D508C8-99A3-44A0-B419-22883CEF30B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{13C2BDE5-57CF-46BA-BADF-7E8F9E21D4B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CZParser", "Parser\CZParser.csproj", "{13C2BDE5-57CF-46BA-BADF-7E8F9E21D4B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserTests", "ParserTests\ParserTests.csproj", "{A183BCAA-13F9-4CF5-96A8-E74C8130D3EF}"
 EndProject

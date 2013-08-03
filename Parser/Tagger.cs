@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Parser
+namespace CZParser
 {
     class Tagger {
         internal CategoryDictionary catWords;
@@ -358,6 +358,7 @@ namespace Parser
             }
             return false;
         }
+
     }
 
 }

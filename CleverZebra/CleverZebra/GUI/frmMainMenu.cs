@@ -35,9 +35,8 @@ namespace CleverZebra
         }
 
         private void btnSolvePuzzle_Click(object sender, EventArgs e) {
-            frmSolvingWindow solveBox = new frmSolvingWindow();
+            frmPuzzles solveBox = new frmPuzzles();
             this.AddOwnedForm(solveBox);
-            solveBox.InitializeComponent();
             this.Hide();
             solveBox.Show();
         }
