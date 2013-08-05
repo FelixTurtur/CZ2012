@@ -48,10 +48,12 @@ namespace CleverZebra {
             throw new NotImplementedException();
         }
 
-        public void Solve(Puzzle puzzle) {
-            this.activePuzzle = puzzle;
+        public void Solve(Puzzle puzzle = null) {
+            if (puzzle != null) {
+                activePuzzle = puzzle;
+            }
             try {
-                Parser parser = new Parser(puzzle);
+                Parser parser = new Parser(activePuzzle);
                 List<string> rules = parser.Read();
                 activePuzzle.setRules(rules);
             }
