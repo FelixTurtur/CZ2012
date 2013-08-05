@@ -132,13 +132,12 @@ namespace CleverZebra
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSolution.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSolution.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSolution.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSolution.EnableHeadersVisualStyles = false;
             this.dgvSolution.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dgvSolution.Location = new System.Drawing.Point(0, 0);
             this.dgvSolution.Margin = new System.Windows.Forms.Padding(0);
+            this.dgvSolution.MultiSelect = false;
             this.dgvSolution.Name = "dgvSolution";
-            this.dgvSolution.ReadOnly = true;
             this.dgvSolution.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSolution.RowHeadersVisible = false;
             this.dgvSolution.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -282,8 +281,10 @@ namespace CleverZebra
         #endregion
 
         private void btnBack_Click(object sender, EventArgs e) {
+            this.data = null;
+            this.dgvSolution = null;
             this.Owner.Show();
-            this.Close();
+            this.Dispose();
         }
 
         private void btnSolve_Click(object sender, EventArgs e) {
@@ -311,6 +312,7 @@ namespace CleverZebra
         }
 
         private void puzzle_complete(Controller c, SolutionReachedArgs e) {
+            pbSolving.Hide();
             for (int r = 0; r < e.solution.Count; r++) {
                 for (int i = 0; i < e.solution[r].Count; i++) {
                     dgvSolution.Rows[r].Cells[i].Value = e.solution[r][i];
@@ -323,15 +325,21 @@ namespace CleverZebra
             lGridTitle = makeTitleLabel();
             lGridTitle.Text = "Solution";
             flpSolution.Controls.Add(lGridTitle);
-            data = new DataTable();
             int height = Controller.getInstance().getActiveHeight();
             int width = Controller.getInstance().getActiveWidth();
+            SetupDataGrid(height, width);
+            pbSolving.Step = 100 / (height * width);
+            pbSolving.Show();
+        }
+
+        private void SetupDataGrid(int height, int width) {
+            data = new DataTable();
             List<string> catTitles = Controller.getInstance().getCategoryTitles();
             for (int i = 0; i < catTitles.Count; i++) {
                 data.Columns.Add(catTitles[i]);
             }
             object[] rowItems = new object[width];
-            for (int i = 0; i < height;i++ ) {
+            for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     rowItems[j] = "?";
                 }
@@ -342,13 +350,10 @@ namespace CleverZebra
                     data.Rows[i].ItemArray = rowItems;
                 }
             }
-
             dgvSolution.DataSource = data;
             dgvSolution.Height = (int)Math.Floor(24.4 * (height + 1));
             dgvSolution.Visible = true;
             flpSolution.Controls.Add(dgvSolution);
-            pbSolving.Step = 100 / (height * width);
-            pbSolving.Show();
         }
 
         private Label makeTitleLabel() {
@@ -364,10 +369,9 @@ namespace CleverZebra
         }
 
         internal void controller_update(Controller c, SolutionBoxEventArgs e) {
-            //show Update
             try {
-                this.data.Rows[e.line].ItemArray[e.catIndex] = e.item;
-                dgvSolution.UpdateCellValue(e.line, e.catIndex);
+                dgvSolution.Rows[e.line].Cells[e.catIndex].Value = e.item;
+                dgvSolution.UpdateCellValue(e.catIndex, e.line);
                 this.pbSolving.PerformStep();
             }
             catch (Exception ex) {

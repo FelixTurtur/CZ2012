@@ -94,7 +94,7 @@ namespace Representation {
                 //answer not found.
                 return "Unknown";
             }
-            return items[(cat * width) + (index - 1)];
+            return items[(cat * height) + (index - 1)];
         }
 
         public string[] getKeywords() {

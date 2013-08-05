@@ -49,9 +49,6 @@ namespace Logix {
                 List<string> row = new List<string>();
                 for (int y = 0; y < p.width; y++) {
                     string item = p.getNameAt(y, solutionMatrix[x, y]);
-                    if (p.width - y != 1) {
-                        item += ", ";
-                    }
                     row.Add(item);
                 }
                 solutionStrings.Add(row);
