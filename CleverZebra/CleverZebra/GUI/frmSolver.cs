@@ -281,9 +281,9 @@ namespace CleverZebra
         #endregion
 
         private void btnBack_Click(object sender, EventArgs e) {
-            this.data = null;
-            this.dgvSolution = null;
             this.Owner.Show();
+            Controller.getInstance().Updater -= controller_update;
+            Controller.getInstance().Completer -= puzzle_complete;
             this.Dispose();
         }
 
