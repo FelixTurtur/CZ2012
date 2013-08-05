@@ -6,9 +6,11 @@ using System.Xml;
 using CZParser;
 using Logix;
 using Representation;
+using System.Threading;
 
 namespace CleverZebra {
     internal delegate void SolverBoxUpdateHandler(Controller c, SolutionBoxEventArgs e);
+    internal delegate void PuzzleCompleteHandler(Controller c, SolutionReachedArgs e);
 
     internal class Controller {
 
@@ -26,6 +28,8 @@ namespace CleverZebra {
         private List<Puzzle> puzzles;
         private Puzzle activePuzzle;
         internal SolverBoxUpdateHandler Updater;
+        internal PuzzleCompleteHandler Completer;
+        public Semaphore sem;
 
         public void loadPuzzles(XmlDocument sourceDoc = null) {
             if (sourceDoc == null) {
@@ -81,11 +85,9 @@ namespace CleverZebra {
         }
 
         private void reportSuccess(List<List<string>> solution, Results stats) {
-            List<List<string>> originalSolution = activePuzzle.ProvidedSolution;
-            if (solution == originalSolution) {
-                Console.WriteLine("We have achieved a great victory.");
+            if (Completer != null) {
+                Completer(this, new SolutionReachedArgs(solution, stats.listResults()));
             }
-            Console.WriteLine("Well, that's not *quite* what I was going for.");
         }
 
         internal void setActivePuzzle(int p) {

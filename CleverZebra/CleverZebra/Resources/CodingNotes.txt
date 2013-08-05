@@ -150,3 +150,6 @@ All patterns translated, though some remain untested. All written tests still pa
 Moved the Results class to Representation so Controller keeps a record of the stats rather than receiving a list of objects.
 More of the GUI done. Looking lovely. Controller being a singleton allows all windows to get the bits of the puzzle text they require, which is more useful that ever here. The listbox of puzzles contains all items found in the main puzzle source.
 Added a solver page to navigate to after selecting a puzzle and created frames for clues and Solution box. Solution box doesn't currently show values in table cells, which is annoying. Should create a test button that tries to add something to a cell and see if that works.
+-------
+Aug 5th
+Have spent today working some more on the UI, to little progress, seemingly. Then i decided to run all of the tests and the Logix Problem_Tests are taking ages to complete. The only thing that's changed is the events added in, which in the test version would be a chain linking down to the point at which the UI would be attached, but here isn't. Frustrating.

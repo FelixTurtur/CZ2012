@@ -287,6 +287,7 @@ namespace CleverZebra
         }
 
         private void btnSolve_Click(object sender, EventArgs e) {
+            Controller.getInstance().Completer += puzzle_complete;
             Controller.getInstance().Updater += controller_update;
             SetupSolutionArea();
             try {
@@ -309,6 +310,14 @@ namespace CleverZebra
             }
         }
 
+        private void puzzle_complete(Controller c, SolutionReachedArgs e) {
+            for (int r = 0; r < e.solution.Count; r++) {
+                for (int i = 0; i < e.solution[r].Count; i++) {
+                    dgvSolution.Rows[r].Cells[i].Value = e.solution[r][i];
+                }
+            }
+        }
+
         private void SetupSolutionArea() {
             lGridTitle = new Label();
             lGridTitle = makeTitleLabel();
@@ -317,18 +326,21 @@ namespace CleverZebra
             data = new DataTable();
             int height = Controller.getInstance().getActiveHeight();
             int width = Controller.getInstance().getActiveWidth();
-            if (dgvSolution.Columns.Count == 0) {
-                List<string> catTitles = Controller.getInstance().getCategoryTitles();
-                for (int i = 0; i < catTitles.Count; i++) {
-                    data.Columns.Add(catTitles[i]);
-                }
+            List<string> catTitles = Controller.getInstance().getCategoryTitles();
+            for (int i = 0; i < catTitles.Count; i++) {
+                data.Columns.Add(catTitles[i]);
             }
             object[] rowItems = new object[width];
             for (int i = 0; i < height;i++ ) {
                 for (int j = 0; j < width; j++) {
                     rowItems[j] = "?";
                 }
-                data.Rows.Add(rowItems);
+                if (data.Rows.Count < i + 1) {
+                    data.Rows.Add(rowItems);
+                }
+                else {
+                    data.Rows[i].ItemArray = rowItems;
+                }
             }
 
             dgvSolution.DataSource = data;
@@ -351,21 +363,17 @@ namespace CleverZebra
             return title;
         }
 
-
         internal void controller_update(Controller c, SolutionBoxEventArgs e) {
             //show Update
-            this.dgvSolution.Rows[e.line].Cells[e.catIndex].Value = e.item;
-            this.pbSolving.PerformStep();
+            try {
+                this.data.Rows[e.line].ItemArray[e.catIndex] = e.item;
+                dgvSolution.UpdateCellValue(e.line, e.catIndex);
+                this.pbSolving.PerformStep();
+            }
+            catch (Exception ex) {
+                throw new Exception("Controller Update failure");
+            }
         }
 
-        private void czButton1_Click(object sender, EventArgs e) {
-            dgvSolution.Rows[0].Cells[2].Value = "Crunchy";
-            dgvSolution.UpdateCellValue(2,0);
-        }
-
-        private void czButton2_Click(object sender, EventArgs e) {
-            dgvSolution.Rows[1].Cells[2].Value = "Crispy";
-            dgvSolution.UpdateCellValue(2, 0);
-        }
     }
 }

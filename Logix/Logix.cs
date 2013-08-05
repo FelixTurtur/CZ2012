@@ -19,10 +19,10 @@ namespace Logix {
 
         public List<List<string>> Solve(Puzzle p) {
             this.p = p;
-            Deducer brains = new Deducer(p.height, p.width);
+            Deducer brains = new Deducer(p.width, p.height );
             brains.Concluded += brains_solveComplete;
             brains.Update += brains_Update;
-            brains.setClues(p.getClues());
+            brains.setClues(p.getRules());
             int[,] solutionMatrix = new int[p.height, p.width];
             
             try {

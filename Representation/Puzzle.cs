@@ -13,6 +13,7 @@ namespace Representation {
         private int id;
         private string preamble;
         private List<string> clues;
+        private List<string> rules;
         private List<string> categories;
         private List<string> items;
         private List<string> keywords;
@@ -21,6 +22,10 @@ namespace Representation {
 
         public List<string> getClues() {
             return clues;
+        }
+
+        public List<string> getRules() {
+            return this.rules;
         }
 
         public Puzzle() { }
@@ -80,7 +85,7 @@ namespace Representation {
         }
         
         public void setRules(List<string> rules) {
-            throw new NotImplementedException();
+            this.rules = rules;
         }
 
         public string getNameAt(int cat, int index) {

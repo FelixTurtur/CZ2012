@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Logix
@@ -46,6 +47,8 @@ namespace Logix
             int y = item[0] - LEFTCHAR;
             int val = Convert.ToInt32(item.Substring(1));
             matrix[x, y] = val;
+            onUpdate(new SolutionUpdateArgs(item, x));
+            Thread.Sleep(2000);
         }
 
         private void onUpdate(SolutionUpdateArgs a) {

@@ -76,6 +76,7 @@
     <Compile Include="Resources\CZButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SolutionReachedArgs.cs" />
     <EmbeddedResource Include="GUI\frmSolver.resx">
       <DependentUpon>frmSolver.cs</DependentUpon>
     </EmbeddedResource>
