@@ -21,7 +21,7 @@
 <item>Bowler Hat</item>
 <item>Flat Cap</item>
 </category>
-<category name="Day" keyword="days">
+<category name="Day" keyword="date">
 <item>Monday</item>
 <item>Wednesday</item>
 <item>Friday</item>
@@ -180,7 +180,7 @@
 <item>Grandmother</item>
 <item>Mother</item>
 </category>
-<category name="Night eaten" keyword="days">
+<category name="Night eaten" keyword="date">
 <item>Monday</item>
 <item>Tuesday</item>
 <item>Wednesday</item>

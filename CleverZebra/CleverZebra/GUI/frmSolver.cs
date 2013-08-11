@@ -29,6 +29,7 @@ namespace CleverZebra
         private Label lbStats;
         private FlowLayoutPanel flpStats;
         private RichTextBox tbRelations;
+        private FlowLayoutPanel flpRelations;
         private DataTable data;
 
         #region Constructor and Initialise
@@ -65,6 +66,7 @@ namespace CleverZebra
             this.lbStats = new System.Windows.Forms.Label();
             this.flpStats = new System.Windows.Forms.FlowLayoutPanel();
             this.pbSolving = new System.Windows.Forms.ProgressBar();
+            this.flpRelations = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSolve = new CleverZebra.Resources.CZButton();
             this.btnBack = new CleverZebra.Resources.CZButton();
             this.flpText.SuspendLayout();
@@ -74,6 +76,7 @@ namespace CleverZebra
             this.flpResults.SuspendLayout();
             this.gbRelations.SuspendLayout();
             this.gbStats.SuspendLayout();
+            this.flpRelations.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpText
@@ -199,16 +202,16 @@ namespace CleverZebra
             // 
             this.gbRelations.AutoSize = true;
             this.gbRelations.BackColor = System.Drawing.Color.Black;
-            this.gbRelations.Controls.Add(this.tbRelations);
+            this.gbRelations.Controls.Add(this.flpRelations);
             this.gbRelations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbRelations.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbRelations.ForeColor = System.Drawing.Color.DarkOrange;
             this.gbRelations.Location = new System.Drawing.Point(3, 5);
             this.gbRelations.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.gbRelations.MaximumSize = new System.Drawing.Size(270, 280);
-            this.gbRelations.MinimumSize = new System.Drawing.Size(260, 110);
+            this.gbRelations.MinimumSize = new System.Drawing.Size(260, 108);
             this.gbRelations.Name = "gbRelations";
-            this.gbRelations.Size = new System.Drawing.Size(260, 111);
+            this.gbRelations.Size = new System.Drawing.Size(260, 274);
             this.gbRelations.TabIndex = 3;
             this.gbRelations.TabStop = false;
             this.gbRelations.Text = "Relations Found";
@@ -218,12 +221,12 @@ namespace CleverZebra
             // 
             this.tbRelations.BackColor = System.Drawing.Color.Black;
             this.tbRelations.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbRelations.Dock = System.Windows.Forms.DockStyle.Top;
             this.tbRelations.ForeColor = System.Drawing.Color.DarkOrange;
-            this.tbRelations.Location = new System.Drawing.Point(3, 19);
+            this.tbRelations.Location = new System.Drawing.Point(3, 3);
+            this.tbRelations.MaximumSize = new System.Drawing.Size(250, 250);
             this.tbRelations.Name = "tbRelations";
             this.tbRelations.ReadOnly = true;
-            this.tbRelations.Size = new System.Drawing.Size(254, 89);
+            this.tbRelations.Size = new System.Drawing.Size(235, 227);
             this.tbRelations.TabIndex = 0;
             this.tbRelations.Text = "";
             // 
@@ -276,6 +279,17 @@ namespace CleverZebra
             this.pbSolving.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pbSolving.TabIndex = 5;
             this.pbSolving.Visible = false;
+            // 
+            // flpRelations
+            // 
+            this.flpRelations.AutoSize = true;
+            this.flpRelations.Controls.Add(this.tbRelations);
+            this.flpRelations.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpRelations.Location = new System.Drawing.Point(6, 19);
+            this.flpRelations.MaximumSize = new System.Drawing.Size(320, 380);
+            this.flpRelations.Name = "flpRelations";
+            this.flpRelations.Size = new System.Drawing.Size(244, 233);
+            this.flpRelations.TabIndex = 6;
             // 
             // btnSolve
             // 
@@ -331,8 +345,10 @@ namespace CleverZebra
             this.flpResults.ResumeLayout(false);
             this.flpResults.PerformLayout();
             this.gbRelations.ResumeLayout(false);
+            this.gbRelations.PerformLayout();
             this.gbStats.ResumeLayout(false);
             this.gbStats.PerformLayout();
+            this.flpRelations.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -401,18 +417,39 @@ namespace CleverZebra
                 displayRelations(relations);
             }
             catch (Exception p) {
-                //announce Parser error
-                pbSolving.Hide();
-                pbSolving.Value = 0;
+                displayParserError(p);
+                return;
             }
             try {
                 Controller.getInstance().SolveProblem();
             }
             catch (Exception l) {
-                //announc Logix error
-                pbSolving.Hide();
-                pbSolving.Value = 0;
+                displayLogixError(l);
             }
+        }
+
+        private void displayLogixError(Exception l) {
+            this.lbStats.Text = "Puzzle solution not found.\n";
+            this.lbStats.Text += l.Message;
+            this.lbStats.Text += "\n";
+            this.lbStats.Text += l.InnerException == null ? "" : l.InnerException.Message;
+            this.flpResults.Visible = true;
+            this.gbStats.Visible = true;
+            pbSolving.Hide();
+            pbSolving.Value = 0;
+        }
+
+        private void displayParserError(Exception p) {
+            this.tbRelations.ReadOnly = false;
+            this.tbRelations.Text = "Unable to parse problem clues.\n";
+            this.tbRelations.Text += p.Message;
+            this.tbRelations.Text += "\n";
+            this.tbRelations.Text += p.InnerException == null ? "" : p.InnerException.Message;
+            this.tbRelations.ReadOnly = true;
+            this.flpResults.Visible = true;
+            this.gbRelations.Visible = true;
+            pbSolving.Hide();
+            pbSolving.Value = 0;
         }
 
         private void displayRelations(List<string> relations) {
@@ -421,9 +458,10 @@ namespace CleverZebra
                 this.tbRelations.Text += r;
                 this.tbRelations.Text += "\n";
             }
-            this.tbRelations.ReadOnly = true;
             this.flpResults.Visible = true;
             this.gbRelations.Visible = true;
+            this.tbRelations.Visible = true;
+            this.tbRelations.ReadOnly = true;
         }
 
         private void SetupSolutionArea() {

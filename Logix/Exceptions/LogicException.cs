@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace Logix {
     public class LogicException : ApplicationException {
         private string p;
+        private Exception e;
 
         public LogicException(string message, Exception e)
-            : base(message) {
+            : base(message, e) {
             this.p = message;
+            this.e = e;
         }
     }
 }
