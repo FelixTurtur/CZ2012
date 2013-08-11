@@ -20,10 +20,10 @@ namespace Logix.Calculators
         }
 
         public Calculator createCalculator(string keyword) {
-            switch (keyword) {
-                case "Numeric":
+            switch (keyword.ToLower()) {
+                case "numeric":
                     return new NumberCalculator();
-                case "Date":
+                case "date":
                     return new DateCalculator();
                 default:
                     throw new ArgumentException("No Calculator available for keyword " + keyword);

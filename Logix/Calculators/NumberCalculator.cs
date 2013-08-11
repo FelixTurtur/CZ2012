@@ -9,7 +9,7 @@ namespace Logix.Calculators
     public class NumberCalculator : Calculator
     {
         public override object calculateValue(object knownValue, string comparative) {
-            int baseValue = (int)knownValue;
+            int baseValue = Convert.ToInt32(knownValue);
             char op = comparative[0];
             int difference = Convert.ToInt32(comparative.Substring(1));
             switch (op) {

@@ -12,7 +12,7 @@ namespace Logix
 
         internal CategoryBuilder() {}
 
-        internal void newKitty() {
+        internal void newCat() {
             cat = new Category();
         }
 
@@ -21,7 +21,7 @@ namespace Logix
         }
 
         internal void quickSet(char c, int s) {
-            newKitty();
+            newCat();
             cat.identifier = c;
             cat.size = s;
         }
@@ -34,13 +34,17 @@ namespace Logix
             cat.setKeyword(key);
         }
 
-        internal void enterCategoryValues(object[] list) {
+        internal void setValues(object[] list) {
+            cat.createInnerArray();
             cat.enterValues(list);
         }
 
         internal Category build() {
-            cat.createInnerArray();
+            if (!cat.isInnerArraySet()) {
+                cat.createInnerArray();
+            }
             return cat;
         }
+
     }
 }

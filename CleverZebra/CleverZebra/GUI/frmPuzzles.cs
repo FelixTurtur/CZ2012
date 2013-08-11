@@ -28,14 +28,9 @@ namespace CleverZebra
         }
 
         void frmPuzzles_FormClosing(object sender, FormClosingEventArgs e) {
-            var result = MessageBox.Show("Are you sure you want to quit?", "Confirm exit", MessageBoxButtons.OKCancel);
-            if (result == System.Windows.Forms.DialogResult.OK) {
-                this.FormClosing -= frmPuzzles_FormClosing;
-                Application.Exit();
-            }
-            else {
-                e.Cancel = true;
-            }
+            this.Owner.Show();
+            this.FormClosing -= frmPuzzles_FormClosing;
+            this.Close();
         }
         
         #region initialiser
@@ -160,6 +155,7 @@ namespace CleverZebra
             this.Controls.Add(this.lbPuzzles);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "frmPuzzles";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

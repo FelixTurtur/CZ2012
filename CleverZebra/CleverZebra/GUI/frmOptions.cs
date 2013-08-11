@@ -108,6 +108,7 @@ namespace CleverZebra
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "frmOptions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
             this.PerformLayout();
 

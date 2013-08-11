@@ -64,8 +64,24 @@ namespace Logix
             if (list.Length < this.size) {
                 throw new ArgumentException("List contains too few arguements for this Line. Line: " + this.identifier + " Size: " + this.size + " List length: " + list.Length);
             }
-            for (int i = 1; i <= size; i++) {
-                this.innerArray[1][i] = list[i - 1];
+            if (keyword.ToLower() == "numeric") {
+                //keep just number
+                string aux = "";
+                int n = 0;
+                for (int i = 0; i < size; i++) {
+                    foreach (string s in list[i].ToString().Split(new char[] {' '})) {
+                        if (int.TryParse(s, out n)) {
+                            aux += n.ToString();
+                        }
+                    }
+                    this.innerArray[1][i+1] = aux;
+                    aux = "";
+                }
+            }
+            else {
+                for (int i = 1; i <= size; i++) {
+                    this.innerArray[1][i] = list[i - 1];
+                }
             }
         }
 
@@ -139,7 +155,7 @@ namespace Logix
 
         internal string findItem(object targetValue) {
             for (int i = 1; i <= this.size; i++) {
-                if (innerArray[(int)Rows.Values][i].Equals(targetValue)) {
+                if (innerArray[(int)Rows.Values][i].ToString() == targetValue.ToString()) {
                     return this.identifier + i.ToString();
                 }
             }
@@ -391,6 +407,10 @@ namespace Logix
                 }
             }
             return true;
+        }
+
+        internal bool isInnerArraySet() {
+            return innerArray != null;
         }
     }
 }

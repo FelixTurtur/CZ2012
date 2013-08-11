@@ -20,7 +20,7 @@ namespace Logix {
 
         public List<List<string>> Solve(Puzzle p) {
             this.p = p;
-            Deducer brains = new Deducer(p.width, p.height, p.getKeywords(), goSlow );
+            Deducer brains = new Deducer(p, goSlow );
             brains.Concluded += brains_solveComplete;
             brains.Update += brains_Update;
             brains.setClues(p.getRules());

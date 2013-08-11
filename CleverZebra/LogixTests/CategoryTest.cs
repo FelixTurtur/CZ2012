@@ -12,7 +12,7 @@ namespace LogixTests
 
         [TestMethod]
         public void Create_And_Test_Line() {
-            catBuilder.newKitty();
+            catBuilder.newCat();
             catBuilder.setIdentifier('B');
             catBuilder.setSize(5);
             var cat1 = catBuilder.build();

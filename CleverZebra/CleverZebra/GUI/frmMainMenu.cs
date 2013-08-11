@@ -19,23 +19,11 @@ namespace CleverZebra
         }
 
         void frmMainMenu_FormClosing(object sender, FormClosingEventArgs e) {
-            var result = MessageBox.Show("Are you sure you want to quit?","Confirm exit", MessageBoxButtons.OKCancel);
-            if (result == System.Windows.Forms.DialogResult.OK) {
-                this.FormClosing -= frmMainMenu_FormClosing;
-                Application.Exit();
-            }
-            else {
-                e.Cancel = true;
-            }
-        }
-
-        private void btnQuit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+            Exit(sender, e);
         }
 
         private void btnExit_Click(object sender, EventArgs e) {
-           Application.Exit();
+            Exit(sender, new FormClosingEventArgs(CloseReason.ApplicationExitCall, false));
         }
 
         private void btnSettings_Click(object sender, EventArgs e) {
@@ -50,7 +38,20 @@ namespace CleverZebra
             frmPuzzles solveBox = new frmPuzzles();
             this.AddOwnedForm(solveBox);
             this.Hide();
+            this.FormClosing -= frmMainMenu_FormClosing;
             solveBox.Show();
         }
+
+        internal void Exit(object sender, FormClosingEventArgs e) {
+            var result = MessageBox.Show("Are you sure you want to quit?", "Confirm exit", MessageBoxButtons.OKCancel);
+            if (result == System.Windows.Forms.DialogResult.OK) {
+                this.FormClosing -= frmMainMenu_FormClosing;
+                Application.Exit();
+            }
+            else {
+                e.Cancel = true;
+            }
+        }
+
     }
 }

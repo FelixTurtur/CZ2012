@@ -320,6 +320,7 @@ namespace CleverZebra
             this.Controls.Add(this.flpText);
             this.Controls.Add(this.btnBack);
             this.Name = "frmSolver";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmSolver";
             this.flpText.ResumeLayout(false);
             this.flpText.PerformLayout();

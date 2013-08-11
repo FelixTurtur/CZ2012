@@ -23,7 +23,13 @@ namespace Logix {
         private const int MAXTURNS = 200;
         private const int ABSURDIO_SPACING = 8;
 
-        public Deducer(int x, int y, string[] keys = null, bool slow = false) {
+        /// <summary>
+        /// Constructor for testing purposes
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="keys"></param>
+        public Deducer(int x, int y, string[] keys = null) {
             this.puzzleBreadth = x;
             this.puzzleDepth = y;
             this.relationBuilder = RelationFactory.getInstance();
@@ -32,7 +38,7 @@ namespace Logix {
             CategoryBuilder catBuilder = new CategoryBuilder();
             char c = 'A';
             for (int i = 0; i < puzzleBreadth; i++, c++) {
-                catBuilder.newKitty();
+                catBuilder.newCat();
                 catBuilder.setIdentifier(c);
                 catBuilder.setSize(puzzleDepth);
                 if (!string.IsNullOrEmpty(keywords[i])) {
@@ -42,10 +48,33 @@ namespace Logix {
                 cats[i].Matched += Deducer_Matched;
             }
             solution = new Solution(x,y);
+            solution.goSlow = false;
+        }
+
+        public Deducer(Puzzle p, bool slow = false) {
+            this.puzzleBreadth = p.width;
+            this.puzzleDepth = p.height;
+            this.relationBuilder = RelationFactory.getInstance();
+            this.cats = new List<Category>();
+            this.keywords = p.getKeywords();
+            CategoryBuilder catBuilder = new CategoryBuilder();
+            char c = 'A';
+            for (int i = 0; i < puzzleBreadth; i++, c++) {
+                catBuilder.newCat();
+                catBuilder.setIdentifier(c);
+                catBuilder.setSize(puzzleDepth);
+                if (!string.IsNullOrEmpty(keywords[i])) {
+                    catBuilder.setKeyword(keywords[i]);
+                    catBuilder.setValues(p.getItems().GetRange(i * puzzleDepth, puzzleDepth).ToArray());
+                }
+                this.cats.Add(catBuilder.build());
+                cats[i].Matched += Deducer_Matched;
+            }
+            solution = new Solution(p.width, p.height);
             solution.goSlow = slow;
             solution.Updater += solution_Updater;
         }
-
+        
         void solution_Updater(Solution sender, SolutionUpdateArgs e) {
             if (Update != null) {
                 Update(this, e);
