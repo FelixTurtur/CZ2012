@@ -39,7 +39,7 @@ namespace CleverZebra
         }
 
         void frmSolver_FormClosing(object sender, FormClosingEventArgs e) {
-            var result = MessageBox.Show("Are you sure you want to quit?","Confirm exit", MessageBoxButtons.OKCancel);
+            var result = MessageBox.Show("Leave this window?","Confirm close", MessageBoxButtons.OKCancel);
             if (result == System.Windows.Forms.DialogResult.OK) {
                 this.FormClosing -= frmSolver_FormClosing;
                 Application.Exit();

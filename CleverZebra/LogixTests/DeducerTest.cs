@@ -46,11 +46,11 @@ namespace LogixTests
 
         [TestMethod]
         public void First_Problem_Test() {
-            List<string> clues = new List<string> { "A3=D1", "A2(C)-A3(C)=1", "A2=B3", "B2=D3", "D2!=C2" };
-            Deducer brains = new Deducer(4, 3, new string[] {"", "", "Numeric", ""});
+            List<string> clues = new List<string> { "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "D2!=C2" };
+            Deducer brains = new Deducer(4, 3, new string[] {"", "", "Date", ""});
             brains.Concluded += brains_Concluded;
             brains.setClues(clues);
-            brains.enterCategoryValues('C', new object[] {1, 2, 3});
+            brains.enterCategoryValues('C', new object[] {"Monday", "Wednesday", "Friday"});
             int[,] matrix = brains.Go();
             Assert.IsNotNull(matrix);
             int[,] providedMatrix = new int[3,4]{{1,2,1,3},{2,3,3,2},{3,1,2,1}};

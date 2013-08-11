@@ -44,10 +44,10 @@ namespace Logix.Calculators
         public override bool checkPredicate(object item, string comparator, string bound) {
             try {
                 if (Representation.Relations.checkDirection(comparator) == Relations.Directions.Lower) {
-                    return Convert.ToInt32(item) < Convert.ToInt32(item);
+                    return Convert.ToInt32(item) < Convert.ToInt32(bound);
                 }
                 else {
-                    return Convert.ToInt32(item) > Convert.ToInt32(item);
+                    return Convert.ToInt32(item) > Convert.ToInt32(bound);
                 }
             }
             catch (Exception e) {
