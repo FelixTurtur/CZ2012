@@ -14,6 +14,7 @@ namespace Logix
         int[,] matrix;
         char LEFTCHAR = 'A';
         public event SolutionUpdateHandler Updater;
+        internal bool goSlow;
 
         public Solution(int breadth, int depth) {
             matrix = new int[depth, breadth];
@@ -48,6 +49,9 @@ namespace Logix
             int val = Convert.ToInt32(item.Substring(1));
             matrix[x, y] = val;
             onUpdate(new SolutionUpdateArgs(item, x));
+            if (goSlow) {
+                Thread.Sleep(50);
+            }
         }
 
         private void onUpdate(SolutionUpdateArgs a) {

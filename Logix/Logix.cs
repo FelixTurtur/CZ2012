@@ -14,12 +14,13 @@ namespace Logix {
         public LogixUpdateHandler updater;
         private Representation.Results latestResults;
         private Puzzle p;
+        internal bool goSlow;
 
-        public Logix() { }
+        public Logix(bool slow) { goSlow = slow; }
 
         public List<List<string>> Solve(Puzzle p) {
             this.p = p;
-            Deducer brains = new Deducer(p.width, p.height );
+            Deducer brains = new Deducer(p.width, p.height, p.getKeywords(), goSlow );
             brains.Concluded += brains_solveComplete;
             brains.Update += brains_Update;
             brains.setClues(p.getRules());

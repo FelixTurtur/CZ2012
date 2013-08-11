@@ -23,7 +23,7 @@ namespace Logix {
         private const int MAXTURNS = 200;
         private const int ABSURDIO_SPACING = 8;
 
-        public Deducer(int x, int y, string[] keys = null) {
+        public Deducer(int x, int y, string[] keys = null, bool slow = false) {
             this.puzzleBreadth = x;
             this.puzzleDepth = y;
             this.relationBuilder = RelationFactory.getInstance();
@@ -42,6 +42,7 @@ namespace Logix {
                 cats[i].Matched += Deducer_Matched;
             }
             solution = new Solution(x,y);
+            solution.goSlow = slow;
             solution.Updater += solution_Updater;
         }
 

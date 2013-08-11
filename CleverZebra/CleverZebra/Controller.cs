@@ -29,7 +29,7 @@ namespace CleverZebra {
         private Puzzle activePuzzle;
         internal SolverBoxUpdateHandler Updater;
         internal PuzzleCompleteHandler Completer;
-        public Semaphore sem;
+        internal bool goSlow;
 
         public void loadPuzzles(XmlDocument sourceDoc = null) {
             if (sourceDoc == null) {
@@ -52,22 +52,20 @@ namespace CleverZebra {
             throw new NotImplementedException();
         }
 
-        public void Solve(Puzzle puzzle = null) {
+        public void Solve(Puzzle puzzle = null, bool slow = false) {
             if (puzzle != null) {
                 activePuzzle = puzzle;
             }
-            try {
-                Parser parser = new Parser(activePuzzle);
-                List<string> rules = parser.Read();
-                activePuzzle.setRules(rules);
-            }
-            catch (Exception e) {
-                throw new CZParser.ParserException("Unable to parse clues for puzzle id: " + activePuzzle.getId(), e);
-            }
+            goSlow = slow;
+            ParseClues();
+            SolveProblem();
+        }
+
+        public void SolveProblem() {
             List<List<string>> solution = null;
             Representation.Results stats = null;
             try {
-                Logix.Logix logix = new Logix.Logix();
+                Logix.Logix logix = new Logix.Logix(goSlow);
                 logix.updater += logix_update;
                 solution = logix.Solve(activePuzzle);
                 stats = logix.getLastResults();
@@ -76,6 +74,18 @@ namespace CleverZebra {
                 throw new Logix.LogicException("Unable to solve puzzle id: " + activePuzzle.getId(), e);
             }
             reportSuccess(solution, stats);
+        }
+
+        public List<string> ParseClues() {
+            try {
+                Parser parser = new Parser(activePuzzle);
+                List<string> rules = parser.Read();
+                activePuzzle.setRules(rules);
+                return rules;
+            }
+            catch (Exception e) {
+                throw new CZParser.ParserException("Unable to parse clues for puzzle id: " + activePuzzle.getId(), e);
+            }
         }
 
         public void logix_update(Logix.Logix sender, SolutionBoxEventArgs e) {

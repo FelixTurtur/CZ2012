@@ -24,12 +24,29 @@ namespace CleverZebra
         private Resources.CZButton btnSolve;
         private FlowLayoutPanel flpResults;
         private ProgressBar pbSolving;
+        private GroupBox gbRelations;
+        private GroupBox gbStats;
+        private Label lbStats;
+        private FlowLayoutPanel flpStats;
+        private RichTextBox tbRelations;
         private DataTable data;
 
         #region Constructor and Initialise
         public frmSolver() {
             InitializeComponent();
             setupPuzzle();
+            this.FormClosing += frmSolver_FormClosing;
+        }
+
+        void frmSolver_FormClosing(object sender, FormClosingEventArgs e) {
+            var result = MessageBox.Show("Are you sure you want to quit?","Confirm exit", MessageBoxButtons.OKCancel);
+            if (result == System.Windows.Forms.DialogResult.OK) {
+                this.FormClosing -= frmSolver_FormClosing;
+                Application.Exit();
+            }
+            else {
+                e.Cancel = true;
+            }
         }
 
         internal void InitializeComponent() {
@@ -42,6 +59,11 @@ namespace CleverZebra
             this.flpSolution = new System.Windows.Forms.FlowLayoutPanel();
             this.dgvSolution = new System.Windows.Forms.DataGridView();
             this.flpResults = new System.Windows.Forms.FlowLayoutPanel();
+            this.gbRelations = new System.Windows.Forms.GroupBox();
+            this.tbRelations = new System.Windows.Forms.RichTextBox();
+            this.gbStats = new System.Windows.Forms.GroupBox();
+            this.lbStats = new System.Windows.Forms.Label();
+            this.flpStats = new System.Windows.Forms.FlowLayoutPanel();
             this.pbSolving = new System.Windows.Forms.ProgressBar();
             this.btnSolve = new CleverZebra.Resources.CZButton();
             this.btnBack = new CleverZebra.Resources.CZButton();
@@ -49,6 +71,9 @@ namespace CleverZebra
             this.gbClues.SuspendLayout();
             this.flpSolution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSolution)).BeginInit();
+            this.flpResults.SuspendLayout();
+            this.gbRelations.SuspendLayout();
+            this.gbStats.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpText
@@ -162,11 +187,84 @@ namespace CleverZebra
             // 
             this.flpResults.BackColor = System.Drawing.Color.Transparent;
             this.flpResults.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.flpResults.Controls.Add(this.gbRelations);
+            this.flpResults.Controls.Add(this.gbStats);
             this.flpResults.Location = new System.Drawing.Point(383, 230);
             this.flpResults.Name = "flpResults";
             this.flpResults.Size = new System.Drawing.Size(539, 287);
             this.flpResults.TabIndex = 4;
             this.flpResults.Visible = false;
+            // 
+            // gbRelations
+            // 
+            this.gbRelations.AutoSize = true;
+            this.gbRelations.BackColor = System.Drawing.Color.Black;
+            this.gbRelations.Controls.Add(this.tbRelations);
+            this.gbRelations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gbRelations.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbRelations.ForeColor = System.Drawing.Color.DarkOrange;
+            this.gbRelations.Location = new System.Drawing.Point(3, 5);
+            this.gbRelations.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.gbRelations.MaximumSize = new System.Drawing.Size(270, 280);
+            this.gbRelations.MinimumSize = new System.Drawing.Size(260, 110);
+            this.gbRelations.Name = "gbRelations";
+            this.gbRelations.Size = new System.Drawing.Size(260, 111);
+            this.gbRelations.TabIndex = 3;
+            this.gbRelations.TabStop = false;
+            this.gbRelations.Text = "Relations Found";
+            this.gbRelations.Visible = false;
+            // 
+            // tbRelations
+            // 
+            this.tbRelations.BackColor = System.Drawing.Color.Black;
+            this.tbRelations.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbRelations.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tbRelations.ForeColor = System.Drawing.Color.DarkOrange;
+            this.tbRelations.Location = new System.Drawing.Point(3, 19);
+            this.tbRelations.Name = "tbRelations";
+            this.tbRelations.ReadOnly = true;
+            this.tbRelations.Size = new System.Drawing.Size(254, 89);
+            this.tbRelations.TabIndex = 0;
+            this.tbRelations.Text = "";
+            // 
+            // gbStats
+            // 
+            this.gbStats.BackColor = System.Drawing.Color.Black;
+            this.gbStats.Controls.Add(this.lbStats);
+            this.gbStats.Controls.Add(this.flpStats);
+            this.gbStats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gbStats.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbStats.ForeColor = System.Drawing.Color.DarkOrange;
+            this.gbStats.Location = new System.Drawing.Point(269, 5);
+            this.gbStats.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.gbStats.MaximumSize = new System.Drawing.Size(270, 280);
+            this.gbStats.MinimumSize = new System.Drawing.Size(200, 100);
+            this.gbStats.Name = "gbStats";
+            this.gbStats.Size = new System.Drawing.Size(260, 108);
+            this.gbStats.TabIndex = 6;
+            this.gbStats.TabStop = false;
+            this.gbStats.Text = "Stats";
+            this.gbStats.Visible = false;
+            // 
+            // lbStats
+            // 
+            this.lbStats.AutoSize = true;
+            this.lbStats.Location = new System.Drawing.Point(7, 19);
+            this.lbStats.Name = "lbStats";
+            this.lbStats.Size = new System.Drawing.Size(143, 15);
+            this.lbStats.TabIndex = 2;
+            this.lbStats.Text = "Puzzle solved successfully";
+            // 
+            // flpStats
+            // 
+            this.flpStats.AutoSize = true;
+            this.flpStats.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpStats.Location = new System.Drawing.Point(3, 19);
+            this.flpStats.MaximumSize = new System.Drawing.Size(250, 280);
+            this.flpStats.Name = "flpStats";
+            this.flpStats.Size = new System.Drawing.Size(250, 0);
+            this.flpStats.TabIndex = 1;
             // 
             // pbSolving
             // 
@@ -214,7 +312,7 @@ namespace CleverZebra
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::CleverZebra.Properties.Resources.CircleSparks;
-            this.ClientSize = new System.Drawing.Size(934, 527);
+            this.ClientSize = new System.Drawing.Size(936, 530);
             this.Controls.Add(this.pbSolving);
             this.Controls.Add(this.flpResults);
             this.Controls.Add(this.btnSolve);
@@ -229,6 +327,11 @@ namespace CleverZebra
             this.gbClues.PerformLayout();
             this.flpSolution.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSolution)).EndInit();
+            this.flpResults.ResumeLayout(false);
+            this.flpResults.PerformLayout();
+            this.gbRelations.ResumeLayout(false);
+            this.gbStats.ResumeLayout(false);
+            this.gbStats.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -284,40 +387,42 @@ namespace CleverZebra
             this.Owner.Show();
             Controller.getInstance().Updater -= controller_update;
             Controller.getInstance().Completer -= puzzle_complete;
+            this.FormClosing -= frmSolver_FormClosing;
             this.Dispose();
         }
 
         private void btnSolve_Click(object sender, EventArgs e) {
-            Controller.getInstance().Completer += puzzle_complete;
-            Controller.getInstance().Updater += controller_update;
+            Controller.getInstance().Completer = puzzle_complete;
+            Controller.getInstance().Updater = controller_update;
             SetupSolutionArea();
             try {
-                Controller.getInstance().Solve();
+                List<string> relations = Controller.getInstance().ParseClues();
+                displayRelations(relations);
             }
-            catch (CZParser.ParserException p) {
+            catch (Exception p) {
                 //announce Parser error
                 pbSolving.Hide();
                 pbSolving.Value = 0;
             }
-            catch (Logix.LogicException l) {
-                //announc Logix error
-                pbSolving.Hide();
-                pbSolving.Value = 0;
+            try {
+                Controller.getInstance().SolveProblem();
             }
-            catch (Exception ex) {
-                //unexpected error
+            catch (Exception l) {
+                //announc Logix error
                 pbSolving.Hide();
                 pbSolving.Value = 0;
             }
         }
 
-        private void puzzle_complete(Controller c, SolutionReachedArgs e) {
-            pbSolving.Hide();
-            for (int r = 0; r < e.solution.Count; r++) {
-                for (int i = 0; i < e.solution[r].Count; i++) {
-                    dgvSolution.Rows[r].Cells[i].Value = e.solution[r][i];
-                }
+        private void displayRelations(List<string> relations) {
+            this.tbRelations.ReadOnly = false;
+            foreach (string r in relations) {
+                this.tbRelations.Text += r;
+                this.tbRelations.Text += "\n";
             }
+            this.tbRelations.ReadOnly = true;
+            this.flpResults.Visible = true;
+            this.gbRelations.Visible = true;
         }
 
         private void SetupSolutionArea() {
@@ -368,6 +473,24 @@ namespace CleverZebra
             return title;
         }
 
+        private void puzzle_complete(Controller c, SolutionReachedArgs e) {
+            pbSolving.Hide();
+            for (int r = 0; r < e.solution.Count; r++) {
+                for (int i = 0; i < e.solution[r].Count; i++) {
+                    dgvSolution.Rows[r].Cells[i].Value = e.solution[r][i];
+                }
+            }
+            this.lbStats.Text = e.success ? "Puzzle successfully solved!" : "Puzzle solution not found.";
+            if (e.success) {
+                this.lbStats.Text += "\n";
+                this.lbStats.Text += "Solution found in " + e.numTurns + " steps";
+                this.lbStats.Text += "\n";
+                this.lbStats.Text += "Time taken: " + e.solutionTime.TotalMilliseconds + "ms";
+            }
+            this.flpResults.Visible = true;
+            this.gbStats.Visible = true;
+        }
+
         internal void controller_update(Controller c, SolutionBoxEventArgs e) {
             try {
                 dgvSolution.Rows[e.line].Cells[e.catIndex].Value = e.item;
@@ -375,7 +498,7 @@ namespace CleverZebra
                 this.pbSolving.PerformStep();
             }
             catch (Exception ex) {
-                throw new Exception("Controller Update failure");
+                throw new Exception("Controller Update failure", ex);
             }
         }
 

@@ -15,6 +15,18 @@ namespace CleverZebra
         public frmMainMenu()
         {
             InitializeComponent();
+            this.FormClosing += frmMainMenu_FormClosing;
+        }
+
+        void frmMainMenu_FormClosing(object sender, FormClosingEventArgs e) {
+            var result = MessageBox.Show("Are you sure you want to quit?","Confirm exit", MessageBoxButtons.OKCancel);
+            if (result == System.Windows.Forms.DialogResult.OK) {
+                this.FormClosing -= frmMainMenu_FormClosing;
+                Application.Exit();
+            }
+            else {
+                e.Cancel = true;
+            }
         }
 
         private void btnQuit_Click(object sender, EventArgs e)

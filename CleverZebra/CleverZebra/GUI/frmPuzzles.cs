@@ -24,13 +24,20 @@ namespace CleverZebra
             this.lbPuzzles.DataSource = Controller.getInstance().getPuzzleTitles();
             this.lSelectPuzzle.Visible = true;
             this.lbPuzzles.Visible = true;
+            this.FormClosing += frmPuzzles_FormClosing;
         }
 
-        private void btnQuit_Click(object sender, EventArgs e) {
-            this.Owner.Show();
-            this.Close();
+        void frmPuzzles_FormClosing(object sender, FormClosingEventArgs e) {
+            var result = MessageBox.Show("Are you sure you want to quit?", "Confirm exit", MessageBoxButtons.OKCancel);
+            if (result == System.Windows.Forms.DialogResult.OK) {
+                this.FormClosing -= frmPuzzles_FormClosing;
+                Application.Exit();
+            }
+            else {
+                e.Cancel = true;
+            }
         }
-
+        
         #region initialiser
         internal void InitializeComponent()
         {
@@ -168,6 +175,7 @@ namespace CleverZebra
 
         private void btnMainMenu_Click(object sender, EventArgs e) {
            this.Owner.Show();
+           this.FormClosing -= frmPuzzles_FormClosing;
            this.Close();
         }
 
