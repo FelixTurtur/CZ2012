@@ -14,7 +14,6 @@ namespace CZParser
         private static string OF = "To";
         private static string WITH = "Tw";
         private static string EITHER = "Te";
-        private static string NOR = "Tr";
         private static string BUT = "Tb";
         private static string NEGATIVE = "Td";
         private static string FORMER = "Tf";
@@ -217,7 +216,7 @@ namespace CZParser
         }
 
         internal static bool isSingleTermItem(string tag) {
-            return tag == THIS || tag == BUT || tag == NOR;
+            return tag == THIS || tag == BUT;
         }
 
         internal static bool isNegative(string p) {

@@ -51,7 +51,7 @@ namespace CZParser
                 relations.AddRange(leftRelation);
                 string leftItem = getFirstItem(leftRelation[0]);
 
-                List<string> rightRelation = getRelationsFromLine(postBlock);
+                List<string> rightRelation = getRelationsFromLine(postBlock, false);
                 relations.AddRange(rightRelation);
                 string rightItem = getFirstItem(postBlock);
 
@@ -69,7 +69,7 @@ namespace CZParser
                 relations.AddRange(leftRelation);
                 string leftItem = getFirstItem(leftRelation[0]);
 
-                List<string> rightRelation = getRelationsFromLine(postBlock);
+                List<string> rightRelation = getRelationsFromLine(postBlock, false);
                 relations.AddRange(rightRelation);
                 string rightItem = getFirstItem(postBlock);
 
@@ -101,7 +101,7 @@ namespace CZParser
                 List<string> foundRels = getRelationsFromLine(lines[0]);
                 relations.AddRange(foundRels);
                 string leftItem = getFirstItem(foundRels[0]);
-                foundRels = getRelationsFromLine(leftItem + " " + lines[1]);
+                foundRels = getRelationsFromLine(leftItem + " " + lines[1], false);
                 relations.AddRange(foundRels);
                 if (lines.Count() > 2) {
                     relations.AddRange(getRelationsFromMultiLine(line.Substring(lines[0].Length + lines[1].Length + "Tb ".Length)));
@@ -109,7 +109,7 @@ namespace CZParser
             }
             else {
                 foreach (string l in lines) {
-                    relations.AddRange(getRelationsFromLine(l));
+                    relations.AddRange(getRelationsFromLine(l, false));
                 }
             }
             return relations;
@@ -146,10 +146,13 @@ namespace CZParser
             while (p[0] == 'T') {
                 p = p.Substring(p.IndexOf(' ') + 1);
             }
+            if (p.IndexOf(' ') == -1) {
+                return p;
+            }
             return p.Substring(0, p.IndexOf(' '));
         }
 
-        private List<string> getRelationsFromLine(string line) {
+        private List<string> getRelationsFromLine(string line, bool firstLine = true) {
             line = line.Trim();
             if (isCatPair(line)) {
                 return new List<string> { line.Substring(0, line.IndexOf(" ")) + Representation.Relations.Positive + line.Substring(line.IndexOf(" ") + 1) };
@@ -157,7 +160,23 @@ namespace CZParser
             else if (isNegCatPair(line)) {
                 return getNegativeFromPair(line);
             }
-            else if (line.StartsWith("Td")) {
+            else if (line.StartsWith("Td") && firstLine) {
+                //Neither/Nor line - all items should be disassociated to each other, tho' some may be in same category
+                List<string> result = new List<string>();
+                List<string> items = getAllCatItems(line);
+                int j = 0;
+                for (int i = items.Count - 1; i > 0; i--) {
+                    for (int x = 1; x <= i; x++) {
+                        if (items[j][0] == items[j+x][0]) {
+                            continue;
+                        }
+                        result.Add(items[j] + Relations.Negative + items[j + x]);
+                    }
+                    j++;
+                }
+                return result;
+            }
+            else if (line.StartsWith("Td") && !firstLine) {
                 List<string> result = new List<string>();
                 try {
                     string firstTag = line.Substring(3, line.IndexOf(' ', 3) - 3);
@@ -170,11 +189,11 @@ namespace CZParser
                         else {
                             //still more to come
                             result.Add(firstTag + Relations.Negative + secondTag);
-                            result.AddRange(getRelationsFromLine(line.Substring(line.IndexOf(secondTag) + secondTag.Length).Trim()));
+                            result.AddRange(getRelationsFromLine(line.Substring(line.IndexOf(secondTag) + secondTag.Length).Trim(), firstLine));
                         }
                     }
                     else {
-                        result = getRelationsFromLine(line.Substring(line.IndexOf(' ') + 1));
+                        result = getRelationsFromLine(line.Substring(line.IndexOf(' ') + 1),firstLine);
                     }
                     return result;
                 }
@@ -193,6 +212,17 @@ namespace CZParser
             else {
                 throw new ParserException("Unable to handle tag pattern: " + line);
             }
+        }
+
+        private  List<string> getAllCatItems(string line) {
+            List<string> items = new List<string>();
+            string[] bits = line.Split(new char[] { ' ' });
+            foreach (string s in bits) {
+                if (s[0] != 'T') {
+                    items.Add(s);
+                }
+            }
+            return items;
         }
 
         private string removeNonCompCats(string line) {

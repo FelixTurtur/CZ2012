@@ -188,7 +188,35 @@ namespace ParserTests
             foreach (string rule in relations) {
                 Assert.IsTrue(manualRelations.Contains(rule));
             }
+        }
 
+        [TestMethod]
+        public void Check_Fifth_Tagging() {
+            Puzzle p = puzzles[5];
+            Parser parser = new Parser(p);
+            List<string> taggedclues = parser.tagger.tagClues(p.getClues());
+            Assert.IsNotNull(taggedclues);
+            List<string> correctTags = new List<string>() {"A1 C4; Td B1", "A3 B4; B3 C3", "A2 Tg(woman) B2 Tg(male)", "D3 C2", "Td A4 Td C1 D4" };
+            Assert.AreEqual(correctTags.Count, taggedclues.Count);
+            foreach (string clue in taggedclues) {
+                Assert.IsTrue(correctTags.Contains(clue));
+                //Will fail until we can understand gender.
+            }
+        }
+
+        [TestMethod]
+        public void Check_Fifth_Translating() {
+            Puzzle p = puzzles[5];
+            Parser parser = new Parser(p);
+            List<string> relations = parser.Read();
+            //"A2=B2" is not the real rule we should have; it is the one we will get until the test above passes
+            List<string> manualRelations = new List<string> { "A1=C4", "A1!=B1","A3=B4","B3=C3","A2=B2","D3=C2","A4!=C1","A4!=D4","C1!=D4" };
+            foreach (string rule in manualRelations) {
+                Assert.IsTrue(relations.Contains(rule));
+            }
+            foreach (string rule in relations) {
+                Assert.IsTrue(manualRelations.Contains(rule));
+            }
         }
     }
 }

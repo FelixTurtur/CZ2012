@@ -95,6 +95,9 @@ namespace CZParser
                if (buffer.isEmpty()) {
                    string newItem = evaluateTag(lastNonBlank, tagLine[i], ref heldTag);
                     result += addTag(ref heldTag, newItem);
+                    if (newItem == null) {
+                        continue;
+                    }
                 }
                 else {
                     if (buffer.hasCombinedCats()) {

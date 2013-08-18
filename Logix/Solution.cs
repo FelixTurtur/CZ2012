@@ -46,6 +46,10 @@ namespace Logix
 
         private void addItem(int x, string item) {
             int y = item[0] - LEFTCHAR;
+            if (checkAlreadyAssigned(item,y)) {
+                return;
+                //throw new LogicException("Item has already been assigned: ", item);
+            }
             int val = Convert.ToInt32(item.Substring(1));
             matrix[x, y] = val;
             onUpdate(new SolutionUpdateArgs(item, x));
@@ -54,11 +58,21 @@ namespace Logix
             }
         }
 
+        private bool checkAlreadyAssigned(string item, int y) {
+            for (int i = 0; i < matrix.GetLength(0); i++) {
+                if (matrix[i, y] == Convert.ToInt32(item.Substring(1))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void onUpdate(SolutionUpdateArgs a) {
             if (Updater != null) {
                 Updater(this, a);
             }
         }
+
         internal List<Relation> considerRelationInSolution(Relation r) {
             if (!r.isDirect() || !r.isPositive()) { return new List<Relation> { r }; }
             string item1 = r.getLeftItem();

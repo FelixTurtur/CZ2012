@@ -25,9 +25,16 @@ namespace Logix {
             brains.Update += brains_Update;
             brains.setClues(p.getRules());
             int[,] solutionMatrix = new int[p.height, p.width];
-            
+
             try {
                 solutionMatrix = brains.Go();
+            }
+            catch (LogicException l) {
+                if (l.problemItem != null) {
+                    string friendlyName = p.getNameAt(l.problemItem[0] - 'A', Convert.ToInt32(l.problemItem.Substring(1)));
+                    throw new LogicException(l.Message + friendlyName + ".\nReasoning failed.", l.problemItem);
+                }
+                else throw l;
             }
             catch (Exception e) {
                 throw e;

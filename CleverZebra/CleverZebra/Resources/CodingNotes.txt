@@ -168,3 +168,19 @@ Next level test complete. Had to add in quite a bit of extra logic, but looking 
 Currency is now handled in the parsing stage, but not yet logic. The tagger looks out for items starting with the currency symbol which it has collected from the category items.
 *A note on category-specific semantics: They shouldn't be stored in keywords. Sometimes a pattern doesn't specifically mention the comparative category, but the translator has a record of which category is relevant for these relations (assuming only one for now). If a semantic keyword was included, this could often be in conjunction with a comparative, but it shouldn't block the Translator from picking the one comparative category.
 *Some issue with character encoding resulted in the '£' coming through as "Â£". Pas bonne.
+------
+Aug 18th
+Wrote up Tag test for puzzle 5, which also requires gender semantics. All tag lines are fine besides the one that will need to tag gender ("A1's surgeon is a woman, B1's surgeon is male"). The tagger should only care about finding the words woman/male/etc.. in fact maybe it should be left for Logix to decide, given it is the module that has access to all category items. Some sort of semantic Calculator? The relation would then be A1(D)={male} perhaps and the "calculator" would create a list of negative relations to all items in D that are not {male}. Translator could translate the words to just two accepted terms for gender, rather than "calculator" requiring a list. Yes, a "calculator". This could then use a reference file and thus learn new items for the semantic area it covers from user interaction.
+Just made a bit of code magic for neither...nor situations. Pretty awesome stuff. In a neither...nor situation there can be several items listed which all need to be nedated to each other, but not to the point of redundancy. If you have items {s1, s2, s3, s4} then rules should be s1!=s2, s1!=s3, s1!=s4, s2!=s3, s2!=s4, s3!=s4. To create these rules I created this bit of code:
+int j = 0;
+for (int i = items.Count - 1; i > 0; i--) {
+	for (int x = 1; x <= i; x++) {
+		if (items[j][0] == items[j+x][0]) {
+			continue;
+        }
+        result.Add(items[j] + Relations.Negative + items[j + x]);
+    }
+    j++;
+}
+This results in the first item being the primary item in Count-1 relations, the second to Count-2 relations, etc, until all necessary relations have been added. Nice, concise bit of code. Tis a shame the char comparison bit has to be in there to lengthen it, really, but two items may be in the same category, meaning a negative relation between them would be redundant. This bit of code worked first time. Magic.
+Because of the lack of gender understanding at this point, an incorrect rule causes an item to be assigned to a solution row after it has already been entered in a different row. As a human solver, sometimes you also try to do this, and at that point you realise you have incorrectly assumed something somewhere - a genuine reasoning failure. I have created a check in the solution.addItem function to detect when this happens, but for now am just returning as in this particular case it is definitely due to an incorrect clue. If a puzzle could be solved with just the remaining clues, it still will be. Can uncomment the exception for reasoning error later if a true situation in which this arises actually presents itself.
