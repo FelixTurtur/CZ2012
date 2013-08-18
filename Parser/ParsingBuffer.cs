@@ -74,14 +74,16 @@ namespace CZParser
         internal void dropNonTermTags() {
             for (int i = 0; i < items.Count(); i++) {
                 string newItem = "";
-                string[] bits = items[i].Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string b in bits) {
-                    if (b[0] == 'T') {
-                        //never more than one TermTags in a tag.
-                        newItem = b;
+                if (items[i] != null) {
+                    string[] bits = items[i].Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string b in bits) {
+                        if (b[0] == 'T') {
+                            //never more than one TermTags in a tag.
+                            newItem = b;
+                        }
                     }
+                    items[i] = newItem;
                 }
-                items[i] = newItem;
             }
         }
 

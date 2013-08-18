@@ -34,14 +34,14 @@ namespace CZParser
         }
 
         private static bool containsMultipleStatements(string line) {
-            if (line.Contains(".") || line.Contains(";"))
+            if (line.Contains(".") || line.Contains(";") || line.Contains("Tb "))
                 return true;
             return false;
         }
 
         private List<string> getRelationsFromMultiLine(string line) {
             List<string> relations = new List<string>();
-            string[] lines = line.Split(new string[] { ". ", "; " }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = line.Split(new string[] { ". ", "; ", "Tb " }, StringSplitOptions.RemoveEmptyEntries);
             if (line.Contains("; Tt Tx") || line.Contains(". Tt Tx") || line.Contains("; Tt Tp") || line.Contains(". Tt Tp")) {
                 //two separate relations and also a comparative between one item from each to be created. Left then right.
                 string termBlock = getTermBlock(lines[1]);
@@ -95,6 +95,17 @@ namespace CZParser
             }
             else if (line.Contains("Tt")) {
                 //a second relation must be formed with an item from the first relation
+            }
+            else if (line.Contains("Tb")) {
+                //two relations to the leftmost item
+                List<string> foundRels = getRelationsFromLine(lines[0]);
+                relations.AddRange(foundRels);
+                string leftItem = getFirstItem(foundRels[0]);
+                foundRels = getRelationsFromLine(leftItem + " " + lines[1]);
+                relations.AddRange(foundRels);
+                if (lines.Count() > 2) {
+                    relations.AddRange(getRelationsFromMultiLine(line.Substring(lines[0].Length + lines[1].Length + "Tb ".Length)));
+                }
             }
             else {
                 foreach (string l in lines) {
@@ -195,7 +206,7 @@ namespace CZParser
             return line;
         }
 
-        private static List<string> formRelationsUsingBuffer(string line) {
+        private List<string> formRelationsUsingBuffer(string line) {
             try {
                 List<string> result = new List<string>();
                 foreach (string bit in line.Split(new char[] { ' ' })) {
@@ -214,7 +225,7 @@ namespace CZParser
             }
         }
 
-        private static string makeRelation(string p) {
+        private string makeRelation(string p) {
             try {
                 string[] bits = p.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (PatternBank.getPatternNumber(p)) {
@@ -227,6 +238,9 @@ namespace CZParser
                     case 6: return oneTermRelative(bits[0], bits[1], bits[2], bits[3]);
                     case 7: return oneTermRelative(bits[0], bits[1], bits[2], bits[3]);
                     case 8: return oneTermRelative(bits[0], bits[2], bits[1], bits[3]);
+                    case 9: return oneTermRelative(bits[0], bits[2][3].ToString(), bits[1], bits[3]);
+                    case 10: return oneTermRelative(bits[0], keyCategories[0].ToString(), bits[1], bits[2]);
+                    case 11: return twoTermRelative(bits[0], keyCategories[0].ToString(), bits[1], bits[2], bits[3]);
                     default:
                         throw new ParserException("No logic to handle pattern number " + PatternBank.getPatternNumber(p));
                 }

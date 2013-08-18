@@ -10,16 +10,20 @@ namespace CZParser
         internal List<string> numbers;
         internal List<List<string>> quantifiers; //e.g. "days"; signifies the unit in a comparative relationship.
         internal List<string> prepositions; //e.g. "before"; signifies direction of comparative relationship. Stored in opposite pairs, with - before +.
+        internal char? currency;
         private static string OF = "To";
         private static string WITH = "Tw";
         private static string EITHER = "Te";
         private static string NOR = "Tr";
+        private static string BUT = "Tb";
         private static string NEGATIVE = "Td";
         private static string FORMER = "Tf";
         private static string LATTER = "Tl";
         private static string THIS = "Tt";
+        private static string THAN = "Th";
 
-        public TermsDictionary(string[] keywords) {
+        public TermsDictionary(string[] keywords, char? currency = null) {
+            this.currency = currency;
             disassociatives = setupStandardDisassociatives();
             quantifiers = new List<List<string>>();
             numbers = new List<string>();
@@ -59,7 +63,7 @@ namespace CZParser
                 case "months": return new List<string> { "month", "months" };
                 case "years": return new List<string> { "month", "months" };
                 case "numeric": return new List<string> { "times", "twice", "half", "double", "quarter" };
-                case "currency": return new List<string> { "pounds", "dollars" };
+                case "currency": return new List<string> { "pounds", "dollars", "euros", "money", "cash", "wealth" };
                 case "date": return new List<string> { "day", "days", "week", "weeks" };
                 case "time": return new List<string> { "hour", "hours" };
                 case "ordinals": return new List<string>() { };
@@ -91,9 +95,9 @@ namespace CZParser
                 case "days":
                 case "months":
                 case "years":
-                case "numeric": return new List<string> { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen" };
                 case "currency": return new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "50", "100", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "hundred", "thousand", "million", "billion" };
-                case "date": return new List<string> { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th", "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th", "31st" };
+                case "numeric":
+                case "date": 
                 case "time": return new List<string> { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty" };
                 case "ordinals": return new List<string> { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth" };
                 default:
@@ -124,8 +128,14 @@ namespace CZParser
                 if (word == "either") {
                     return EITHER;
                 }
+                if (word == "but") {
+                    return BUT;
+                }
                 if (word == "this") {
                     return THIS;
+                }
+                if (word == "than") {
+                    return THAN;
                 }
                 for (int i = 0; i < disassociatives.Count; i++) {
                     if (word.ToLower() == disassociatives[i]) {
@@ -146,6 +156,11 @@ namespace CZParser
                 for (int i = 0; i < quantifiers.Count; i++) {
                     if (quantifiers[i].Contains(word.ToLower())) {
                         return "Tq(" + Convert.ToChar('A' + i) + ")";
+                    }
+                }
+                if (currency.HasValue) {
+                    if (word[0] == currency.Value) {
+                        return "Tx(" + word + ")";
                     }
                 }
                 for (int i = 0; i < prepositions.Count; i++) {
@@ -201,8 +216,8 @@ namespace CZParser
             return tag == WITH;
         }
 
-        internal static bool isThis(string tag) {
-            return tag == THIS;
+        internal static bool isSingleTermItem(string tag) {
+            return tag == THIS || tag == BUT || tag == NOR;
         }
 
         internal static bool isNegative(string p) {
@@ -215,6 +230,7 @@ namespace CZParser
         private bool isLatterReferencer(string word) {
             return word == "latter" || word == "second";
         }
+
 
     }
 }

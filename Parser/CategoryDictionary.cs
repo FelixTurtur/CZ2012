@@ -25,13 +25,13 @@ namespace CZParser
                         foreach (string itemWord in splitItem) {
                             if (shouldBeConsidered(itemWord, categories)) {
                                 codes.Add(catIdentifier.ToString() + (j + 1));
-                                words.Add(itemWord.ToLower());
+                                words.Add(itemWord.ToLower().Trim());
                             }
                         }
                     }
                     else {
                         codes.Add(catIdentifier.ToString() + (j + 1));
-                        words.Add(items[(i * catHeight) + j].ToLower());
+                        words.Add(items[(i * catHeight) + j].ToLower().Trim());
                     }
                 }
             }

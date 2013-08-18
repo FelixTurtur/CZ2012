@@ -12,7 +12,18 @@ namespace CZParser
 
         public Tagger(List<string> categories, List<string> items, string[] keys) {
             catWords = new CategoryDictionary(categories, items);
-            terms = new TermsDictionary(keys);
+            if (keys.Contains("currency")) {
+                char curr = ' ';
+                for (int i = 0; i < keys.Count(); i++) {
+                    if (keys[i].ToLower() == "currency") {
+                        curr = items[i*categories.Count][0];
+                    }
+                }
+                terms = new TermsDictionary(keys, curr);
+            }
+            else {
+                terms = new TermsDictionary(keys);
+            }
             keywords = new List<string>();
             keywords.AddRange(keys);
         }
@@ -153,7 +164,7 @@ namespace CZParser
                 buffer.Add(tag);
             }
             else if (isTermTag(tag)) {
-                if (TermsDictionary.isThis(tag)) {
+                if (TermsDictionary.isSingleTermItem(tag)) {
                     return tag;
                 }
                 if (TermsDictionary.isOf(tag)) {
@@ -169,8 +180,6 @@ namespace CZParser
                     else return null;
                 }
                 buffer.Add(tag);
-            }
-            else if (isConsiderable(tag)) {
             }
             return null;
         }
@@ -230,8 +239,10 @@ namespace CZParser
 
         private string evaluateTermTags(string previous, string tag, ref string heldTag) {
             if (PatternBank.completesTagPattern(buffer.ToString(),tag)) {
-                buffer.Add(tag);
                 string aux = buffer.ToString();
+                if (tag != "Th") {
+                    aux += " " + tag;
+                }
                 buffer.Clear();
                 return aux.Replace(",", " ");
             }
@@ -239,8 +250,14 @@ namespace CZParser
                 buffer.Add(tag);
                 return null;
             }
-            buffer.Clear();
-            return evaluateTag(previous, tag, ref heldTag);
+            if (isMixedTag(tag)) {
+                buffer.Add(tag);
+                return null;
+            }
+            else {
+                buffer.Clear();
+                return evaluateTag(previous, tag, ref heldTag);
+            }
         }
 
         private string finaliseResult(string result) {

@@ -75,7 +75,7 @@
 <preamble>This week at RKO (Radio Keighshire Oldies) is Appeal Week raising much needed funds for local good causes. Four DJs have hosted the mid-morning show so far and each has received pledges to play certain songs and auctioned a particular item or opportunity. From the clues, can you say which singer or band's song raised the most during each DJ's show, the item they auctioned and the amount of money the show made as a whole?</preamble>
 <hints>
 <clue>Delia Johnson's show raised more money than the one that auctioned glider lessons at Lower Marsh Airfield but less money than the one whose top song was "Guitar Man" by Bread.</clue>
-<clue>The show in which Bucks Fizz's "Making Your Mind Up" was the top earner raised more cash than the show which auctioned the opportunity to be RKO's Saturday morning DJ next week but less than Debbie Jenkin's show.</clue>
+<clue>The show in which Bucks Fizz's "Making Your Mind Up" was the top earner raised more cash than the show which auctioned the opportunity to be RKO's Saturday morning guest DJ next week but less than Debbie Jenkin's show.</clue>
 <clue>Daniel Jeffries' show raised more money than the one that featured "Cracklin' Rosie" by Neil Diamond but less than the one that auctioned the backstage pass for the Netherlipp Apollo's 60s night.</clue>
 <clue>The show that raked in the cash with Johnny Cash's "Ring of Fire" made £250 more than Duncan Joseph's.</clue>
 <clue>A male DJ auctioned a hospitality package for Netherliipp United's match with Athletico Stonekeigh.</clue>
@@ -83,28 +83,28 @@
 </text>
 <box>
 <category name="DJ">
-<item>Daniel Jeffries </item>
-<item>Debbie Jenkins </item>
-<item>Delia Johnson </item>
-<item>Duncan Joseph </item>
+<item>Daniel Jeffries</item>
+<item>Debbie Jenkins</item>
+<item>Delia Johnson</item>
+<item>Duncan Joseph</item>
 </category>
 <category name="Singer/Band">
-<item>Bread </item>
-<item>Bucks Fizz </item>
-<item>Neil Diamond </item>
-<item>Johnny Cash </item>
+<item>Bread</item>
+<item>Bucks Fizz</item>
+<item>Neil Diamond</item>
+<item>Johnny Cash</item>
 </category>
 <category name="Auction">
-<item>Backstage Pass </item>
-<item>Football Hospitality </item>
-<item>Gliding Lessons </item>
-<item>Guest DJ </item>
+<item>Backstage Pass</item>
+<item>Football Hospitality</item>
+<item>Gliding Lessons</item>
+<item>Guest DJ</item>
 </category>
 <category name="Money raised" keyword="currency">
-<item>£1,500 </item>
-<item>£1,750 </item>
-<item>£2,000 </item>
-<item>£2,250 </item>
+<item>£1,500</item>
+<item>£1,750</item>
+<item>£2,000</item>
+<item>£2,250</item>
 </category>
 <solution>{{Daniel Jeffries, Bucks Fizz, football hospitality, £2,000},{Debbie Jenkins, Bread, backstage pass, £2,250},{Delia Johnson, Johnny Cash, guest DJ, £1,750},{Duncan Joseph, Neil Diamond, glider lessons, £1,500}}</solution>
 </box>

@@ -29,7 +29,7 @@ namespace Logix.Calculators
 
         private int findDay(object knownValue) {
             for (int i = 0; i < DAYS.Count; i++) {
-                if (DAYS[i] == knownValue) {
+                if (DAYS[i] == knownValue.ToString()) {
                     return i;
                 }
             }

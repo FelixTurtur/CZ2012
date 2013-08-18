@@ -162,5 +162,33 @@ namespace ParserTests
                 Assert.IsTrue(manualRelations.Contains(rule));
             }
         }
+
+        [TestMethod]
+        public void Check_Fourth_Tagging() {
+            Puzzle p = puzzles[2];
+            Parser parser = new Parser(p);
+            List<string> taggedclues = parser.tagger.tagClues(p.getClues());
+            Assert.IsNotNull(taggedclues);
+            List<string> correctTags = new List<string>() { "A3 Tp(+) Tq(D) C3 Tb Tp(-) Tq(D) B1", "B2 Tp(+) Tq(D) C4 Tb Tp(-) A2", "A1 Tp(+) Tq(D) B3 Tb Tp(-) C1", "B4 Tx(Â£250) Tp(+) A4", "C2" };
+            Assert.AreEqual(correctTags.Count, taggedclues.Count);
+            foreach (string clue in taggedclues) {
+                Assert.IsTrue(correctTags.Contains(clue));
+            }
+        }
+
+        [TestMethod]
+        public void Check_Fourth_Translating() {
+            Puzzle p = puzzles[2];
+            Parser parser = new Parser(p);
+            List<string> relations = parser.Read();
+            List<string> manualRelations = new List<string> { "A3(D)>C3(D)", "A3(D)<B1(D)", "B2(D)>C4(D)", "B2(D)<A2(D)", "A1(D)>B3(D)", "A1(D)<C1(D)", "B4(D)-A4(D)=Â£250" };
+            foreach (string rule in manualRelations) {
+                Assert.IsTrue(relations.Contains(rule));
+            }
+            foreach (string rule in relations) {
+                Assert.IsTrue(manualRelations.Contains(rule));
+            }
+
+        }
     }
 }
