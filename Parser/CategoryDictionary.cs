@@ -51,7 +51,7 @@ namespace CZParser
         internal string findItemMatches(string word) {
             string result = "";
             for (int i = 0; i < codes.Count; i++) {
-                if (words[i] == word.ToLower() || words[i] + "'s" == word.ToLower() || words[i] == word + "s") {
+                if (words[i] == word.ToLower() || words[i] + "'s" == word.ToLower() || words[i] == word.ToLower() + "s" || words[i] + "'" == word.ToLower()) {
                     if (result.Length > 0) {
                         result += ",";
                     }

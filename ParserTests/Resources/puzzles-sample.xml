@@ -290,7 +290,7 @@
 <box>
 <category name="Slave">
 <item>Branelus</item>
-<item>Clueles</item>
+<item>Cluelus</item>
 <item>Euselus</item>
 <item>Gormlus</item>
 <item>Hopelus</item>
@@ -302,7 +302,7 @@
 <item>Flaminian Gate</item>
 <item>Senate House</item>
 </category>
-<category name="Hour" keyword="ordinal">
+<category name="Hour" keyword="time">
 <item>Prima luce</item>
 <item>3rd hour</item>
 <item>6th hour</item>

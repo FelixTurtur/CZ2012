@@ -34,20 +34,20 @@ namespace CZParser
         }
 
         internal void Add(string item) {
-            if (isEmpty()) {
-                items[0] = item;
+            int index = firstNonEmpty();
+            if (index == -1) {
+                throw new ArgumentException("Parsing buffer is full; cannot add " + item + " to " + this.ToString());
             }
-            else {
-                if (string.IsNullOrEmpty(items[1])) {
-                    items[1] = item;
-                }
-                else if (string.IsNullOrEmpty(items[2])) {
-                    items[2] = item;
-                }
-                else {
-                    throw new ArgumentException("Parsing buffer is full; cannot add " + item + " to " + this.ToString());
+            items[index] = item;
+        }
+
+        private int firstNonEmpty() {
+            for (int i = 0; i < this.size; i++) {
+                if (string.IsNullOrEmpty(items[i])) {
+                    return i;
                 }
             }
+            return -1;
         }
 
         internal bool isEmpty() {

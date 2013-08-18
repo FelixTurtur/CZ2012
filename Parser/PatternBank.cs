@@ -8,8 +8,8 @@ namespace CZParser {
     internal class PatternBank {
 
         private static List<string> termPatterns = new List<string> { "Tx,Tq,Tp", "Tx,Tp,Tq", "Tx,Tp,Th", "Tf,To", "Tp,Tw", "Tp, Tx", "Tp,Th", "Tp,Tq,Th"};
-        private static List<string> relationPatterns =
-            new List<string> { "C,C", "C,Td,C", "C,Tx,Tq,Tp,C", "C,Tx,Tp,Tq,C", "C,A,Tx,Tp,C", "C,Tx,Tp,A,C", "C,A,Tp,Tx", "C,A,Tp,C", "C,Tp,A,C", "C,Tp,Tq,C", "C,Tp,C", "C,Tx,Tp,C" };
+        private static List<string> relationPatterns =  new List<string> { "C,C", "C,Td,C", "C,Tx,Tq,Tp,C", "C,Tx,Tp,Tq,C", 
+            "C,A,Tx,Tp,C", "C,Tx,Tp,A,C", "C,A,Tp,Tx", "C,A,Tp,C", "C,Tp,A,C", "C,Tp,Tq,C", "C,Tp,C", "C,Tx,Tp,C", "C,Ts", "C,Td,Ts" };
 
         internal static bool completesTagPattern(string buffer, string tag) {
             string[] matchedPatterns = matchCurrentBuffer(buffer);

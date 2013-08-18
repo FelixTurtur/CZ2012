@@ -26,21 +26,6 @@ namespace Logix.Calculators
             }
         }
 
-        public override List<int> getImpossibles(int index, string comparator, int size) {
-            List<int> results = new List<int>();
-            if (Representation.Relations.checkDirection(comparator) == Representation.Relations.Directions.Lower) {
-                for (int i = index+1; i <= size; i++) {
-                    results.Add(i);
-                }
-            }
-            else {
-                for (int i = index-1; i > 0; i--) {
-                    results.Add(i);
-                }
-            }
-            return results;
-        }
-
         public override bool checkPredicate(object item, string comparator, string bound) {
             try {
                 if (Representation.Relations.checkDirection(comparator) == Relations.Directions.Lower) {

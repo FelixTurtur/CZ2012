@@ -10,12 +10,14 @@ namespace CZParser
         internal List<string> numbers;
         internal List<List<string>> quantifiers; //e.g. "days"; signifies the unit in a comparative relationship.
         internal List<string> prepositions; //e.g. "before"; signifies direction of comparative relationship. Stored in opposite pairs, with - before +.
+        internal List<string> superlatives;
         internal char? currency;
         private static string OF = "To";
         private static string WITH = "Tw";
         private static string EITHER = "Te";
         private static string BUT = "Tb";
         private static string NEGATIVE = "Td";
+        private static string SUPER = "Ts";
         private static string FORMER = "Tf";
         private static string LATTER = "Tl";
         private static string THIS = "Tt";
@@ -29,6 +31,7 @@ namespace CZParser
             prepositions = new List<string>();
             for (int i = 0; i < keywords.Count(); i++) {
                 addQuantifiers(keywords[i]);
+                addSuperlatives(keywords[i]);
                 if (!string.IsNullOrEmpty(keywords[i])) {
                     numbers.AddRange(getNumericTermsForKey(keywords[i]));
                     setStandardPrepositions();
@@ -36,6 +39,7 @@ namespace CZParser
                 }
             }
         }
+
 
         private void setStandardPrepositions() {
             if (prepositions.Count == 0) {
@@ -45,6 +49,10 @@ namespace CZParser
 
         private void addQuantifiers(string key) {
             quantifiers.Add(getQuantifiersForKey(key));
+        }
+
+        private List<string> setupStandardSuperlatives() {
+            return new List<string>();
         }
 
         private List<string> setupStandardDisassociatives() {
@@ -72,17 +80,36 @@ namespace CZParser
             }
         }
 
+        private void addSuperlatives(string key) {
+            if (string.IsNullOrEmpty(key)) {
+                return;
+            }
+            if (superlatives == null) {
+                superlatives = setupStandardSuperlatives();
+            }
+            switch (key) {
+                case "time": 
+                case "days":
+                case "months":
+                case "years":
+                case "ordinals": superlatives.AddRange(new List<string> { "earliest", "latest", "first", "last" }); return;
+                case "numeric": superlatives.AddRange(new List<string> { "lowest", "highest" }); return;
+                default:
+                    return;
+            }
+        }
+
         private List<string> getPrepositionsForKey(string key) {
             switch (key) {
                 case "date":
                 case "time":
                 case "days":
                 case "months":
+                case "ordinals":
                 case "years": return new List<string> { "earlier", "later" };
                 case "currency": return new List<string> { "cheap", "expensive", "cheaper", "dearer", "economical", "costly" };
                 case "numeric":
-                case "left-right":
-                case "ordinals": return null;
+                case "left-right": return null;
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);
             }
@@ -141,6 +168,14 @@ namespace CZParser
                         return NEGATIVE;
                     }
                 }
+                if (superlatives != null) {
+                    for (int i = 0; i < superlatives.Count; i++) {
+                        if (word.ToLower() == superlatives[i]) {
+                            return i % 2 == 0 ? SUPER + "(-)" : SUPER + "(+)";
+                        }
+                    }
+                }
+
                 if (isFormerReferencer(word.ToLower())) {
                     return FORMER;
                 }
@@ -175,6 +210,7 @@ namespace CZParser
         }
 
         private string makeNumber(string word) {
+            word = word.ToLower();
             int result = 0;
             string digits = "";
             if (Int32.TryParse(word, out result)) {
@@ -215,8 +251,12 @@ namespace CZParser
             return tag == WITH;
         }
 
+        internal static bool isBut(string tag) {
+            return tag == BUT;
+        }
+
         internal static bool isSingleTermItem(string tag) {
-            return tag == THIS || tag == BUT;
+            return tag == THIS || tag == BUT || tag.Contains(SUPER);
         }
 
         internal static bool isNegative(string p) {
@@ -229,7 +269,6 @@ namespace CZParser
         private bool isLatterReferencer(string word) {
             return word == "latter" || word == "second";
         }
-
 
     }
 }

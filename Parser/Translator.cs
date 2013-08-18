@@ -11,9 +11,12 @@ namespace CZParser
     {
         private static ParsingBuffer buffer = new ParsingBuffer(5);
         private List<char> keyCategories;
+        private static string MIN = "1";
+        private string MAX;
 
-        public Translator(string[] keys) {
+        public Translator(string[] keys, int depth) {
             keyCategories = new List<char>();
+            MAX = depth.ToString();
             char cat = 'A';
             for (int i = 0; i < keys.Length; i++, cat++) {
                 if (!string.IsNullOrEmpty(keys[i])) {
@@ -135,7 +138,7 @@ namespace CZParser
             string result = p[0].ToString();
             int i = 1;
             int aux = 0;
-            while (Int32.TryParse(p[i].ToString(), out aux)) {
+            while (i < p.Length && Int32.TryParse(p[i].ToString(), out aux)) {
                 result += p[i];
                 i++;
             }
@@ -207,7 +210,7 @@ namespace CZParser
             else if (line.Contains("Tp")) {
                 //first remove any category initials that are not comparative
                 line = removeNonCompCats(line);
-                return new List<string> { makeRelation(line) };
+                return formRelationsUsingBuffer(line);
             }
             else {
                 throw new ParserException("Unable to handle tag pattern: " + line);
@@ -271,6 +274,8 @@ namespace CZParser
                     case 9: return oneTermRelative(bits[0], bits[2][3].ToString(), bits[1], bits[3]);
                     case 10: return oneTermRelative(bits[0], keyCategories[0].ToString(), bits[1], bits[2]);
                     case 11: return twoTermRelative(bits[0], keyCategories[0].ToString(), bits[1], bits[2], bits[3]);
+                    case 12: return bits[0] + Relations.Positive + keyCategories[0].ToString() + (bits[1][3] == '-' ? MIN : MAX);
+                    case 13: return bits[0] + Relations.Negative + keyCategories[0].ToString() + (bits[2][3] == '-' ? MIN : MAX);
                     default:
                         throw new ParserException("No logic to handle pattern number " + PatternBank.getPatternNumber(p));
                 }
@@ -300,11 +305,11 @@ namespace CZParser
             }
         }
 
-        private static string formRelation(string leftItem, string rightItem, string termBlock) {
+        private string formRelation(string leftItem, string rightItem, string termBlock) {
             string[] bits = termBlock.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string direction = "";
             string amount = "";
-            string category = "";
+            string category = keyCategories[0].ToString();
             foreach (string bit in bits) {
                 if (bit[1] == 'x') {
                     amount = bit.Substring(3, bit.Length - 4);

@@ -142,7 +142,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
-            List<string> correctTags = new List<string>() { "C1 D3 ; Td B2 Td C2 Td A4", "B1 D1", "B4 A3 Td D4", "C4 A2 Td D2", "B3 A Tx(1) Tp(+) C C3" };
+            List<string> correctTags = new List<string>() { "C1 D3 ; Td B2 Td C2 Td A4", "B1 D1", "B4 A3 Td D4", "C4 A2 Td D2", "B3 A Tx(1) Tp(+) C3" };
             Assert.AreEqual(correctTags.Count, taggedClues.Count);
             foreach (string clue in taggedClues) {
                 Assert.IsTrue(correctTags.Contains(clue));
@@ -196,7 +196,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> taggedclues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedclues);
-            List<string> correctTags = new List<string>() {"A1 C4; Td B1", "A3 B4; B3 C3", "A2 Tg(woman) B2 Tg(male)", "D3 C2", "Td A4 Td C1 D4" };
+            List<string> correctTags = new List<string>() { "A1 C4 ; Td B1", "A3 B4 ; B3 C3", "A2 Tg(woman) B2 Tg(male)", "D3 C2", "Td A4 Td C1 D4" };
             Assert.AreEqual(correctTags.Count, taggedclues.Count);
             foreach (string clue in taggedclues) {
                 Assert.IsTrue(correctTags.Contains(clue));
@@ -210,7 +210,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> relations = parser.Read();
             //"A2=B2" is not the real rule we should have; it is the one we will get until the test above passes
-            List<string> manualRelations = new List<string> { "A1=C4", "A1!=B1","A3=B4","B3=C3","A2=B2","D3=C2","A4!=C1","A4!=D4","C1!=D4" };
+            List<string> manualRelations = new List<string> { "A1=C4", "A1!=B1", "A3=B4", "B3=C3", "A2=B2", "D3=C2", "A4!=C1", "A4!=D4", "C1!=D4" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }
@@ -218,5 +218,34 @@ namespace ParserTests
                 Assert.IsTrue(manualRelations.Contains(rule));
             }
         }
+
+        [TestMethod]
+        public void Check_Sixth_Tagging() {
+            Puzzle p = puzzles[7];
+            Parser parser = new Parser(p);
+            List<string> taggedclues = parser.tagger.tagClues(p.getClues());
+            Assert.IsNotNull(taggedclues);
+            List<string> correctTags = new List<string>() { "C1 D3","A2 B5 Tp(+) B1","B2 D1 ; Tt Tp(+) A3","A1 D4 Tp(-) D5","B4 C5 ; A5 C2","D2 Tp(+) B3 Td A4 ; B3 Td Ts(-)" };
+            Assert.AreEqual(correctTags.Count, taggedclues.Count);
+            foreach (string clue in taggedclues) {
+                Assert.IsTrue(correctTags.Contains(clue));
+            }
+        }
+
+        [TestMethod]
+        public void Check_Sixth_Translating() {
+            Puzzle p = puzzles[7];
+            Parser parser = new Parser(p);
+            List<string> relations = parser.Read();
+            //Requires subclause wrapping (A1, who {relation to another item}, not C1)
+            List<string> manualRelations = new List<string> { "C1=D3","A2=B5","B5(C)>B1(C)","B2=D1","B2(C)>A3(C)","A1=D4","D4(C)<D5(C)","B4=C5","A5=C2","D2(C)>B3(C)","D2!=A4","B3!=C1" };
+            foreach (string rule in manualRelations) {
+                Assert.IsTrue(relations.Contains(rule));
+            }
+            foreach (string rule in relations) {
+                Assert.IsTrue(manualRelations.Contains(rule));
+            }
+        }
+
     }
 }

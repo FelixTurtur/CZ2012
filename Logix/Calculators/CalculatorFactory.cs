@@ -25,6 +25,10 @@ namespace Logix.Calculators
                     return new NumberCalculator();
                 case "date":
                     return new DateCalculator();
+                case "time":
+                    return new TimeCalculator();
+                case "ordinal":
+                    return new OrdinalCalculator();
                 default:
                     throw new ArgumentException("No Calculator available for keyword " + keyword);
             }

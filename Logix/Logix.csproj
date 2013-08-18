@@ -43,6 +43,8 @@
     <Compile Include="Calculators\CalculatorFactory.cs" />
     <Compile Include="Calculators\DateCalculator.cs" />
     <Compile Include="Calculators\NumberCalculator.cs" />
+    <Compile Include="Calculators\OrdinalCalculator.cs" />
+    <Compile Include="Calculators\TimeCalculator.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="CategoryBuilder.cs" />
     <Compile Include="Deducer.cs" />

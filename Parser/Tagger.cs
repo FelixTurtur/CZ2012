@@ -156,7 +156,13 @@ namespace CZParser
                 return null;
             }
             if (isCatTag(tag))  {
-                return tag;
+                if (tag.Length > 1) {
+                    return tag;
+                }
+                if (!string.IsNullOrEmpty(keywords[tag[0] - 'A'])) {
+                    return tag;
+                }
+                return null;
             }
             else if (isCombinedCatTag(tag)) {
                 //check previous item
@@ -287,6 +293,9 @@ namespace CZParser
                 return true;
             }
             if (isDisassociative(tag)) {
+                return true;
+            }
+            if (TermsDictionary.isBut(tag)) {
                 return true;
             }
             return false;
