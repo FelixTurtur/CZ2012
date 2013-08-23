@@ -23,7 +23,6 @@ namespace CleverZebra
         private DataGridView dgvSolution;
         private Resources.CZButton btnSolve;
         private ProgressBar pbSolving;
-        private Panel pnResults;
         private FlowLayoutPanel frameStats;
         private GroupBox gbStats;
         private Label lbStats;
@@ -31,6 +30,9 @@ namespace CleverZebra
         private FlowLayoutPanel frameRelations;
         private GroupBox gbRelations;
         private FlowLayoutPanel flpRelations;
+        private DataGridView dgvCategories;
+        private FlowLayoutPanel flpCategories;
+        private Label lbCategories;
         private DataTable data;
 
         #region Constructor and Initialise
@@ -54,6 +56,7 @@ namespace CleverZebra
         internal void InitializeComponent() {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.flpText = new System.Windows.Forms.FlowLayoutPanel();
             this.lTitle = new System.Windows.Forms.Label();
             this.gbClues = new System.Windows.Forms.GroupBox();
@@ -61,7 +64,6 @@ namespace CleverZebra
             this.flpSolution = new System.Windows.Forms.FlowLayoutPanel();
             this.dgvSolution = new System.Windows.Forms.DataGridView();
             this.pbSolving = new System.Windows.Forms.ProgressBar();
-            this.pnResults = new System.Windows.Forms.Panel();
             this.frameStats = new System.Windows.Forms.FlowLayoutPanel();
             this.gbStats = new System.Windows.Forms.GroupBox();
             this.lbStats = new System.Windows.Forms.Label();
@@ -71,15 +73,19 @@ namespace CleverZebra
             this.flpRelations = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSolve = new CleverZebra.Resources.CZButton();
             this.btnBack = new CleverZebra.Resources.CZButton();
+            this.dgvCategories = new System.Windows.Forms.DataGridView();
+            this.flpCategories = new System.Windows.Forms.FlowLayoutPanel();
+            this.lbCategories = new System.Windows.Forms.Label();
             this.flpText.SuspendLayout();
             this.gbClues.SuspendLayout();
             this.flpSolution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSolution)).BeginInit();
-            this.pnResults.SuspendLayout();
             this.frameStats.SuspendLayout();
             this.gbStats.SuspendLayout();
             this.frameRelations.SuspendLayout();
             this.gbRelations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).BeginInit();
+            this.flpCategories.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpText
@@ -106,7 +112,7 @@ namespace CleverZebra
             this.lTitle.Name = "lTitle";
             this.lTitle.Size = new System.Drawing.Size(330, 25);
             this.lTitle.TabIndex = 0;
-            this.lTitle.Text = "Select";
+            this.lTitle.Text = "Title";
             // 
             // gbClues
             // 
@@ -138,11 +144,13 @@ namespace CleverZebra
             // 
             // flpSolution
             // 
+            this.flpSolution.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.flpSolution.BackColor = System.Drawing.Color.Transparent;
             this.flpSolution.Controls.Add(this.dgvSolution);
-            this.flpSolution.Location = new System.Drawing.Point(383, 12);
+            this.flpSolution.Controls.Add(this.pbSolving);
+            this.flpSolution.Location = new System.Drawing.Point(380, 262);
             this.flpSolution.Name = "flpSolution";
-            this.flpSolution.Size = new System.Drawing.Size(539, 187);
+            this.flpSolution.Size = new System.Drawing.Size(539, 255);
             this.flpSolution.TabIndex = 3;
             // 
             // dgvSolution
@@ -173,9 +181,9 @@ namespace CleverZebra
             this.dgvSolution.RowHeadersVisible = false;
             this.dgvSolution.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgvSolution.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dgvSolution.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.DarkOrange;
+            this.dgvSolution.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Orange;
             this.dgvSolution.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dgvSolution.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.DarkOrange;
+            this.dgvSolution.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Orange;
             this.dgvSolution.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSolution.RowTemplate.ReadOnly = true;
             this.dgvSolution.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -193,30 +201,22 @@ namespace CleverZebra
             // 
             this.pbSolving.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.pbSolving.ForeColor = System.Drawing.Color.DarkOrange;
-            this.pbSolving.Location = new System.Drawing.Point(383, 105);
+            this.pbSolving.Location = new System.Drawing.Point(3, 93);
             this.pbSolving.Name = "pbSolving";
             this.pbSolving.Size = new System.Drawing.Size(100, 23);
             this.pbSolving.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pbSolving.TabIndex = 5;
             this.pbSolving.Visible = false;
             // 
-            // pnResults
-            // 
-            this.pnResults.BackColor = System.Drawing.Color.Transparent;
-            this.pnResults.Controls.Add(this.frameStats);
-            this.pnResults.Controls.Add(this.frameRelations);
-            this.pnResults.Location = new System.Drawing.Point(383, 228);
-            this.pnResults.Name = "pnResults";
-            this.pnResults.Size = new System.Drawing.Size(538, 288);
-            this.pnResults.TabIndex = 6;
-            // 
             // frameStats
             // 
+            this.frameStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.frameStats.BackColor = System.Drawing.Color.Transparent;
             this.frameStats.Controls.Add(this.gbStats);
             this.frameStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.frameStats.Location = new System.Drawing.Point(265, 0);
+            this.frameStats.Location = new System.Drawing.Point(925, 298);
             this.frameStats.Name = "frameStats";
-            this.frameStats.Size = new System.Drawing.Size(268, 286);
+            this.frameStats.Size = new System.Drawing.Size(250, 286);
             this.frameStats.TabIndex = 6;
             // 
             // gbStats
@@ -232,7 +232,7 @@ namespace CleverZebra
             this.gbStats.MaximumSize = new System.Drawing.Size(270, 280);
             this.gbStats.MinimumSize = new System.Drawing.Size(200, 100);
             this.gbStats.Name = "gbStats";
-            this.gbStats.Size = new System.Drawing.Size(260, 108);
+            this.gbStats.Size = new System.Drawing.Size(247, 108);
             this.gbStats.TabIndex = 7;
             this.gbStats.TabStop = false;
             this.gbStats.Text = "Stats";
@@ -255,17 +255,18 @@ namespace CleverZebra
             this.flpStats.Location = new System.Drawing.Point(3, 19);
             this.flpStats.MaximumSize = new System.Drawing.Size(250, 280);
             this.flpStats.Name = "flpStats";
-            this.flpStats.Size = new System.Drawing.Size(250, 0);
+            this.flpStats.Size = new System.Drawing.Size(241, 0);
             this.flpStats.TabIndex = 1;
             // 
             // frameRelations
             // 
+            this.frameRelations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.frameRelations.BackColor = System.Drawing.Color.Transparent;
             this.frameRelations.Controls.Add(this.gbRelations);
             this.frameRelations.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.frameRelations.Location = new System.Drawing.Point(-2, -1);
+            this.frameRelations.Location = new System.Drawing.Point(925, 12);
             this.frameRelations.Name = "frameRelations";
-            this.frameRelations.Size = new System.Drawing.Size(268, 287);
+            this.frameRelations.Size = new System.Drawing.Size(250, 287);
             this.frameRelations.TabIndex = 5;
             this.frameRelations.Visible = false;
             // 
@@ -280,9 +281,9 @@ namespace CleverZebra
             this.gbRelations.Location = new System.Drawing.Point(3, 5);
             this.gbRelations.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.gbRelations.MaximumSize = new System.Drawing.Size(270, 280);
-            this.gbRelations.MinimumSize = new System.Drawing.Size(260, 108);
+            this.gbRelations.MinimumSize = new System.Drawing.Size(200, 108);
             this.gbRelations.Name = "gbRelations";
-            this.gbRelations.Size = new System.Drawing.Size(260, 275);
+            this.gbRelations.Size = new System.Drawing.Size(247, 225);
             this.gbRelations.TabIndex = 3;
             this.gbRelations.TabStop = false;
             this.gbRelations.Text = "Relations Found";
@@ -296,7 +297,7 @@ namespace CleverZebra
             this.flpRelations.Location = new System.Drawing.Point(3, 19);
             this.flpRelations.MaximumSize = new System.Drawing.Size(320, 380);
             this.flpRelations.Name = "flpRelations";
-            this.flpRelations.Size = new System.Drawing.Size(254, 0);
+            this.flpRelations.Size = new System.Drawing.Size(241, 0);
             this.flpRelations.TabIndex = 6;
             // 
             // btnSolve
@@ -329,34 +330,100 @@ namespace CleverZebra
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // dgvCategories
+            // 
+            this.dgvCategories.AllowUserToAddRows = false;
+            this.dgvCategories.AllowUserToDeleteRows = false;
+            this.dgvCategories.AllowUserToResizeRows = false;
+            this.dgvCategories.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCategories.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dgvCategories.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            this.dgvCategories.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCategories.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvCategories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCategories.EnableHeadersVisualStyles = false;
+            this.dgvCategories.Location = new System.Drawing.Point(0, 30);
+            this.dgvCategories.Margin = new System.Windows.Forms.Padding(0);
+            this.dgvCategories.MultiSelect = false;
+            this.dgvCategories.Name = "dgvCategories";
+            this.dgvCategories.RowHeadersVisible = false;
+            this.dgvCategories.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCategories.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dgvCategories.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Orange;
+            this.dgvCategories.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dgvCategories.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Orange;
+            this.dgvCategories.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCategories.ShowCellErrors = false;
+            this.dgvCategories.ShowCellToolTips = false;
+            this.dgvCategories.ShowEditingIcon = false;
+            this.dgvCategories.ShowRowErrors = false;
+            this.dgvCategories.Size = new System.Drawing.Size(536, 90);
+            this.dgvCategories.StandardTab = true;
+            this.dgvCategories.TabIndex = 0;
+            this.dgvCategories.TabStop = false;
+            // 
+            // flpCategories
+            // 
+            this.flpCategories.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.flpCategories.BackColor = System.Drawing.Color.Transparent;
+            this.flpCategories.Controls.Add(this.lbCategories);
+            this.flpCategories.Controls.Add(this.dgvCategories);
+            this.flpCategories.Location = new System.Drawing.Point(380, 12);
+            this.flpCategories.Name = "flpCategories";
+            this.flpCategories.Size = new System.Drawing.Size(539, 244);
+            this.flpCategories.TabIndex = 7;
+            // 
+            // lbCategories
+            // 
+            this.lbCategories.AutoSize = true;
+            this.lbCategories.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCategories.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lbCategories.Location = new System.Drawing.Point(3, 0);
+            this.lbCategories.Name = "lbCategories";
+            this.lbCategories.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.lbCategories.Size = new System.Drawing.Size(102, 30);
+            this.lbCategories.TabIndex = 1;
+            this.lbCategories.Text = "Categories";
+            // 
             // frmSolver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::CleverZebra.Properties.Resources.CircleSparks;
-            this.ClientSize = new System.Drawing.Size(936, 530);
-            this.Controls.Add(this.pnResults);
-            this.Controls.Add(this.pbSolving);
+            this.ClientSize = new System.Drawing.Size(1184, 750);
+            this.Controls.Add(this.flpCategories);
+            this.Controls.Add(this.frameStats);
+            this.Controls.Add(this.frameRelations);
             this.Controls.Add(this.btnSolve);
             this.Controls.Add(this.flpSolution);
             this.Controls.Add(this.flpText);
             this.Controls.Add(this.btnBack);
             this.Name = "frmSolver";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmSolver";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.flpText.ResumeLayout(false);
             this.flpText.PerformLayout();
             this.gbClues.ResumeLayout(false);
             this.gbClues.PerformLayout();
             this.flpSolution.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSolution)).EndInit();
-            this.pnResults.ResumeLayout(false);
             this.frameStats.ResumeLayout(false);
             this.gbStats.ResumeLayout(false);
             this.gbStats.PerformLayout();
             this.frameRelations.ResumeLayout(false);
             this.gbRelations.ResumeLayout(false);
             this.gbRelations.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).EndInit();
+            this.flpCategories.ResumeLayout(false);
+            this.flpCategories.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -374,6 +441,7 @@ namespace CleverZebra
             }
             this.flpClues.ResumeLayout(false);
             this.flpClues.PerformLayout();
+            showCategories();
             this.ResumeLayout(false);
         }
 
@@ -498,6 +566,32 @@ namespace CleverZebra
             SetupDataGrid(height, width);
             pbSolving.Step = 100 / (height * width);
             pbSolving.Show();
+        }
+
+        private void showCategories() {
+            data = new DataTable();
+            List<string> catTitles = Controller.getInstance().getCategoryTitles();
+            for (int i = 0; i < catTitles.Count; i++) {
+                data.Columns.Add(catTitles[i]);
+            }
+            List<string> items = Controller.getInstance().getCategoryItems();
+            int height = items.Count / catTitles.Count;
+            string[] rowItems = new string[catTitles.Count];
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < catTitles.Count; j++) {
+                    rowItems[j] = items[(j*height)+i];
+                }
+                if (data.Rows.Count < i + 1) {
+                    data.Rows.Add(rowItems);
+                }
+                else {
+                    data.Rows[i].ItemArray = rowItems;
+                }
+            }
+            dgvCategories.DataSource = data;
+            dgvCategories.Height = (int)Math.Floor(24.4 * (height + 1));
+            dgvCategories.Visible = true;
+            flpCategories.Controls.Add(dgvCategories);
         }
 
         private void SetupDataGrid(int height, int width) {

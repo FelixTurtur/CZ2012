@@ -149,13 +149,13 @@ namespace CleverZebra
             // frmPuzzles
             // 
             this.BackgroundImage = global::CleverZebra.Properties.Resources.CircleSparks;
-            this.ClientSize = new System.Drawing.Size(934, 527);
+            this.ClientSize = new System.Drawing.Size(784, 582);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lSelectPuzzle);
             this.Controls.Add(this.lbPuzzles);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "frmPuzzles";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

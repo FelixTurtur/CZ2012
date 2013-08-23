@@ -139,5 +139,9 @@ namespace CleverZebra {
         internal List<string> getCategoryTitles() {
             return this.activePuzzle.getCategories();
         }
+
+        internal List<string> getCategoryItems() {
+            return this.activePuzzle.getItems();
+        }
     }
 }
