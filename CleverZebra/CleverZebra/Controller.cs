@@ -30,6 +30,7 @@ namespace CleverZebra {
         internal SolverBoxUpdateHandler Updater;
         internal PuzzleCompleteHandler Completer;
         internal bool goSlow;
+        internal bool reportRelations = true;
 
         public void loadPuzzles(XmlDocument sourceDoc = null) {
             if (sourceDoc == null) {
@@ -143,5 +144,6 @@ namespace CleverZebra {
         internal List<string> getCategoryItems() {
             return this.activePuzzle.getItems();
         }
+
     }
 }

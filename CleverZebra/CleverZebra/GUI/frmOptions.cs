@@ -9,18 +9,24 @@ namespace CleverZebra
 {
     class frmOptions : Form
     {
-       private CheckBox checkBox1;
-       private CheckBox checkBox2;
-       private CheckBox checkBox3;
-       private Label label1;
+        private CheckBox cbShowInfo;
+        private CheckBox cbGoSlow;
+        private CheckBox cbUserHelp;
+        private Label label1;
         private CZButton btnMainMenu;
+
+        public frmOptions() {
+            InitializeComponent();
+            this.cbGoSlow.Checked = Controller.getInstance().goSlow || false;
+            this.cbShowInfo.Checked = Controller.getInstance().reportRelations;
+        }
         //Allow user to chose settings
         internal void InitializeComponent()
         {
             this.btnMainMenu = new CleverZebra.Resources.CZButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.cbShowInfo = new System.Windows.Forms.CheckBox();
+            this.cbGoSlow = new System.Windows.Forms.CheckBox();
+            this.cbUserHelp = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -39,51 +45,51 @@ namespace CleverZebra
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
             // 
-            // checkBox1
+            // cbShowInfo
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.checkBox1.Location = new System.Drawing.Point(35, 32);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(149, 19);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Show me your thinking";
-            this.checkBox1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.checkBox1.UseVisualStyleBackColor = false;
+            this.cbShowInfo.AutoSize = true;
+            this.cbShowInfo.BackColor = System.Drawing.Color.Transparent;
+            this.cbShowInfo.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.cbShowInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbShowInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.cbShowInfo.Location = new System.Drawing.Point(35, 32);
+            this.cbShowInfo.Name = "cbShowInfo";
+            this.cbShowInfo.Size = new System.Drawing.Size(149, 19);
+            this.cbShowInfo.TabIndex = 2;
+            this.cbShowInfo.Text = "Show me your thinking";
+            this.cbShowInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.cbShowInfo.UseVisualStyleBackColor = false;
+            this.cbShowInfo.CheckedChanged += new System.EventHandler(this.cbShowInfo_CheckedChanged);
             // 
-            // checkBox2
+            // cbGoSlow
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.checkBox2.Location = new System.Drawing.Point(35, 66);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(68, 19);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Go slow";
-            this.checkBox2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.checkBox2.UseVisualStyleBackColor = false;
+            this.cbGoSlow.AutoSize = true;
+            this.cbGoSlow.BackColor = System.Drawing.Color.Transparent;
+            this.cbGoSlow.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.cbGoSlow.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbGoSlow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.cbGoSlow.Location = new System.Drawing.Point(35, 66);
+            this.cbGoSlow.Name = "cbGoSlow";
+            this.cbGoSlow.Size = new System.Drawing.Size(68, 19);
+            this.cbGoSlow.TabIndex = 2;
+            this.cbGoSlow.Text = "Go slow";
+            this.cbGoSlow.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.cbGoSlow.UseVisualStyleBackColor = false;
+            this.cbGoSlow.CheckedChanged += new System.EventHandler(this.cbGoSlow_CheckedChanged);
             // 
-            // checkBox3
+            // cbUserHelp
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.checkBox3.Location = new System.Drawing.Point(35, 100);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(88, 19);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Let me help";
-            this.checkBox3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.checkBox3.UseVisualStyleBackColor = false;
+            this.cbUserHelp.AutoSize = true;
+            this.cbUserHelp.BackColor = System.Drawing.Color.Transparent;
+            this.cbUserHelp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUserHelp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.cbUserHelp.Location = new System.Drawing.Point(35, 100);
+            this.cbUserHelp.Name = "cbUserHelp";
+            this.cbUserHelp.Size = new System.Drawing.Size(88, 19);
+            this.cbUserHelp.TabIndex = 2;
+            this.cbUserHelp.Text = "Let me help";
+            this.cbUserHelp.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.cbUserHelp.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -103,12 +109,12 @@ namespace CleverZebra
             this.BackgroundImage = global::CleverZebra.Properties.Resources.CircleSparks;
             this.ClientSize = new System.Drawing.Size(439, 263);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cbUserHelp);
+            this.Controls.Add(this.cbGoSlow);
+            this.Controls.Add(this.cbShowInfo);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "frmOptions";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,6 +122,14 @@ namespace CleverZebra
 
         void btnMainMenu_Click(object sender, EventArgs e) {
             this.Close();
+        }
+
+        private void cbGoSlow_CheckedChanged(object sender, EventArgs e) {
+            Controller.getInstance().goSlow = ((CheckBox)sender).Checked;
+        }
+
+        private void cbShowInfo_CheckedChanged(object sender, EventArgs e) {
+            Controller.getInstance().reportRelations = cbShowInfo.Checked;
         }
 
     }
