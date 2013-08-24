@@ -29,6 +29,8 @@ namespace Logix.Calculators
                     return new TimeCalculator();
                 case "ordinal":
                     return new OrdinalCalculator();
+                case "currency":
+                    return new CurrencyCalculator();
                 default:
                     throw new ArgumentException("No Calculator available for keyword " + keyword);
             }

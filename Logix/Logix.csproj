@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Calculators\Calculator.cs" />
     <Compile Include="Calculators\CalculatorFactory.cs" />
+    <Compile Include="Calculators\CurrencyCalculator.cs" />
     <Compile Include="Calculators\DateCalculator.cs" />
     <Compile Include="Calculators\NumberCalculator.cs" />
     <Compile Include="Calculators\OrdinalCalculator.cs" />

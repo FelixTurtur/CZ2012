@@ -22,7 +22,7 @@ namespace Logix.Calculators
                 case '/':
                     return baseValue / difference;
                 default:
-                    throw new ArgumentException("No known numeric operator equivalent to entered char: " + op);
+                    throw new ArgumentException("No known numeric operator equivalent to provided char: " + op);
             }
         }
 

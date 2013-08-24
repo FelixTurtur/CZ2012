@@ -158,6 +158,9 @@ namespace Logix
                 if (innerArray[(int)Rows.Values][i].ToString() == targetValue.ToString()) {
                     return this.identifier + i.ToString();
                 }
+                if (innerArray[(int)Rows.Values][i].ToString().Replace(",", "") == targetValue.ToString()) {
+                    return this.identifier + i.ToString();
+                }
             }
             return null;
         }
