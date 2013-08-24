@@ -210,7 +210,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> relations = parser.Read();
             //"A2=B2" is not the real rule we should have; it is the one we will get until the test above passes
-            List<string> manualRelations = new List<string> { "A1=C4", "A1!=B1", "A3=B4", "B3=C3", "A2=B2", "D3=C2", "A4!=C1", "A4!=D4", "C1!=D4" };
+            List<string> manualRelations = new List<string> { "A1=C4", "A1!=B1", "A3=B4", "B4=A3", "B3=C3", "A2=B2", "D3=C2", "A4!=C1", "A4!=D4", "C1!=D4" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }

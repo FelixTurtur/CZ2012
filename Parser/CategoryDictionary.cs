@@ -8,7 +8,7 @@ namespace CZParser
         internal List<string> codes;
         internal List<string> words;
         private List<string> categoryTitles;
-        private static List<string> neutrals = new List<string> {"of", "the" };
+        private static List<string> neutrals = new List<string> {"of", "the", "in", "and" };
 
         public CategoryDictionary(List<string> categories, List<string> items) {
             categoryTitles = new List<string>(categories);
@@ -50,6 +50,9 @@ namespace CZParser
 
         internal string findItemMatches(string word) {
             string result = "";
+            if (word[0] == '\'') {
+                word = word.Substring(1);
+            }
             for (int i = 0; i < codes.Count; i++) {
                 if (words[i] == word.ToLower() || words[i] + "'s" == word.ToLower() || words[i] == word.ToLower() + "s" || words[i] + "'" == word.ToLower()) {
                     if (result.Length > 0) {

@@ -23,14 +23,18 @@ namespace Logix.Calculators
             switch (keyword.ToLower()) {
                 case "numeric":
                     return new NumberCalculator();
-                case "date":
-                    return new DateCalculator();
+                case "months":
+                case "days":
+                    return new DateCalculator(keyword);
                 case "time":
                     return new TimeCalculator();
                 case "ordinal":
                     return new OrdinalCalculator();
                 case "currency":
                     return new CurrencyCalculator();
+                case "letters":
+                case "words":
+                    return new LengthCalculator(keyword);
                 default:
                     throw new ArgumentException("No Calculator available for keyword " + keyword);
             }

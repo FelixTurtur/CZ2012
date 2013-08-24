@@ -11,7 +11,7 @@ namespace CZParser {
         public Parser(Puzzle p) {
             puzzle = p;
             tagger = new Tagger(puzzle.getCategories(), puzzle.getItems(), puzzle.getKeywords());
-            translator = new Translator(puzzle.getKeywords(), p.height);
+            translator = new Translator(p.height, puzzle.getKeywords());
         }
 
         public List<string> Read() {

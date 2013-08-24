@@ -51,6 +51,10 @@ namespace Logix
             return !this.rule.Contains(Representation.Relations.Negative);
         }
 
+        private bool isSemantic() {
+            return this.GetType().Name == "SemanticRelation";
+        }
+
         public string getBaseItem(char identifier, Relations.Sides side = Relations.Sides.Related) {
             if (this.rule.Contains(identifier) == false) {
                 return null;
@@ -105,6 +109,11 @@ namespace Logix
         
         internal string getComparator() {
             return Relations.getComparator(rule);
+        }
+
+        internal string getDescriber() {
+            if (!isSemantic()) return null;
+            return Relations.getDescriber(rule);
         }
 
     }

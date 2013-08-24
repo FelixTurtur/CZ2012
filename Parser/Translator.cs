@@ -14,7 +14,7 @@ namespace CZParser
         private static string MIN = "1";
         private string MAX;
 
-        public Translator(string[] keys, int depth) {
+        public Translator(int depth, string[] keys) {
             keyCategories = new List<char>();
             MAX = depth.ToString();
             char cat = 'A';
@@ -276,6 +276,7 @@ namespace CZParser
                     case 11: return twoTermRelative(bits[0], keyCategories[0].ToString(), bits[1], bits[2], bits[3]);
                     case 12: return bits[0] + Relations.Positive + keyCategories[0].ToString() + (bits[1][3] == '-' ? MIN : MAX);
                     case 13: return bits[0] + Relations.Negative + keyCategories[0].ToString() + (bits[2][3] == '-' ? MIN : MAX);
+                    case 14: return bits[0] + Relations.makeRelatedCat(bits[3]) + Relations.Positive + Relations.makeSemanticField(bits[1] + "-" + bits[2]);
                     default:
                         throw new ParserException("No logic to handle pattern number " + PatternBank.getPatternNumber(p));
                 }

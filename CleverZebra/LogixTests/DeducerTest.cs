@@ -47,7 +47,7 @@ namespace LogixTests
         [TestMethod]
         public void First_Problem_Test() {
             List<string> clues = new List<string> { "A3=D1", "A2(C)-A3(C)=2", "A2=B3", "B2=D3", "D2!=C2" };
-            Deducer brains = new Deducer(4, 3, new string[] {"", "", "Date", ""});
+            Deducer brains = new Deducer(4, 3, new string[] {"", "", "days", ""});
             brains.Concluded += brains_Concluded;
             brains.setClues(clues);
             brains.enterCategoryValues('C', new object[] {"Monday", "Wednesday", "Friday"});

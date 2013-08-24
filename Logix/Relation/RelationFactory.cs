@@ -27,6 +27,9 @@ namespace Logix
             if (Relations.isRelative(input)) {
                 return new RelativeRelation(input); 
             }
+            if (Relations.isSemantic(input)) {
+                return new SemanticRelation(input);
+            }
             return new DirectRelation(input);
         }
 

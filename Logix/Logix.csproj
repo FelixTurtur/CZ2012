@@ -43,6 +43,7 @@
     <Compile Include="Calculators\CalculatorFactory.cs" />
     <Compile Include="Calculators\CurrencyCalculator.cs" />
     <Compile Include="Calculators\DateCalculator.cs" />
+    <Compile Include="Calculators\LengthCalculator.cs" />
     <Compile Include="Calculators\NumberCalculator.cs" />
     <Compile Include="Calculators\OrdinalCalculator.cs" />
     <Compile Include="Calculators\TimeCalculator.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Relation\Relation.cs" />
     <Compile Include="Relation\RelationFactory.cs" />
     <Compile Include="Relation\RelativeRelation.cs" />
+    <Compile Include="Relation\SemanticRelation.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="SolutionUpdateArgs.cs" />
     <Compile Include="SolveCompleteArgs.cs" />

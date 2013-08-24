@@ -74,7 +74,8 @@ namespace CZParser
                 case "date": return new List<string> { "day", "days", "week", "weeks" };
                 case "time": return new List<string> { "hour", "hours" };
                 case "ordinals": return new List<string>() { };
-                case "alphabet": return new List<string> { "letter", "word" };
+                case "alphabet":
+                case "words": return new List<string> { "letter", "word" };
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);
             }
@@ -110,6 +111,7 @@ namespace CZParser
                 case "currency": return new List<string> { "cheap", "expensive", "cheaper", "dearer", "economical", "costly" };
                 case "numeric":
                 case "left-right": return null;
+                case "words": return new List<string> { "shorter", "longer" };
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);
             }
@@ -122,6 +124,7 @@ namespace CZParser
                 case "months":
                 case "years":
                 case "currency": return new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "50", "100", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "hundred", "thousand", "million", "billion" };
+                case "words":
                 case "numeric":
                 case "date": 
                 case "time": return new List<string> { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty" };

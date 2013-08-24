@@ -33,6 +33,7 @@ namespace Representation
         private static List<string> LessThanTerms = new List<string> { "<", "+", "*" };
         private static List<string> EqualityTerms = new List<string> { "!=", "=" };
         private static List<char> PossessiveChars = new List<char> { '(', ')' };
+        private static List<char> SemanticChars = new List<char> { '{', '}' };
 
         public static bool isEqualityTerm(char c) {
             foreach (string e in EqualityTerms) {
@@ -85,6 +86,10 @@ namespace Representation
             return input.Contains(Conditional);
         }
 
+        public static bool isSemantic(string input) {
+            return input.Contains(SemanticChars[0]);
+        }
+        
         public static string getComparativeAmount(string input, bool inverse) {
             if (!isQuantified(input)) {
                 return null;
@@ -146,6 +151,17 @@ namespace Representation
 
         public static string makeRelatedCat(string p) {
             return PossessiveChars[0] + p + PossessiveChars[1];
+        }
+
+        public static string makeSemanticField(string p) {
+            return SemanticChars[0] + p + SemanticChars[1];
+        }
+
+
+        public static string getDescriber(string rule) {
+            rule.Remove(0, rule.IndexOf(SemanticChars[0]));
+            rule.Remove(rule.IndexOf(SemanticChars[1]));
+            return rule;
         }
     }
 }
