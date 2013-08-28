@@ -189,3 +189,9 @@ Next puzzle required Ordinal calculator and superlatives, which have now been ad
 ------
 Aug 23rd
 Increased the size of the windows and added a box in the solver window that displays the category items. Will be useful when improving the parser. A large proportion of the 4x5 puzzles fail because of a common language pattern that I've not translated yet. Once done will be interesting to see how many are suddenly translatable.
+-----
+Aug 24th
+Wired up the settings page options to controller fields. Go Slow is now a valid option setting.
+Pivoted the category items display box on the solver page so it isn't so readily confused with the solution.
+Started going through from the UI 'til finding a failing puzzle, then began work to make it pass. I never actually reordered the puzzles, though, so they're not sorted in order of sophistication required. Skipped gender again for now, looking for a smaller additional requirement. Stuck with "Monster and Wife" for a bit, so quite a jumble of stuff was done to try to get it to pass. New rule, new calculator, and then in fact a whole new Relation - A1(B) = {one-word}. This will cover length items and also semantic items, such as {male}, so the rule is SemanticRelation. it sets the groundwork for a lot of other puzzle requirements, but I need to do interview prep now.
+Have not yet taught the LengthCalculator how to use the information from SemanticRelation. Next task, probably.

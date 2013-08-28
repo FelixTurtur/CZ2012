@@ -21,7 +21,7 @@
 <item>Bowler Hat</item>
 <item>Flat Cap</item>
 </category>
-<category name="Day" keyword="date">
+<category name="Day" keyword="days">
 <item>Monday</item>
 <item>Wednesday</item>
 <item>Friday</item>
@@ -180,7 +180,7 @@
 <item>Grandmother</item>
 <item>Mother</item>
 </category>
-<category name="Night eaten" keyword="date">
+<category name="Night eaten" keyword="days">
 <item>Monday</item>
 <item>Tuesday</item>
 <item>Wednesday</item>
@@ -1249,7 +1249,7 @@
 <item>Lady Anne's Tower</item>
 <item>South Tower</item>
 </category>
-<category name="Date">
+<category name="years">
 <item>1950</item>
 <item>1961</item>
 <item>1972</item>
@@ -1280,7 +1280,7 @@
 </hints>
 </text>
 <box>
-<category name="Date">
+<category name="dates">
 <item>7th</item>
 <item>9th</item>
 <item>11th</item>
