@@ -59,14 +59,13 @@ namespace Representation {
                     items.Add(i.InnerText);
                 }
             }
-            this.ProvidedSolution = transformRawSolution(input["box"]["solution"].InnerText);
+            this.ProvidedSolution = transformRawSolution(input["box"]["solution"]);
         }
 
-        private List<List<string>> transformRawSolution(string p) {
-            string[] r = p.Split(new string[] { "{", "},{", "}" }, StringSplitOptions.RemoveEmptyEntries);
+        private List<List<string>> transformRawSolution(XmlNode p) {
             List<List<string>> result = new List<List<string>>();
-            foreach (string line in r) {
-                List<string> row = new List<string>(line.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries));
+            foreach (XmlNode r in p.ChildNodes) {
+                List<string> row = new List<string>(r.InnerText.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries));
                 result.Add(row);
             }
             return result;

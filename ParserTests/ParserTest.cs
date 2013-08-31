@@ -247,5 +247,30 @@ namespace ParserTests
             }
         }
 
+        [Ignore,TestMethod]
+        public void Transform_XML_Solution() {
+            XmlDocument sourceDoc = new XmlDocument();
+            sourceDoc.LoadXml(ParserTests.Properties.Resources.puzzles_sample);
+            sourceDoc.Normalize();
+            XmlDocument newSource = new XmlDocument();
+            newSource.AppendChild(newSource.CreateElement("folio"));
+            var newRoot = newSource.GetElementsByTagName("folio").Item(0);
+            var folio = sourceDoc.ChildNodes[1];
+            for (int i = 0; i < 45 && i < folio.ChildNodes.Count; i++) {
+                newRoot.AppendChild(newSource.ImportNode(folio.ChildNodes[i], true));
+                var thispuzzle = newRoot.ChildNodes[i];
+                XmlNode solutionNode = sourceDoc.GetElementsByTagName("solution").Item(i);
+                String solution = solutionNode.InnerText;
+                var newSolNode = newSource.CreateElement("solution");
+                var oldSolNode = newSource.GetElementsByTagName("solution").Item(i);
+                foreach (string s in solution.Split(new string[] { "{{", "},{", "}}" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    var row = newSource.CreateElement("row");
+                    row.InnerText = s;
+                    newSolNode.AppendChild(row);
+                }
+                thispuzzle["box"].ReplaceChild(newSolNode, oldSolNode);
+            }
+            newSource.Save("C:\\Users\\Abbie\\Documents\\GitHub\\CZ2012\\ParserTests\\Resources\\puzzles-sample2.xml");
+        }
     }
 }
