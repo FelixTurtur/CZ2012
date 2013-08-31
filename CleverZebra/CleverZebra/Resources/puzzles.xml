@@ -83,7 +83,7 @@
       <preamble>This week at RKO (Radio Keighshire Oldies) is Appeal Week raising much needed funds for local good causes. Four DJs have hosted the mid-morning show so far and each has received pledges to play certain songs and auctioned a particular item or opportunity. From the clues, can you say which singer or band's song raised the most during each DJ's show, the item they auctioned and the amount of money the show made as a whole?</preamble>
       <hints>
         <clue>Delia Johnson's show raised more money than the one that auctioned glider lessons at Lower Marsh Airfield but less money than the one whose top song was "Guitar Man" by Bread.</clue>
-        <clue>The show in which Bucks Fizz's "Making Your Mind Up" was the top earner raised more cash than the show which auctioned the opportunity to be RKO's Saturday morning DJ next week but less than Debbie Jenkin's show.</clue>
+        <clue>The show in which Bucks Fizz's "Making Your Mind Up" was the top earner raised more cash than the show which auctioned the opportunity to be RKO's Saturday morning Guest DJ next week but less than Debbie Jenkin's show.</clue>
         <clue>Daniel Jeffries' show raised more money than the one that featured "Cracklin' Rosie" by Neil Diamond but less than the one that auctioned the backstage pass for the Netherlipp Apollo's 60s night.</clue>
         <clue>The show that raked in the cash with Johnny Cash's "Ring of Fire" made £250 more than Duncan Joseph's.</clue>
         <clue>A male DJ auctioned a hospitality package for Netherliipp United's match with Athletico Stonekeigh.</clue>
@@ -136,7 +136,7 @@
       </hints>
     </text>
     <box>
-      <category name="Court">
+      <category name="Court" keyword="numeric">
         <item>Court 1</item>
         <item>Court 2</item>
         <item>Court 3</item>
@@ -145,7 +145,7 @@
       <category name="Judge">
         <item>Judge Deam</item>
         <item>Judge De Cree</item>
-        <item>Judge Gaidge</item>
+        <item>Judge Gaige</item>
         <item>Judge Roole</item>
       </category>
       <category name="Barrister">
@@ -219,7 +219,7 @@
       <preamble>The Keighshire Universal Therapy and Surgical Hospital for Upgrades and Tweaks, known locally as the Kut'n'Shut, is a cosmetic surgery facility for those people not happy with the way nature or time has arranged their features. This week four local celebrities are resident, having small modifications made to their visages. From the clues, can you work out the field in which each celeb has made his or her name, the part of their face they are having tweaked and the surgeon carrying out the operation?</preamble>
       <hints>
         <clue>Pamela Prowed is unhappy with her nose and is at the Kut'n'Shut to have it repointed; she isn't an author.</clue>
-        <clue>Selwyn Smugge is the star of the NetherlippTV programme 'Smugge's Way'; the lead singer of the pop group Vanity Parade is having the wrinkles removed from their forehead.</clue>
+        <clue>Selwyn Smugge is the star of the Netherlipp TV programme 'Smugge's Way'; the lead singer of the pop group Vanity Parade is having the wrinkles removed from their forehead.</clue>
         <clue>Samantha Selffe's surgeon is a woman, the movie star's scalpel wielder is male.</clue>
         <clue>Humphrey Hacker is the surgeon who is pinning one celebrity's ears back again - they seem to have a mind of their own.</clue>
         <clue>Neither Vernon Vayne, nor the celebrity having their chin reduced (or enlarged or sharpened or something) is going under the knife wielded by surgeon Lucille Loppett.</clue>
@@ -325,7 +325,7 @@
     <box>
       <category name="Slave">
         <item>Branelus</item>
-        <item>Clueles</item>
+        <item>Cluelus</item>
         <item>Euselus</item>
         <item>Gormlus</item>
         <item>Hopelus</item>
@@ -337,7 +337,7 @@
         <item>Flaminian Gate</item>
         <item>Senate House</item>
       </category>
-      <category name="Hour" keyword="ordinal">
+      <category name="Hour" keyword="time">
         <item>Prima luce</item>
         <item>3rd hour</item>
         <item>6th hour</item>

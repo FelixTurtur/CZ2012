@@ -36,7 +36,7 @@ namespace Representation {
         }
 
         public void parseXMLToPuzzle(XmlNode input) {
-            id = Convert.ToInt32(input.Attributes[0].Value);
+            id = Convert.ToInt32(input.Attributes[0].Value.Substring(1));
             string size = input.Attributes["size"].Value;
             semanticTag = input.Attributes["semantic"].Value;
             otherTag = input.Attributes["other"] == null ? "" : input.Attributes["other"].Value;
@@ -45,7 +45,9 @@ namespace Representation {
             XmlNodeList hints = input["text"]["hints"].GetElementsByTagName("clue");
             clues = new List<string>();
             foreach (XmlNode n in hints) {
-                clues.Add(n.InnerText);
+                if (!string.IsNullOrEmpty(n.InnerText)) {
+                    clues.Add(n.InnerText);
+                }
             }
             XmlNodeList cats = input["box"].GetElementsByTagName("category");
             categories = new List<string>();

@@ -62,7 +62,7 @@ Latest bug - when we finally get the deduced rule that'll set 'em all on fire, c
 ------------
 
 Jul 7th
-After realising the checkDeductibles wasn't looking for all-but-one-negated and adding that in, the first problem was successfully solved. It took 57 turns, which is pretty lame, though. I think this is because it adds every reverse negative relation in there too - the equivalent of completing all the crosses even when there's only one tick left and it's coming. In a 4 x 3 puzzle there are only a total of 51 squares in the grid, though, so this definitely isn't that efficient. 
+After realising the checkDeductibles wasn't looking for all-but-one-negated and adding that in, the first problem was successfully solved. It took 57 turns, which is pretty lame, though. I think this is because it adds every reverse negative relation in there too - the equivalent of completing all the crosses even when there's only one tick left and it's coming. In a 4 x 3 puzzle there are only a total of 54 squares in the grid, though, so this definitely isn't that efficient. 
 
 Next up is to actually return the solution in words for Deducer and then play with the ordering of the Deducer's Go() algorithm to see if the number of turns can be improved. Even though this only takes 49ms to run to completion. Ah, digital magickery.
 

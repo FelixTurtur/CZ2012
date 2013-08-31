@@ -16,7 +16,7 @@ namespace ParserTests
         public void loadPuzzles() {
             puzzles = new List<Puzzle>();
             XmlDocument sourceDoc = new XmlDocument();
-            sourceDoc.LoadXml(ParserTests.Properties.Resources.puzzles_sample);
+            sourceDoc.LoadXml(ParserTests.Properties.Resources.puzzles);
             sourceDoc.Normalize();
             XmlNodeList xmlPuzzles = sourceDoc.GetElementsByTagName("puzzle");
             foreach (XmlNode n in xmlPuzzles) {
@@ -169,7 +169,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> taggedclues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedclues);
-            List<string> correctTags = new List<string>() { "A3 Tp(+) Tq(D) C3 Tb Tp(-) Tq(D) B1", "B2 Tp(+) Tq(D) C4 Tb Tp(-) A2", "A1 Tp(+) Tq(D) B3 Tb Tp(-) C1", "B4 Tx(Â£250) Tp(+) A4", "C2" };
+            List<string> correctTags = new List<string>() { "A3 Tp(+) Tq(D) C3 Tb Tp(-) Tq(D) B1", "B2 Tp(+) Tq(D) C4 Tb Tp(-) A2", "A1 Tp(+) Tq(D) B3 Tb Tp(-) C1", "B4 Tx(£250) Tp(+) A4", "C2" };
             Assert.AreEqual(correctTags.Count, taggedclues.Count);
             foreach (string clue in taggedclues) {
                 Assert.IsTrue(correctTags.Contains(clue));
@@ -181,7 +181,7 @@ namespace ParserTests
             Puzzle p = puzzles[2];
             Parser parser = new Parser(p);
             List<string> relations = parser.Read();
-            List<string> manualRelations = new List<string> { "A3(D)>C3(D)", "A3(D)<B1(D)", "B2(D)>C4(D)", "B2(D)<A2(D)", "A1(D)>B3(D)", "A1(D)<C1(D)", "B4(D)-A4(D)=Â£250" };
+            List<string> manualRelations = new List<string> { "A3(D)>C3(D)", "A3(D)<B1(D)", "B2(D)>C4(D)", "B2(D)<A2(D)", "A1(D)>B3(D)", "A1(D)<C1(D)", "B4(D)-A4(D)=£250" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }
@@ -272,5 +272,6 @@ namespace ParserTests
             }
             newSource.Save("C:\\Users\\Abbie\\Documents\\GitHub\\CZ2012\\ParserTests\\Resources\\puzzles-sample2.xml");
         }
+
     }
 }
