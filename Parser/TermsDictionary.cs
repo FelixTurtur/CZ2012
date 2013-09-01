@@ -14,6 +14,7 @@ namespace CZParser
         internal char? currency;
         private static string OF = "To";
         private static string WITH = "Tw";
+        private static string AND = "Ta";
         private static string EITHER = "Te";
         private static string BUT = "Tb";
         private static string NEGATIVE = "Td";
@@ -56,7 +57,7 @@ namespace CZParser
         }
 
         private List<string> setupStandardDisassociatives() {
-            return new List<string> {"neither", "nor", "not", "isn't", "doesn't", "wasn't", "didn't" };
+            return new List<string> {"neither", "nor", "not", "isn't", "doesn't", "wasn't", "didn't", "never" };
         }
 
         private List<string> getQuantifiersForKey(string key)
@@ -68,10 +69,10 @@ namespace CZParser
                 case "left-right": return new List<string> { "left", "right" };
                 case "days": return new List<string> { "day", "days", "night", "nights" };
                 case "months": return new List<string> { "month", "months" };
-                case "years": return new List<string> { "month", "months" };
+                case "years": return new List<string> { "year", "years" };
                 case "numeric": return new List<string> { "times", "twice", "half", "double", "quarter" };
-                case "currency": return new List<string> { "pounds", "dollars", "euros", "money", "cash", "wealth" };
-                case "date": return new List<string> { "day", "days", "week", "weeks" };
+                case "currency": return new List<string> { "pounds", "dollars", "euros", "money", "cash", "wealth", "half", "double", "quarter", "twice" };
+                case "dates": return new List<string> { "day", "days", "week", "weeks" };
                 case "time": return new List<string> { "hour", "hours" };
                 case "ordinals": return new List<string>() { };
                 case "alphabet":
@@ -102,7 +103,7 @@ namespace CZParser
 
         private List<string> getPrepositionsForKey(string key) {
             switch (key) {
-                case "date":
+                case "dates":
                 case "time":
                 case "days":
                 case "months":
@@ -126,9 +127,10 @@ namespace CZParser
                 case "currency": return new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "50", "100", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "hundred", "thousand", "million", "billion" };
                 case "words":
                 case "numeric":
-                case "date": 
+                case "dates": 
+                case "ordinals":
                 case "time": return new List<string> { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty" };
-                case "ordinals": return new List<string> { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth" };
+
                 default:
                     throw new ArgumentException("Keyword not recognised: " + key);
             }
@@ -154,7 +156,13 @@ namespace CZParser
                 if (word == "with") {
                     return WITH;
                 }
+                if (word == "and") {
+                    return AND;
+                }
                 if (word == "either") {
+                    return EITHER;
+                }
+                if (word == "or") {
                     return EITHER;
                 }
                 if (word == "but") {
@@ -236,6 +244,13 @@ namespace CZParser
                     return i.ToString();
                 }
             }
+            List<string> bigNums = new List<string>() { "hundred", "100", "thousand", "1000", "million", "1000000", "billion", "1000000000" };
+            for (int i = 0; i < bigNums.Count; i++) {
+                //only numbers as words can get here
+                if (word == bigNums[i]) {
+                    return bigNums[i+1];
+                }
+            }
             throw new ParserException("Can't numberify this yet: " + word);
         }
 
@@ -254,12 +269,16 @@ namespace CZParser
             return tag == WITH;
         }
 
+        internal static bool isAnd(string tag) {
+            return tag == AND;
+        }
+
         internal static bool isBut(string tag) {
             return tag == BUT;
         }
 
         internal static bool isSingleTermItem(string tag) {
-            return tag == THIS || tag == BUT || tag.Contains(SUPER);
+            return tag == THIS || tag == BUT || tag.Contains(SUPER) || tag == EITHER;
         }
 
         internal static bool isNegative(string p) {

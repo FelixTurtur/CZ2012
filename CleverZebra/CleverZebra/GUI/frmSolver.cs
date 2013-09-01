@@ -23,7 +23,6 @@ namespace CleverZebra
         private DataGridView dgvSolution;
         private Resources.CZButton btnSolve;
         private ProgressBar pbSolving;
-        private FlowLayoutPanel frameStats;
         private GroupBox gbStats;
         private Label lbStats;
         private FlowLayoutPanel flpStats;
@@ -44,14 +43,8 @@ namespace CleverZebra
         }
 
         void frmSolver_FormClosing(object sender, FormClosingEventArgs e) {
-            var result = MessageBox.Show("Leave this window?","Confirm close", MessageBoxButtons.OKCancel);
-            if (result == System.Windows.Forms.DialogResult.OK) {
-                this.FormClosing -= frmSolver_FormClosing;
-                Application.Exit();
-            }
-            else {
-                e.Cancel = true;
-            }
+            this.FormClosing -= frmSolver_FormClosing;
+            this.Owner.Show();
         }
 
         internal void InitializeComponent() {
@@ -67,7 +60,6 @@ namespace CleverZebra
             this.lbSolution = new System.Windows.Forms.Label();
             this.dgvSolution = new System.Windows.Forms.DataGridView();
             this.pbSolving = new System.Windows.Forms.ProgressBar();
-            this.frameStats = new System.Windows.Forms.FlowLayoutPanel();
             this.gbStats = new System.Windows.Forms.GroupBox();
             this.lbStats = new System.Windows.Forms.Label();
             this.flpStats = new System.Windows.Forms.FlowLayoutPanel();
@@ -83,7 +75,6 @@ namespace CleverZebra
             this.gbClues.SuspendLayout();
             this.flpSolution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSolution)).BeginInit();
-            this.frameStats.SuspendLayout();
             this.gbStats.SuspendLayout();
             this.frameRelations.SuspendLayout();
             this.gbRelations.SuspendLayout();
@@ -120,6 +111,7 @@ namespace CleverZebra
             // gbClues
             // 
             this.gbClues.AutoSize = true;
+            this.gbClues.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.gbClues.BackColor = System.Drawing.Color.Black;
             this.gbClues.Controls.Add(this.flpClues);
             this.gbClues.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -225,17 +217,6 @@ namespace CleverZebra
             this.pbSolving.TabIndex = 5;
             this.pbSolving.Visible = false;
             // 
-            // frameStats
-            // 
-            this.frameStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.frameStats.BackColor = System.Drawing.Color.Transparent;
-            this.frameStats.Controls.Add(this.gbStats);
-            this.frameStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.frameStats.Location = new System.Drawing.Point(925, 298);
-            this.frameStats.Name = "frameStats";
-            this.frameStats.Size = new System.Drawing.Size(250, 286);
-            this.frameStats.TabIndex = 6;
-            // 
             // gbStats
             // 
             this.gbStats.BackColor = System.Drawing.Color.Black;
@@ -244,10 +225,10 @@ namespace CleverZebra
             this.gbStats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbStats.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbStats.ForeColor = System.Drawing.Color.DarkOrange;
-            this.gbStats.Location = new System.Drawing.Point(3, 5);
+            this.gbStats.Location = new System.Drawing.Point(3, 233);
             this.gbStats.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.gbStats.MaximumSize = new System.Drawing.Size(270, 280);
-            this.gbStats.MinimumSize = new System.Drawing.Size(200, 100);
+            this.gbStats.MinimumSize = new System.Drawing.Size(245, 100);
             this.gbStats.Name = "gbStats";
             this.gbStats.Size = new System.Drawing.Size(247, 108);
             this.gbStats.TabIndex = 7;
@@ -280,16 +261,17 @@ namespace CleverZebra
             this.frameRelations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.frameRelations.BackColor = System.Drawing.Color.Transparent;
             this.frameRelations.Controls.Add(this.gbRelations);
+            this.frameRelations.Controls.Add(this.gbStats);
             this.frameRelations.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.frameRelations.Location = new System.Drawing.Point(925, 12);
             this.frameRelations.Name = "frameRelations";
-            this.frameRelations.Size = new System.Drawing.Size(250, 287);
+            this.frameRelations.Size = new System.Drawing.Size(250, 647);
             this.frameRelations.TabIndex = 5;
             this.frameRelations.Visible = false;
             // 
             // gbRelations
             // 
-            this.gbRelations.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gbRelations.AutoSize = true;
             this.gbRelations.BackColor = System.Drawing.Color.Black;
             this.gbRelations.Controls.Add(this.flpRelations);
             this.gbRelations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -297,10 +279,10 @@ namespace CleverZebra
             this.gbRelations.ForeColor = System.Drawing.Color.DarkOrange;
             this.gbRelations.Location = new System.Drawing.Point(3, 5);
             this.gbRelations.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.gbRelations.MaximumSize = new System.Drawing.Size(270, 280);
-            this.gbRelations.MinimumSize = new System.Drawing.Size(200, 108);
+            this.gbRelations.MaximumSize = new System.Drawing.Size(270, 350);
+            this.gbRelations.MinimumSize = new System.Drawing.Size(245, 220);
             this.gbRelations.Name = "gbRelations";
-            this.gbRelations.Size = new System.Drawing.Size(247, 225);
+            this.gbRelations.Size = new System.Drawing.Size(245, 220);
             this.gbRelations.TabIndex = 3;
             this.gbRelations.TabStop = false;
             this.gbRelations.Text = "Relations Found";
@@ -314,7 +296,7 @@ namespace CleverZebra
             this.flpRelations.Location = new System.Drawing.Point(3, 19);
             this.flpRelations.MaximumSize = new System.Drawing.Size(320, 380);
             this.flpRelations.Name = "flpRelations";
-            this.flpRelations.Size = new System.Drawing.Size(241, 0);
+            this.flpRelations.Size = new System.Drawing.Size(239, 0);
             this.flpRelations.TabIndex = 6;
             // 
             // dgvCategories
@@ -427,7 +409,6 @@ namespace CleverZebra
             this.BackgroundImage = global::CleverZebra.Properties.Resources.CircleSparks;
             this.ClientSize = new System.Drawing.Size(1184, 750);
             this.Controls.Add(this.flpCategories);
-            this.Controls.Add(this.frameStats);
             this.Controls.Add(this.frameRelations);
             this.Controls.Add(this.btnSolve);
             this.Controls.Add(this.flpSolution);
@@ -444,10 +425,10 @@ namespace CleverZebra
             this.flpSolution.ResumeLayout(false);
             this.flpSolution.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSolution)).EndInit();
-            this.frameStats.ResumeLayout(false);
             this.gbStats.ResumeLayout(false);
             this.gbStats.PerformLayout();
             this.frameRelations.ResumeLayout(false);
+            this.frameRelations.PerformLayout();
             this.gbRelations.ResumeLayout(false);
             this.gbRelations.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).EndInit();
@@ -539,7 +520,6 @@ namespace CleverZebra
             this.lbStats.Text += l.Message;
             this.lbStats.Text += "\n";
             this.lbStats.Text += l.InnerException == null ? "" : l.InnerException.Message;
-            this.frameStats.Visible = true;
             this.gbStats.Visible = true;
             pbSolving.Hide();
             pbSolving.Value = 0;
@@ -662,7 +642,6 @@ namespace CleverZebra
                 this.lbStats.Text += "\n";
                 this.lbStats.Text += "Time taken: " + e.solutionTime.TotalMilliseconds + "ms";
             }
-            this.frameStats.Visible = true;
             this.gbStats.Visible = true;
         }
 

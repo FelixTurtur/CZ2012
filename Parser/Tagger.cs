@@ -16,7 +16,7 @@ namespace CZParser
                 char curr = ' ';
                 for (int i = 0; i < keys.Count(); i++) {
                     if (keys[i].ToLower() == "currency") {
-                        curr = items[i*categories.Count][0];
+                        curr = items[i*(items.Count/categories.Count)][0];
                     }
                 }
                 terms = new TermsDictionary(keys, curr);
@@ -56,6 +56,9 @@ namespace CZParser
         }
 
         internal static List<string> separateWordsAndPunctuation(string clue) {
+            if (clue.Contains('(')) {
+                clue = removeParentheticals(clue);
+            }
             if (string.IsNullOrEmpty(clue)) return null;
             string[] words = clue.Split(new char[] {' ', '-'}, StringSplitOptions.RemoveEmptyEntries);
             List<string> result = new List<string>();
@@ -71,6 +74,13 @@ namespace CZParser
                     result.Add(punctuation.ToString());
             }
             return result;
+        }
+
+        private static string removeParentheticals(string clue) {
+            while (clue.Contains("(")) {
+                clue = clue.Remove(clue.IndexOf('('), (clue.IndexOf(')') - clue.IndexOf('(')) + 1);
+            }
+            return clue;
         }
 
         private string condenseToString(List<string> tagLine) {
@@ -151,8 +161,18 @@ namespace CZParser
         }
 
         private string evaluateTag(string previous, string tag, ref string heldTag) {
+            if (TermsDictionary.isBut(heldTag.Trim())) {
+                if (isDisassociative(tag)) {
+                    heldTag = tag + " ";
+                    return null;
+                }
+            }
             if (tagMustBeHeld(tag)) {
                 heldTag += tag + " ";
+                return null;
+            }
+            if (TermsDictionary.isAnd(tag)) {
+                buffer.Add(tag);
                 return null;
             }
             if (isCatTag(tag))  {
@@ -174,7 +194,10 @@ namespace CZParser
             }
             else if (isTermTag(tag)) {
                 if (TermsDictionary.isSingleTermItem(tag)) {
-                    return tag;
+                    if (!TermsDictionary.isSingleTermItem(heldTag.Trim())) {
+                        return tag;
+                    }
+                    return null;
                 }
                 if (TermsDictionary.isOf(tag)) {
                     if (pairsWithOf(previous)) {
@@ -189,6 +212,12 @@ namespace CZParser
                     else return null;
                 }
                 buffer.Add(tag);
+            }
+            else if (hasNumber(tag) && hasCatTag(tag)) {
+                return evaluateTag(previous, getCatTagFromCombo(tag), ref heldTag);
+            }
+            else if (isCombinedTermCompCatTag(tag)) {
+                return evaluateTag(previous, getTermTagFromCombo(tag), ref heldTag);
             }
             return null;
         }
@@ -223,9 +252,14 @@ namespace CZParser
                 buffer.Add(tag);
                 return null;
             }
+            if (isCatTag(tag)) {
+                //previous combo was shared item part. Ignore in preference to this
+                buffer.Clear();
+                return tag;
+            }
             else {
-                //we have a term/combo cat-term tag
                 if (isTermTag(tag)) {
+                //we have a term/combo cat-term tag
                     string category = buffer.pullCategoryTitle();
                     //drop previous buffer, start considering term with cat mention, if necessary
                     buffer.Clear();
@@ -269,9 +303,15 @@ namespace CZParser
             }
         }
 
+        /// <summary>
+        /// Removes excess whitespace and category titles
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
         private string finaliseResult(string result) {
-            if (result.Contains("Tp") && !result.Contains("Tq")) {
-                return result.Trim();
+            result = result.Trim();
+            if (result.Substring(result.LastIndexOf(" ") + 1) == "Te") {
+                return result.Substring(0, result.LastIndexOf(" "));
             }
             else {
                 //no need for category titles
@@ -301,6 +341,44 @@ namespace CZParser
             return false;
         }
 
+        private bool isCombinedTermCompCatTag(string tag) {
+            bool hasCompCat = false;
+            bool hasTerm = false;
+            string[] bits = tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string t in bits) {
+                if (t.Length == 1 && isCatTag(t)) {
+                    hasCompCat = true;
+                }
+                else if (isTermTag(t)) {
+                    hasTerm = true;
+                }
+                else {
+                    return false;
+                }
+            }
+            return hasCompCat && hasTerm;
+        }
+
+        private bool hasCatTag(string tag) {
+            string[] bits = tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string t in bits) {
+                if (isCatTag(t)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool hasNumber(string tag) {
+            string[] bits = tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string t in bits) {
+                if (char.IsDigit(t[0])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool isMixedTag(string tag) {
             bool hasTerm = false;
             bool hasCat = false;
@@ -318,6 +396,9 @@ namespace CZParser
 
         internal static bool isCatTag(string tag) {
             if (tag.Length == 1 && !char.IsPunctuation(tag[0])) {
+                if (char.IsDigit(tag[0])) {
+                    return false;
+                }
                 return true;
             }
             int index;
@@ -369,11 +450,15 @@ namespace CZParser
             throw new ParserException("Wasn't expecting to not find a cat tag in here: " + tag);
         }
 
-        /// <summary>
-        /// Removes excess whitespace and category titles
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
+        private string getTermTagFromCombo(string tag) {
+            foreach (string bit in tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries)) {
+                if (isTermTag(bit)) {
+                    return bit;
+                }
+            }
+            throw new ParserException("Wasn't expecting to not find a term tag in here: " + tag);
+        }
+
         private bool pairsWithOf(string tag) {
             if (tag == "Tf" || tag == "Tl") {
                 return true;

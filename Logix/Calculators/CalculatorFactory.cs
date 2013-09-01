@@ -22,13 +22,15 @@ namespace Logix.Calculators
         public Calculator createCalculator(string keyword) {
             switch (keyword.ToLower()) {
                 case "numeric":
+                case "years":
                     return new NumberCalculator();
                 case "months":
                 case "days":
+                case "dates":
                     return new DateCalculator(keyword);
                 case "time":
                     return new TimeCalculator();
-                case "ordinal":
+                case "ordinals":
                     return new OrdinalCalculator();
                 case "currency":
                     return new CurrencyCalculator();

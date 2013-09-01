@@ -98,6 +98,7 @@ namespace Representation
             foreach (string c in Comparators) {
                 if (input.Contains(c)) {
                     comparator = c;
+                    break;
                 }
             }
             comparator = inverse ? getInverse(comparator) : comparator;

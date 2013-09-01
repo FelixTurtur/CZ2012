@@ -690,7 +690,7 @@
       <hints>
         <clue>Oliver Newton does not play the part of either a corner shop owner or a graphic designer working from a studio in their attic.</clue>
         <clue>The star named Lemming plays Pat Thistle in the soap; the one called Dover does not play Wanda Abbott or the designer.</clue>
-        <clue>Gareth's surname isn't Buckitt and Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
+        <clue>Gareth's surname isn't Buckitt. Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
         <clue>Marlene plays the part of Sam Gomez but she is not a taxi driver or a bar assistant.</clue>
         <clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the cafe, but the name of this character is not RU O'Kaye.</clue>
       </hints>
@@ -1604,7 +1604,8 @@
         <item>Slumped</item>
       </category>
       <solution>
-        <row>Keighshire Tribune, Sandra Socker, Vicar, Sam Slide, Drifters, Gyrating}, {Netherlipp Clarion, Olivia O'Nair, Council leader, Sid Snappe, Tramps, canoodling</row>
+        <row>Keighshire Tribune, Sandra Socker, Vicar, Sam Slide, Drifters, Gyrating</row>
+        <row>Netherlipp Clarion, Olivia O'Nair, Council leader, Sid Snappe, Tramps, canoodling</row>
         <row>Northchester Argus, Roger Rector, Radio DJ, Cheryl Shutter, Hobos, Slumped</row>
         <row>Stonekeigh Advertiser, Chester Chambers, Footballer, Sharon Shoot, Vagrants, Cavorting</row>
       </solution>
@@ -1900,8 +1901,8 @@
       <preamble>Dormitory B4 of St Keigh's Boarding School is out of bounds to anyone except the school matron and its four occupants as each of the boarders has come down with a bad cold. They've spent an enjoyable day ganging up in various permutations of three and beating up the other for infecting the dormitory in the first place, but they're bored with that and are currently sat in bed sipping home-made remedies sent in by their mothers. From the clues, can you say which lad is sipping which drink, the hat he's wearing after matron said they should keep their heads warm and the piece of homework they are delighted to be dodging by being ill?</preamble>
       <hints>
         <clue>Chris Cockcroft is wearing a balaclava; actually it's an overlarge rugby sock with a hole cut in it, but beggars can't be choosers.</clue>
-        <clue>The lad in the Netherlipp Rovers bobble hat is sipping a mug of hot lemon; it's not Hamish Hazel who is sniffing suspiciously and trying to drink a mug of steaming honey and lime.</clue>
-        <clue>The lad trying to drink his ginger tea is avoiding a Latin translation and Ben Barton, who is happy to be dodging a particularly tricky maths assignment, isn't the lad in his school cap.</clue>
+        <clue>The lad in the Netherlipp Rovers bobble hat is sipping a mug of hot lemon. It's not Hamish Hazel who is sniffing suspiciously and trying to drink a mug of steaming honey and lime.</clue>
+        <clue>The lad trying to drink his ginger tea is avoiding a Latin translation. Ben Barton, who is happy to be dodging a particularly tricky maths assignment, isn't the lad in his school cap.</clue>
         <clue>The lad wearing his rugby scrumcap (and boxing gloves, just to be on the safe side) is dodging writing a history essay.</clue>
         <clue>Martin Master's mother swears by rosehip tea and has sent a batch for her son to sip.</clue>
       </hints>

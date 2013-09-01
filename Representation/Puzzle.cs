@@ -58,7 +58,7 @@ namespace Representation {
                 var keyNode = n.Attributes["keyword"];
                 keywords.Add(keyNode == null ? "" : keyNode.Value);
                 foreach (XmlNode i in n.ChildNodes) {
-                    items.Add(i.InnerText);
+                    items.Add(i.InnerText.Trim());
                 }
             }
             this.ProvidedSolution = transformRawSolution(input["box"]["solution"]);

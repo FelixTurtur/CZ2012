@@ -8,7 +8,7 @@ namespace CZParser
         internal List<string> codes;
         internal List<string> words;
         private List<string> categoryTitles;
-        private static List<string> neutrals = new List<string> {"of", "the", "in", "and" };
+        private static List<string> neutrals = new List<string> {"of", "the", "in", "out", "and", "a", "on", "went", "to" };
 
         public CategoryDictionary(List<string> categories, List<string> items) {
             categoryTitles = new List<string>(categories);
@@ -38,7 +38,7 @@ namespace CZParser
         }
 
         private bool shouldBeConsidered(string s, List<string> categories) {
-            if (neutrals.Contains(s)) {
+            if (neutrals.Contains(s.ToLower())) {
                 return false;
             }
             return true;

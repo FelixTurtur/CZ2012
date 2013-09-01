@@ -37,14 +37,14 @@ namespace CZParser
         }
 
         private static bool containsMultipleStatements(string line) {
-            if (line.Contains(".") || line.Contains(";") || line.Contains("Tb "))
+            if (line.Contains(".") || line.Contains(";") || line.Contains("Tb ") || line.Contains("Te "))
                 return true;
             return false;
         }
 
         private List<string> getRelationsFromMultiLine(string line) {
             List<string> relations = new List<string>();
-            string[] lines = line.Split(new string[] { ". ", "; ", "Tb " }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = line.Split(new string[] { ". ", "; " }, StringSplitOptions.RemoveEmptyEntries);
             if (line.Contains("; Tt Tx") || line.Contains(". Tt Tx") || line.Contains("; Tt Tp") || line.Contains(". Tt Tp")) {
                 //two separate relations and also a comparative between one item from each to be created. Left then right.
                 string termBlock = getTermBlock(lines[1]);
@@ -99,15 +99,26 @@ namespace CZParser
             else if (line.Contains("Tt")) {
                 //a second relation must be formed with an item from the first relation
             }
+            else if (!line.Contains(";") && !line.Contains(".") && line.Contains("Td") && line.Contains("Te")) {
+                //a second relation must be formed with the first item of the first relation
+                relations.AddRange(makeEitherOrRelations(line));
+            }
             else if (line.Contains("Tb")) {
-                //two relations to the leftmost item
-                List<string> foundRels = getRelationsFromLine(lines[0]);
-                relations.AddRange(foundRels);
-                string leftItem = getFirstItem(foundRels[0]);
-                foundRels = getRelationsFromLine(leftItem + " " + lines[1], false);
-                relations.AddRange(foundRels);
-                if (lines.Count() > 2) {
-                    relations.AddRange(getRelationsFromMultiLine(line.Substring(lines[0].Length + lines[1].Length + "Tb ".Length)));
+                if (isSeparatingBut(line)) {
+                    lines = line.Split(new string[] { ". ", "; ", "Tb " }, StringSplitOptions.RemoveEmptyEntries);
+                    //two relations to the leftmost item
+                    List<string> foundRels = getRelationsFromLine(lines[0]);
+                    relations.AddRange(foundRels);
+                    string leftItem = getFirstItem(foundRels[0]);
+                    foundRels = getRelationsFromLine(leftItem + " " + lines[1], false);
+                    relations.AddRange(foundRels);
+                    if (lines.Count() > 2) {
+                        relations.AddRange(getRelationsFromMultiLine(line.Substring(lines[0].Length + lines[1].Length + "Tb ".Length)));
+                    }
+                }
+                else {
+                    line = line.Remove(line.IndexOf("Tb"), 3);
+                    relations.AddRange(getRelationsFromLine(line));
                 }
             }
             else {
@@ -116,6 +127,32 @@ namespace CZParser
                 }
             }
             return relations;
+        }
+
+        private List<string> makeEitherOrRelations(string line) {
+            List<string> relations = new List<string>();
+            bool eitherOr = line.Contains("Td Te"); // C (C) Td Te C Te C (Te C)* || C (C) Td C Te C (Te C)*
+            string[] lines = line.Split(new string[] { "Te " }, StringSplitOptions.RemoveEmptyEntries);
+            string firstRelationLine = eitherOr ? lines[0] + lines[1] : lines[0];
+            string secondRelationLine = eitherOr ? lines[2] : lines[1];
+            List<string> leftRelation = getRelationsFromLine(firstRelationLine);
+            relations.AddRange(leftRelation);
+            string leftItem = getFirstItem(leftRelation[0]);
+            relations.Add(leftItem + Representation.Relations.Negative + getFirstCat(secondRelationLine));
+            int linesDone = eitherOr ? 3 : 2;
+            if (lines.Count() > linesDone) {
+                for (int i = linesDone; i < lines.Count(); i++) {
+                    relations.Add(leftItem + Representation.Relations.Negative + getFirstCat(lines[i]));
+                }
+            }
+            return relations;
+        }
+
+        private bool isSeparatingBut(string line) {
+            if (line.IndexOf("Tb") > 3) {
+                return true;
+            }
+            return false;
         }
 
         private static string getTermBlock(string p) {
@@ -157,6 +194,9 @@ namespace CZParser
 
         private List<string> getRelationsFromLine(string line, bool firstLine = true) {
             line = line.Trim();
+            if (firstLine && line.StartsWith("Tt")) {
+                line = line.Substring(3);
+            }
             if (isCatPair(line)) {
                 return new List<string> { line.Substring(0, line.IndexOf(" ")) + Representation.Relations.Positive + line.Substring(line.IndexOf(" ") + 1) };
             }
@@ -203,6 +243,9 @@ namespace CZParser
                 catch (IndexOutOfRangeException ex) {
                     return result;
                 }
+            }
+            else if (line.Contains("Te")) {
+                return makeEitherOrRelations(line);
             }
             else if (!line.StartsWith("T") && !line.Contains("Tp")) {
                 return formRelationsUsingBuffer(line);
@@ -256,6 +299,9 @@ namespace CZParser
             catch (Exception e) {
                 throw e;
             }
+            finally {
+                buffer.Clear();
+            }
         }
 
         private string makeRelation(string p) {
@@ -277,6 +323,8 @@ namespace CZParser
                     case 12: return bits[0] + Relations.Positive + keyCategories[0].ToString() + (bits[1][3] == '-' ? MIN : MAX);
                     case 13: return bits[0] + Relations.Negative + keyCategories[0].ToString() + (bits[2][3] == '-' ? MIN : MAX);
                     case 14: return bits[0] + Relations.makeRelatedCat(bits[3]) + Relations.Positive + Relations.makeSemanticField(bits[1] + "-" + bits[2]);
+                    case 15: return twoTermRelative(bits[3], bits[1][3].ToString(), bits[0], bits[2], bits[4]);
+                    case 16: return twoTermRelative(bits[0], keyCategories[0].ToString(), "1", bits[2], bits[3]);
                     default:
                         throw new ParserException("No logic to handle pattern number " + PatternBank.getPatternNumber(p));
                 }
@@ -297,7 +345,7 @@ namespace CZParser
 
         private static string twoTermRelative(string left, string owned, string amount, string comparator, string right) {
             string relatedCat = Relations.makeRelatedCat(owned);
-            string difference = amount.Substring(3, amount.Length - 4);
+            string difference = amount.Contains('(') ? amount.Substring(3, amount.Length - 4) : amount;
             if (comparator.Contains("+")) {
                 return left + relatedCat + Relations.Subtract + right + relatedCat + Relations.Positive + difference; 
             }

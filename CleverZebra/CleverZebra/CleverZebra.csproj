@@ -123,7 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\CodingNotes.txt" />
-    <Content Include="Resources\puzzles.xml" />
+    <Content Include="Resources\puzzles.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Logix\Logix.csproj">

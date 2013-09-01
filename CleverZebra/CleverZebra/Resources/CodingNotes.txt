@@ -195,3 +195,11 @@ Wired up the settings page options to controller fields. Go Slow is now a valid 
 Pivoted the category items display box on the solver page so it isn't so readily confused with the solution.
 Started going through from the UI 'til finding a failing puzzle, then began work to make it pass. I never actually reordered the puzzles, though, so they're not sorted in order of sophistication required. Skipped gender again for now, looking for a smaller additional requirement. Stuck with "Monster and Wife" for a bit, so quite a jumble of stuff was done to try to get it to pass. New rule, new calculator, and then in fact a whole new Relation - A1(B) = {one-word}. This will cover length items and also semantic items, such as {male}, so the rule is SemanticRelation. it sets the groundwork for a lot of other puzzle requirements, but I need to do interview prep now.
 Have not yet taught the LengthCalculator how to use the information from SemanticRelation. Next task, probably.
+--------
+Aug 31st
+Kept going with report, mainly, then decided to get some more results for number of turns the solving algorithm now takes. Began spreadsheet of current results per puzzle, but a disheartening number still have issues. Looking for most common issues to form a strategy for improving the most possible in the remaining time.
+Also came across a tagging issue with the tag "A2,3" being dropped completely because evaluateTag had no path for it. Added this in, all tests that were passing are still doing so. Now to see if this helps that particular problem (which also currently fails due to subclauses).
+------
+Sep 1st
+ohgod september. Introduced tag "Ta" for AND that is only considered when followed by NOT. The tag patterns for this will create relations like neither..nor, so will add these in now.
+Done. seventh test working a beaut.

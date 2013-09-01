@@ -109,10 +109,10 @@
         <item>Guest DJ </item>
       </category>
       <category name="Money raised" keyword="currency">
-        <item>£1,500 </item>
-        <item>£1,750 </item>
-        <item>£2,000 </item>
-        <item>£2,250 </item>
+        <item>£1,500</item>
+        <item>£1,750</item>
+        <item>£2,000</item>
+        <item>£2,250</item>
       </category>
       <solution>
         <row>Daniel Jeffries, Bucks Fizz, football hospitality, £2,000</row>
@@ -629,7 +629,7 @@
       </hints>
     </text>
     <box>
-      <category name="Order" keyword="ordinal">
+      <category name="Order" keyword="ordinals">
         <item>First</item>
         <item>Second</item>
         <item>Third</item>
@@ -673,7 +673,7 @@
       <hints>
         <clue>Oliver Newton does not play the part of either a corner shop owner or a graphic designer working from a studio in their attic.</clue>
         <clue>The star named Lemming plays Pat Thistle in the soap; the one called Dover does not play Wanda Abbott or the designer.</clue>
-        <clue>Gareth's surname isn't Buckitt and Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
+        <clue>Gareth's surname isn't Buckitt. Julian isn't the star who portrays the particularly dodgy Harry Lymes in the soap.</clue>
         <clue>Marlene plays the part of Sam Gomez but she is not a taxi driver or a bar assistant.</clue>
         <clue>The owner of the corner shop in "Corodale Enders" is Wanda Abbott, but this character is not played by Julian; the star named Parkes plays the taxi driver, whose car is usually seen parked outside the cafe, but the name of this character is not RU O'Kaye.</clue>
       </hints>
@@ -872,7 +872,7 @@
     <text>
       <preamble>Five of the houses along Baskerville Lane have pet dogs and, following the trend to make specific cross breeds, each is a mixture of two flavours of dog. From the clues, can you work out the name of the family at each house (the numbers run conventionally with the odds on one side, the evens on the other and consecutive odds and evens being neighbours), the name they've applied to the new breed they've created and the regular visitor to the house that sends their pet into paroxysms of barking.</preamble>
       <hints>
-        <clue>The Hound family's pet, who likes to give the dustmen the full force of its bark, lives next door to the dallie dog (that's a blend of Dalmatian and collie).</clue>
+        <clue>The Hound family's pet, who likes to give the dustman the full force of its bark, lives next door to the dallie dog (that's a blend of Dalmatian and collie).</clue>
         <clue>The Pooch family, who live at 3 Baskerville Lane, don't live next door to the Kurrs.</clue>
         <clue>The boxsky (an amalgamation of a boxer and a husky) inhabits 4 Baskerville Lane, which is on the opposite side of the road to the dog whose barking at the postman is legendary in canine circles.</clue>
         <clue>The cross between a Labrador and a beagle - a beagrador (or I suppose they could have called it a labragle) - never lets the arrival of the window cleaner go unannounced but doesn't live with the Welp family; the spanoodle (a poodle merged with a spaniel) lives next door.</clue>
@@ -961,7 +961,8 @@
         <item>Taxes</item>
       </category>
       <solution>
-        <row>Debbie De Fayme, Northchester Argus, Mugbook, daylight saving}, {Gideon Gosseppe, Netherlipp Clarion, Pimport, taxes</row>
+        <row>Debbie De Fayme, Northchester Argus, Mugbook, daylight saving</row>
+        <row>Gideon Gosseppe, Netherlipp Clarion, Pimport, taxes</row>
         <row>Lydia Lybal, Wallingfen Recorder, Myscope, speed limits</row>
         <row>Seymour Scandell, Storbury Globe, Youpipe, fuel prices</row>
         <row>Sylvia Slandar, Stonekeigh Advertiser, Chirrup, bank hols</row>
@@ -982,7 +983,7 @@
       </hints>
     </text>
     <box>
-      <category name="Drone">
+      <category name="Drone" keyword="length">
         <item>Archie Fotheringhay</item>
         <item>Edward Tanqueray</item>
         <item>Gerald Huntington</item>
@@ -1054,7 +1055,7 @@
         <item>Kidzone</item>
         <item>Park Your Pooch</item>
       </category>
-      <category name="Price">
+      <category name="Price" keyword="currency">
         <item>Free</item>
         <item>£1</item>
         <item>£2</item>
@@ -1099,7 +1100,7 @@
         <item>Gary Higgins</item>
         <item>Vikki Wren</item>
       </category>
-      <category name="Based in">
+      <category name="Based in" keyword="alphabet">
         <item>Bedford</item>
         <item>Ipswich</item>
         <item>Lincoln</item>
@@ -1188,7 +1189,7 @@
       </hints>
     </text>
     <box>
-      <category name="Position">
+      <category name="Position" keyword="numeric">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -1309,17 +1310,17 @@
       </category>
       <category name="First day win">
         <item>High jump</item>
-        <item>110 metre hurdles</item>
-        <item>1500 metres</item>
-        <item>Javelin</item>
-        <item>Pole vault</item>
-      </category>
-      <category name="Second day win">
-        <item>High jump</item>
         <item>400 metres</item>
         <item>Long jump</item>
         <item>100 metres</item>
         <item>Shot put</item>
+      </category>
+      <category name="Second day win">
+        <item>Discus</item>
+        <item>110 metre hurdles</item>
+        <item>1500 metres</item>
+        <item>Javelin</item>
+        <item>Pole vault</item>
       </category>
       <solution>
         <row>Burleigh, Britain, Long jump, 1500 metres</row>
@@ -1410,7 +1411,7 @@
         <item>Lady Anne's Tower</item>
         <item>South Tower</item>
       </category>
-      <category name="Date">
+      <category name="Date" keyword="years">
         <item>1950</item>
         <item>1961</item>
         <item>1972</item>
@@ -1447,7 +1448,7 @@
       </hints>
     </text>
     <box>
-      <category name="Date">
+      <category name="Date" keyword="dates">
         <item>7th</item>
         <item>9th</item>
         <item>11th</item>
@@ -1587,7 +1588,8 @@
         <item>Slumped</item>
       </category>
       <solution>
-        <row>Keighshire Tribune, Sandra Socker, Vicar, Sam Slide, Drifters, Gyrating}, {Netherlipp Clarion, Olivia O'Nair, Council leader, Sid Snappe, Tramps, canoodling</row>
+        <row>Keighshire Tribune, Sandra Socker, Vicar, Sam Slide, Drifters, Gyrating</row>
+        <row>Netherlipp Clarion, Olivia O'Nair, Council leader, Sid Snappe, Tramps, canoodling</row>
         <row>Northchester Argus, Roger Rector, Radio DJ, Cheryl Shutter, Hobos, Slumped</row>
         <row>Stonekeigh Advertiser, Chester Chambers, Footballer, Sharon Shoot, Vagrants, Cavorting</row>
       </solution>
@@ -1607,7 +1609,7 @@
       </hints>
     </text>
     <box>
-      <category name="Item">
+      <category name="Item" keyword="numeric">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -1631,7 +1633,7 @@
         <item>Navy blue</item>
         <item>Red</item>
       </category>
-      <category name="Cost">
+      <category name="Cost" keyword="currency">
         <item>£60</item>
         <item>£65</item>
         <item>£70</item>
@@ -1664,7 +1666,7 @@
       </hints>
     </text>
     <box>
-      <category name="Year">
+      <category name="Year" keyword="years">
         <item>2009</item>
         <item>2010</item>
         <item>2011</item>
@@ -1717,7 +1719,7 @@
       </hints>
     </text>
     <box>
-      <category name="Month">
+      <category name="Month" keyword="months">
         <item>April</item>
         <item>May</item>
         <item>June</item>
@@ -1820,7 +1822,7 @@
         <item>Pay and display</item>
         <item>Restricted parking</item>
       </category>
-      <category name="Fine">
+      <category name="Fine" keyword="currency">
         <item>£10</item>
         <item>£20</item>
         <item>£40</item>
@@ -1845,7 +1847,7 @@
       </hints>
     </text>
     <box>
-      <category name="Position">
+      <category name="Position" keyword="ordinals">
         <item>First</item>
         <item>Second</item>
         <item>Third</item>
@@ -1883,8 +1885,8 @@
       <preamble>Dormitory B4 of St Keigh's Boarding School is out of bounds to anyone except the school matron and its four occupants as each of the boarders has come down with a bad cold. They've spent an enjoyable day ganging up in various permutations of three and beating up the other for infecting the dormitory in the first place, but they're bored with that and are currently sat in bed sipping home-made remedies sent in by their mothers. From the clues, can you say which lad is sipping which drink, the hat he's wearing after matron said they should keep their heads warm and the piece of homework they are delighted to be dodging by being ill?</preamble>
       <hints>
         <clue>Chris Cockcroft is wearing a balaclava; actually it's an overlarge rugby sock with a hole cut in it, but beggars can't be choosers.</clue>
-        <clue>The lad in the Netherlipp Rovers bobble hat is sipping a mug of hot lemon; it's not Hamish Hazel who is sniffing suspiciously and trying to drink a mug of steaming honey and lime.</clue>
-        <clue>The lad trying to drink his ginger tea is avoiding a Latin translation and Ben Barton, who is happy to be dodging a particularly tricky maths assignment, isn't the lad in his school cap.</clue>
+        <clue>The lad in the Netherlipp Rovers bobble hat is sipping a mug of hot lemon. It's not Hamish Hazel who is sniffing suspiciously and trying to drink a mug of steaming honey and lime.</clue>
+        <clue>The lad trying to drink his ginger tea is avoiding a Latin translation. Ben Barton, who is happy to be dodging a particularly tricky maths assignment, isn't the lad in his school cap.</clue>
         <clue>The lad wearing his rugby scrumcap (and boxing gloves, just to be on the safe side) is dodging writing a history essay.</clue>
         <clue>Martin Master's mother swears by rosehip tea and has sent a batch for her son to sip.</clue>
       </hints>
@@ -2027,7 +2029,7 @@
       </hints>
     </text>
     <box>
-      <category name="Month">
+      <category name="Month" keyword="months">
         <item>February</item>
         <item>April</item>
         <item>June</item>
