@@ -102,7 +102,10 @@ namespace Logix
             }
             addItem(possibles[0], item1);
             addItem(possibles[0], item2);
-            return null;
+            if (rowEmpty(possibles[0])) {
+                return null;
+            }
+            return checkForNewRules(possibles[0],item2, item2);
         }
 
         private bool alreadyKnown(Relation r, int x) {
@@ -132,6 +135,18 @@ namespace Logix
                 }
                 else if (matrix[x, y] != 0) {
                     results.Add(factory.createRelation(newItem, Convert.ToChar(LEFTCHAR+y) + matrix[x,y].ToString() , true));
+                }
+            }
+            return results;
+        }
+
+        private List<Relation> checkForNewRules(int p, string item1, string item2) {
+            List<Relation> results = new List<Relation>();
+            RelationFactory factory = RelationFactory.getInstance();
+            for (int y = 0; y < matrix.GetLength(1); y++) {
+                if (matrix[p, y] != 0) {
+                    results.Add(factory.createRelation(item1, Convert.ToChar(LEFTCHAR + y) + matrix[p, y].ToString(), true));
+                    results.Add(factory.createRelation(item2, Convert.ToChar(LEFTCHAR + y) + matrix[p, y].ToString(), true));
                 }
             }
             return results;

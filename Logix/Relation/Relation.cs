@@ -51,7 +51,7 @@ namespace Logix
             return !this.rule.Contains(Representation.Relations.Negative);
         }
 
-        private bool isSemantic() {
+        public bool isSemantic() {
             return this.GetType().Name == "SemanticRelation";
         }
 

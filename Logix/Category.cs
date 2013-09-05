@@ -280,6 +280,9 @@ namespace Logix
                     }
                     return results;
                 }
+                if (r.isSemantic()) {
+                    throw new NotImplementedException();
+                }
                 throw new ArgumentException("Relation type not recognised: " + r.GetType().ToString());
             }
             catch (Exception e) {
