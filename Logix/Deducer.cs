@@ -126,9 +126,9 @@ namespace Logix {
         /// <returns></returns>
         internal int[,] Go() {
             Stopwatch ticker = new Stopwatch();
-            ticker.Start();
             int turn = 1;
             usedClues = new List<string>();
+            ticker.Start();
             while (clues.Count() > 0 && turn < MAXTURNS && !solution.isComplete()) {
                 string clue = clues[0];
                 List<Relation> relations = considerRelationToCategories(relationBuilder.createRelation(clue));

@@ -96,8 +96,6 @@ namespace CZParser
                 case "years":
                 case "ordinals": superlatives.AddRange(new List<string> { "earliest", "latest", "first", "last" }); return;
                 case "numeric": superlatives.AddRange(new List<string> { "lowest", "highest" }); return;
-                default:
-                    return;
             }
         }
 
