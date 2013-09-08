@@ -142,7 +142,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> taggedClues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedClues);
-            List<string> correctTags = new List<string>() { "C1 D3 ; Td B2 Td C2 Td A4", "B1 D1", "B4 A3 Td D4", "C4 A2 Td D2", "B3 Tx(1) Tp(+) C3" };
+            List<string> correctTags = new List<string>() { "C1 D3 . Td B2 Td C2 Td A4", "B1 D1", "B4 A3 Td D4", "C4 A2 Td D2", "B3 Tx(1) Tp(+) C3" };
             Assert.AreEqual(correctTags.Count, taggedClues.Count);
             foreach (string clue in taggedClues) {
                 Assert.IsTrue(correctTags.Contains(clue));
@@ -225,7 +225,7 @@ namespace ParserTests
             Parser parser = new Parser(p);
             List<string> taggedclues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedclues);
-            List<string> correctTags = new List<string>() { "C1 D3","A2 B5 Tp(+) B1","B2 D1 ; Tt Tp(+) A3","A1 D4 Tp(-) D5","B4 C5 ; A5 C2","D2 Tp(+) B3 Td A4 ; B3 Td Ts(-)" };
+            List<string> correctTags = new List<string>() { "C1 D3","A2 B5 Tp(+) B1","B2 D1 ; Tt Tp(+) A3","A1 D4 Tp(-) D5","B4 C5 ; A5 C2","D2 , Tp(+) B3 , Td A4 . B3 Td Ts(-)" };
             Assert.AreEqual(correctTags.Count, taggedclues.Count);
             foreach (string clue in taggedclues) {
                 Assert.IsTrue(correctTags.Contains(clue));
@@ -272,6 +272,20 @@ namespace ParserTests
             foreach (string rule in relations) {
                 Assert.IsTrue(manualRelations.Contains(rule));
             }
+        }
+
+        [TestMethod]
+        public void Check_Eighty_Tagging() {
+            Puzzle p = puzzles.Find(z => z.getId() == 7);
+            Parser parser = new Parser(p);
+            List<string> taggedclues = parser.tagger.tagClues(p.getClues());
+            Assert.IsNotNull(taggedclues);
+            List<string> correctTags = new List<string>() { "C1 D3", "A2 B5 Tp(+) B1", "B2 D1 ; Tt Tp(+) A3", "A1 D4 Tp(-) D5", "B4 C5; A5 C2", "D2 , Tp(+) B3 , Td A4 . B3 Td Ts(-)" };
+            Assert.AreEqual(correctTags.Count, taggedclues.Count);
+            foreach (string clue in taggedclues) {
+                Assert.IsTrue(correctTags.Contains(clue));
+            }
+
         }
 
         [Ignore,TestMethod]

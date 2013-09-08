@@ -43,7 +43,7 @@ namespace CZParser
             string auxCat2 = "";
             foreach (string word in words) {
                 if(word.Length==1 && char.IsPunctuation(word[0])) {
-                    if (word == "." || word == ";") {
+                    if (word == "." || word == ";" || word == ",") {
                         firstTagPattern.Add(word);
                     }
                     continue;
@@ -161,8 +161,8 @@ namespace CZParser
         }
 
         private string evaluateTag(string previous, string tag, ref string heldTag) {
-            if (TermsDictionary.isBut(heldTag.Trim())) {
-                if (isDisassociative(tag)) {
+            if (endOfHeldTagIsBut(heldTag)) {
+                if (isDisassociative(tag) || tag == "Tt") {
                     heldTag = tag + " ";
                     return null;
                 }
@@ -220,6 +220,14 @@ namespace CZParser
                 return evaluateTag(previous, getTermTagFromCombo(tag), ref heldTag);
             }
             return null;
+        }
+
+        private bool endOfHeldTagIsBut(string heldTag) {
+            if (!heldTag.Trim().Contains(" ")) {
+                return TermsDictionary.isBut(heldTag.Trim());
+            }
+            string lastPart = heldTag.Substring(heldTag.Trim().LastIndexOf(" "));
+            return TermsDictionary.isBut(lastPart.Trim());
         }
 
         private string evaluateCatTags(string previous, string tag, ref string heldTag) {
@@ -304,14 +312,15 @@ namespace CZParser
         }
 
         /// <summary>
-        /// Removes excess whitespace and category titles
+        /// Removes excess whitespace and category titles then checks subclausing
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
         private string finaliseResult(string result) {
             result = result.Trim();
+            result = result.Replace("Tt Td", "Td");
             if (result.Substring(result.LastIndexOf(" ") + 1) == "Te") {
-                return result.Substring(0, result.LastIndexOf(" "));
+                result = result.Substring(0, result.LastIndexOf(" "));
             }
             else {
                 //no need for category titles
@@ -323,9 +332,57 @@ namespace CZParser
                         }
                     }
                 }
-                result = result.Replace("  ", " ");
-                return result.Trim();
             }
+            result = checkSubclausing(result);
+            return result.Replace("  ", " ").Trim();
+        }
+
+        private string checkSubclausing(string tagline) {
+            if (!tagline.Contains(',')) {
+                return tagline;
+            }
+            string result = "";
+            string[] sentences = tagline.Split(new char[] { '.', ';' }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < sentences.Count(); i++) {
+                if (i > 0) {
+                    result += " . ";
+                }
+                if (!sentences[i].Contains(',')) {
+                    result += sentences[i];
+                    continue;
+                }
+                string[] parts = sentences[i].Split(new string[] { " , ", ", ", "," }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Count() < 3) {
+                    result += recombineParts(parts);
+                    continue;
+                }
+                else {
+                    string reworkedSentence = parts[0];
+                    if (hasManyParts(parts[1].Trim())) {
+                        reworkedSentence += " , " + parts[1] + " ,";
+                    }
+                    else {
+                        reworkedSentence += " " + parts[1];
+                    }
+                    for (int j = 2; j < parts.Count(); j++) {
+                        reworkedSentence += " " + parts[j];
+                    }
+                    result += reworkedSentence;
+                }
+            }
+            return result;
+        }
+
+        private string recombineParts(string[] parts) {
+            string result = "";
+            foreach (string s in parts) {
+                result += s + " ";
+            }
+            return result.Trim();
+        }
+
+        private bool hasManyParts(string p) {
+            return p.Contains(" ");
         }
 
         private bool tagMustBeHeld(string tag) {

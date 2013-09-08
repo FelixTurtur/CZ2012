@@ -203,3 +203,7 @@ Also came across a tagging issue with the tag "A2,3" being dropped completely be
 Sep 1st
 ohgod september. Introduced tag "Ta" for AND that is only considered when followed by NOT. The tag patterns for this will create relations like neither..nor, so will add these in now.
 Done. seventh test working a beaut.
+------
+Sep 8th
+Introduced retention of commas for the marcation of relevant subclauses. Als had to tidy up some "Tb Tt Td" combinations that were still hanging around. Can't really remember where I was up to with that and no time to investigate, so removed a "Tb" when a more pertinent tag follows it and replaced "Tt Td" with "Td". Very crude, but we're in the last week now. 
+Next actually need to teach Translator to understand the subclause. should be simple. It's like the "; Td" in that it requires a second relation to be formed to the left-most item, not the most recent. This would also have been required if I'd actually had an example of former/latter. Just shows where the refactoring of the mahoosive getRelationFromMultiline function should be.
