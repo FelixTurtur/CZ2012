@@ -203,6 +203,15 @@ namespace CZParser
             else if (isNegCatPair(line)) {
                 return getNegativeFromPair(line);
             }
+            else if (hasSubclause(line)) {
+                string leftpart = line.Substring(0, line.IndexOf(",")).Trim();
+                string subclause = line.Substring(line.IndexOf(",") + 1);
+                subclause = subclause.Substring(0, subclause.IndexOf(",")).Trim();
+                string rightpart = line.Substring(line.LastIndexOf(",")+2);
+                List<string> results = getRelationsFromLine(leftpart + " " + subclause);
+                results.AddRange(getRelationsFromLine(leftpart + " " + rightpart));
+                return results;
+            }
             else if (line.StartsWith("Td") && firstLine) {
                 //Neither/Nor line - all items should be disassociated to each other, tho' some may be in same category
                 List<string> result = new List<string>();
@@ -210,7 +219,7 @@ namespace CZParser
                 int j = 0;
                 for (int i = items.Count - 1; i > 0; i--) {
                     for (int x = 1; x <= i; x++) {
-                        if (items[j][0] == items[j+x][0]) {
+                        if (items[j][0] == items[j + x][0]) {
                             continue;
                         }
                         result.Add(items[j] + Relations.Negative + items[j + x]);
@@ -236,7 +245,7 @@ namespace CZParser
                         }
                     }
                     else {
-                        result = getRelationsFromLine(line.Substring(line.IndexOf(' ') + 1),firstLine);
+                        result = getRelationsFromLine(line.Substring(line.IndexOf(' ') + 1), firstLine);
                     }
                     return result;
                 }
@@ -258,6 +267,10 @@ namespace CZParser
             else {
                 throw new ParserException("Unable to handle tag pattern: " + line);
             }
+        }
+
+        private bool hasSubclause(string line) {
+            return line.Contains(",");
         }
 
         private  List<string> getAllCatItems(string line) {

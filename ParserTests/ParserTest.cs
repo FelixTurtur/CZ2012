@@ -237,7 +237,6 @@ namespace ParserTests
             Puzzle p = puzzles[7];
             Parser parser = new Parser(p);
             List<string> relations = parser.Read();
-            //Requires subclause wrapping (A1, who {relation to another item}, not C1)
             List<string> manualRelations = new List<string> { "C1=D3","A2=B5","B5(C)>B1(C)","B2=D1","B2(C)>A3(C)","A1=D4","D4(C)<D5(C)","B4=C5","A5=C2","D2(C)>B3(C)","D2!=A4","B3!=C1" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
@@ -275,15 +274,30 @@ namespace ParserTests
         }
 
         [TestMethod]
-        public void Check_Eighty_Tagging() {
+        public void Check_Eighth_Tagging() {
             Puzzle p = puzzles.Find(z => z.getId() == 7);
             Parser parser = new Parser(p);
             List<string> taggedclues = parser.tagger.tagClues(p.getClues());
             Assert.IsNotNull(taggedclues);
-            List<string> correctTags = new List<string>() { "C1 D3", "A2 B5 Tp(+) B1", "B2 D1 ; Tt Tp(+) A3", "A1 D4 Tp(-) D5", "B4 C5; A5 C2", "D2 , Tp(+) B3 , Td A4 . B3 Td Ts(-)" };
+            List<string> correctTags = new List<string>() { "C1 D3", "A2 B5 Tp(+) B1", "B2 D1 ; Tt Tp(+) A3", "A1 D4 Tp(-) D5", "B4 C5 ; A5 C2", "D2 , Tp(+) B3 , Td A4 . B3 Td Ts(-)" };
             Assert.AreEqual(correctTags.Count, taggedclues.Count);
             foreach (string clue in taggedclues) {
                 Assert.IsTrue(correctTags.Contains(clue));
+            }
+
+        }
+
+        [TestMethod]
+        public void Check_Eighth_Translating() {
+            Puzzle p = puzzles.Find(z => z.getId() == 7);
+            Parser parser = new Parser(p);
+            List<string> relations = parser.Read();
+            List<string> manualRelations = new List<string> { "C1=D3", "A2=B5", "B5(C)>B1(C)", "B2=D1","B1(C)>A3(C)", "A1=D4","D4(C)<D5(C)", "B4=C5", "A5=C2","D2(C)>B3(C)", "D2!=A4","B3!=C1" };
+            foreach (string rule in manualRelations) {
+                Assert.IsTrue(relations.Contains(rule));
+            }
+            foreach (string rule in relations) {
+                Assert.IsTrue(manualRelations.Contains(rule));
             }
 
         }

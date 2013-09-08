@@ -168,7 +168,12 @@ namespace CZParser
                 }
             }
             if (tagMustBeHeld(tag)) {
-                heldTag += tag + " ";
+                if (tag == ",") {
+                    heldTag = tag + " ";
+                }
+                else {
+                    heldTag += tag + " ";
+                }
                 return null;
             }
             if (TermsDictionary.isAnd(tag)) {
@@ -194,6 +199,10 @@ namespace CZParser
             }
             else if (isTermTag(tag)) {
                 if (TermsDictionary.isSingleTermItem(tag)) {
+                    if (continuesPhrase(tag, heldTag)) {
+                        heldTag = "";
+                        return null;
+                    }
                     if (!TermsDictionary.isSingleTermItem(heldTag.Trim())) {
                         return tag;
                     }
@@ -220,6 +229,14 @@ namespace CZParser
                 return evaluateTag(previous, getTermTagFromCombo(tag), ref heldTag);
             }
             return null;
+        }
+
+        private bool continuesPhrase(string tag, string heldTag) {
+            //wittering phrase, not required
+            if (endOfHeldTagIsBut(heldTag.Trim()) && tag == "Tt") {
+                return true;
+            }
+            return false;
         }
 
         private bool endOfHeldTagIsBut(string heldTag) {
