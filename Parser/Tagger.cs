@@ -108,11 +108,17 @@ namespace CZParser
                     if (newItem == null) {
                         continue;
                     }
+                    else {
+                        lastNonBlank = newItem;
+                    }
                 }
                 else {
                     if (buffer.hasCombinedCats()) {
                         string aux = evaluateCatTags(lastNonBlank, tagLine[i], ref heldTag);
                         result += addTag(ref heldTag, aux);
+                        if (aux != null) {
+                            lastNonBlank = aux;
+                        }
                     }
                     else if (buffer.hasMixedTags()) {
                         if (isCatTag(tagLine[i])) {
@@ -130,6 +136,9 @@ namespace CZParser
                                 buffer.dropNonTermTags();
                                 string aux =  evaluateTermTags(lastNonBlank, tagLine[i], ref heldTag);
                                 result += addTag(ref heldTag, aux);
+                                if (aux != null) {
+                                    lastNonBlank = aux;
+                                }
                             }
                             else {
                                 throw new ParserException("Wasn't expecting this combination: " + buffer.ToString() + " followed by " + tagLine[i]);
@@ -140,10 +149,12 @@ namespace CZParser
                     else {
                         string aux = evaluateTermTags(lastNonBlank, tagLine[i], ref heldTag);
                         result += addTag(ref heldTag, aux);
+                        if (aux != null) {
+                            lastNonBlank = aux;
+                        }
                     }
                 }
                 whitespaceGap = false;
-                lastNonBlank = tagLine[i];
             }
             return finaliseResult(result);
         }
@@ -224,6 +235,12 @@ namespace CZParser
             }
             else if (hasNumber(tag) && hasCatTag(tag)) {
                 return evaluateTag(previous, getCatTagFromCombo(tag), ref heldTag);
+            }
+            else if (hasCatTag(tag) && hasTermTag(tag)) {
+                if (getCatTagFromCombo(tag) != null) {
+                    return evaluateTag(previous, getCatTagFromCombo(tag), ref heldTag);
+                }
+                return null;
             }
             else if (isCombinedTermCompCatTag(tag)) {
                 return evaluateTag(previous, getTermTagFromCombo(tag), ref heldTag);
@@ -306,16 +323,23 @@ namespace CZParser
         }
 
         private string evaluateTermTags(string previous, string tag, ref string heldTag) {
-            if (PatternBank.completesTagPattern(buffer.ToString(),tag)) {
+            string newTerm = "";
+            if (isMixedTag(tag)) {
+                newTerm = getTermTagFromCombo(tag);
+            }
+            else {
+                newTerm = tag;
+            }
+            if (PatternBank.completesTagPattern(buffer.ToString(), newTerm)) {
                 string aux = buffer.ToString();
-                if (tag != "Th") {
-                    aux += " " + tag;
+                if (newTerm != "Th") {
+                    aux += " " + newTerm;
                 }
                 buffer.Clear();
                 return aux.Replace(",", " ");
             }
-            else if (PatternBank.continuesTagPattern(buffer.ToString(), tag)) {
-                buffer.Add(tag);
+            else if (PatternBank.continuesTagPattern(buffer.ToString(), newTerm)) {
+                buffer.Add(newTerm);
                 return null;
             }
             if (isMixedTag(tag)) {
@@ -339,14 +363,15 @@ namespace CZParser
             if (result.Substring(result.LastIndexOf(" ") + 1) == "Te") {
                 result = result.Substring(0, result.LastIndexOf(" "));
             }
-            else {
-                //no need for category titles
-                foreach (string bit in result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) {
-                    if (isCatTag(bit) && bit.Length == 1) {
-                        result = result.Replace(bit + " ", "");
-                        if (result.EndsWith(bit)) {
-                            result = result.Substring(0, result.Length - 1);
-                        }
+            if (result.StartsWith("Te") && !result.Substring(3).Contains("Te")) {
+                result = result.Substring(3);
+            }
+            //no need for category titles
+            foreach (string bit in result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) {
+                if (isCatTag(bit) && bit.Length == 1) {
+                    result = result.Replace(bit + " ", "");
+                    if (result.EndsWith(bit)) {
+                        result = result.Substring(0, result.Length - 1);
                     }
                 }
             }
@@ -443,6 +468,16 @@ namespace CZParser
             return false;
         }
 
+        private bool hasTermTag(string tag) {
+            string[] bits = tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string t in bits) {
+                if (isTermTag(t)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool hasNumber(string tag) {
             string[] bits = tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string t in bits) {
@@ -516,12 +551,22 @@ namespace CZParser
         }
 
         private string getCatTagFromCombo(string tag) {
+            //can only safely return if ONE complete cat tag is found
+            string possible = "";
             foreach (string bit in tag.Split(new char[] { ',', '{', '}' }, StringSplitOptions.RemoveEmptyEntries)) {
-                if (isCatTag(bit)) {
-                    return bit;
+                if (isTermTag(bit)) {
+                    tag.Replace(bit, "");
+                }
+                else if (isCatTag(bit) && bit.Length > 1) {
+                    if (string.IsNullOrEmpty(possible)) {
+                        possible = bit;
+                    }
+                    else {
+                        return null;
+                    }
                 }
             }
-            throw new ParserException("Wasn't expecting to not find a cat tag in here: " + tag);
+            return possible;
         }
 
         private string getTermTagFromCombo(string tag) {

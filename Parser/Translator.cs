@@ -9,7 +9,7 @@ namespace CZParser
 {
     class Translator
     {
-        private static ParsingBuffer buffer = new ParsingBuffer(5);
+        private static ParsingBuffer buffer = new ParsingBuffer(6);
         private List<char> keyCategories;
         private static string MIN = "1";
         private string MAX;
@@ -253,7 +253,7 @@ namespace CZParser
                     return result;
                 }
             }
-            else if (line.Contains("Te")) {
+            else if ((line.StartsWith("Te") && line.Substring(3).Contains("Te")) || (! line.StartsWith("Te") && line.Contains("Te"))) {
                 return makeEitherOrRelations(line);
             }
             else if (!line.StartsWith("T") && !line.Contains("Tp")) {

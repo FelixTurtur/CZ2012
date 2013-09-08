@@ -11,9 +11,9 @@ namespace Logix.Calculators
             double difference = getCurrencyAmount(comparative);
             switch (op) {
                 case '+':
-                    return getCurrencyUnit(knownValue) + (knownAmount + difference).ToString();
+                    return getCurrencyUnit(knownValue) + (knownAmount + difference).ToString() + getPostAmountTerm(knownValue);
                 case '-':
-                    return getCurrencyUnit(knownValue) + (knownAmount - difference).ToString();
+                    return getCurrencyUnit(knownValue) + (knownAmount - difference).ToString() + getPostAmountTerm(knownValue);
                 default:
                     throw new ArgumentException("No known currency operator equivalent to provided char: " + op);
             }
@@ -32,13 +32,51 @@ namespace Logix.Calculators
 
         private static double getCurrencyAmount(object knownValue) {
             string currency = "";
-            int i = 0;
+            string amount = "";
+            string postamount = "";
+            bool prenumber = true;
             int j = 0;
-            while (!Int32.TryParse(knownValue.ToString()[i].ToString(), out j)) {
-                currency += knownValue.ToString()[i];
-                i++;
+            for (int n = 0; n < knownValue.ToString().Length; n++) {
+                if (Int32.TryParse(knownValue.ToString()[n].ToString(), out j)) {
+                    amount += j;
+                    if (prenumber) prenumber = false;
+                }
+                else if (prenumber) {
+                    currency += knownValue.ToString()[n];
+                }
+                else if (knownValue.ToString()[n] == '.') {
+                    amount += '.';
+                }
+                else {
+                    postamount += knownValue.ToString()[n];
+                }
             }
-            return Convert.ToDouble(knownValue.ToString().Substring(currency.Length).Replace(",", ""));
+            return Convert.ToDouble(amount);
+        }
+
+        private string getPostAmountTerm(object knownValue) {
+            string currency = "";
+            string amount = "";
+            string postamount = "";
+            bool prenumber = true;
+            int j = 0;
+            for (int n = 0; n < knownValue.ToString().Length; n++) {
+                if (Int32.TryParse(knownValue.ToString()[n].ToString(), out j)) {
+                    amount += j;
+                    if (prenumber) prenumber = false;
+                }
+                else if (prenumber) {
+                    currency += knownValue.ToString()[n];
+                }
+                else if (knownValue.ToString()[n] == '.') {
+                    amount += '.';
+                }
+                else {
+                    postamount += knownValue.ToString()[n];
+                }
+            }
+            return postamount;
+
         }
 
         public override bool checkPredicate(object item, string comparator, string bound) {

@@ -292,7 +292,7 @@ namespace ParserTests
             Puzzle p = puzzles.Find(z => z.getId() == 7);
             Parser parser = new Parser(p);
             List<string> relations = parser.Read();
-            List<string> manualRelations = new List<string> { "C1=D3", "A2=B5", "B5(C)>B1(C)", "B2=D1","B1(C)>A3(C)", "A1=D4","D4(C)<D5(C)", "B4=C5", "A5=C2","D2(C)>B3(C)", "D2!=A4","B3!=C1" };
+            List<string> manualRelations = new List<string> { "C1=D3", "A2=B5", "B5(C)>B1(C)", "B2=D1","B2(C)>A3(C)", "A1=D4","D4(C)<D5(C)", "B4=C5", "A5=C2","D2(C)>B3(C)", "D2!=A4","B3!=C1" };
             foreach (string rule in manualRelations) {
                 Assert.IsTrue(relations.Contains(rule));
             }
