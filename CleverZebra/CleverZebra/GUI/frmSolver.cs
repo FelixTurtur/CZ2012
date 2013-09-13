@@ -89,9 +89,9 @@ namespace CleverZebra
             this.flpText.Controls.Add(this.gbClues);
             this.flpText.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpText.Location = new System.Drawing.Point(12, 67);
-            this.flpText.MaximumSize = new System.Drawing.Size(350, 450);
+            this.flpText.MaximumSize = new System.Drawing.Size(350, 600);
             this.flpText.Name = "flpText";
-            this.flpText.Size = new System.Drawing.Size(350, 450);
+            this.flpText.Size = new System.Drawing.Size(350, 600);
             this.flpText.TabIndex = 2;
             // 
             // lTitle
@@ -119,7 +119,7 @@ namespace CleverZebra
             this.gbClues.ForeColor = System.Drawing.Color.DarkOrange;
             this.gbClues.Location = new System.Drawing.Point(3, 33);
             this.gbClues.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.gbClues.MaximumSize = new System.Drawing.Size(330, 400);
+            this.gbClues.MaximumSize = new System.Drawing.Size(330, 580);
             this.gbClues.MinimumSize = new System.Drawing.Size(330, 100);
             this.gbClues.Name = "gbClues";
             this.gbClues.Size = new System.Drawing.Size(330, 100);
@@ -132,9 +132,9 @@ namespace CleverZebra
             this.flpClues.AutoSize = true;
             this.flpClues.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpClues.Location = new System.Drawing.Point(3, 18);
-            this.flpClues.MaximumSize = new System.Drawing.Size(320, 380);
+            this.flpClues.MaximumSize = new System.Drawing.Size(320, 580);
             this.flpClues.Name = "flpClues";
-            this.flpClues.Size = new System.Drawing.Size(300, 0);
+            this.flpClues.Size = new System.Drawing.Size(300, 17);
             this.flpClues.TabIndex = 0;
             // 
             // flpSolution
@@ -407,7 +407,7 @@ namespace CleverZebra
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::CleverZebra.Properties.Resources.CircleSparks;
-            this.ClientSize = new System.Drawing.Size(1184, 750);
+            this.ClientSize = new System.Drawing.Size(1184, 742);
             this.Controls.Add(this.flpCategories);
             this.Controls.Add(this.frameRelations);
             this.Controls.Add(this.btnSolve);

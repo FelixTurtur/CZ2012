@@ -98,7 +98,7 @@ namespace Logix
         public string getRightItem() {
             if (!isDirect()) return null;
             if (rule.Contains(Relations.Negative)) {
-                return rule.Substring(rule.IndexOf(Relations.Negative) + 1);
+                return rule.Substring(rule.IndexOf(Relations.Negative) + 2);
             }
             else {
                 return rule.Substring(rule.IndexOf(Relations.Positive) + 1);

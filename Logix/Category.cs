@@ -236,17 +236,21 @@ namespace Logix
                     if (!alreadySeen) {
                         Category.Rows row = r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives;
                         addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
+                        return new List<Relation> {RelationFactory.getInstance().createRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), r.isPositive())};
                     }
                     return null;
                 }
                 if (r.isRelative()) {
                     string[] items = { r.getBaseItem(identifier, Relations.Sides.Left), r.getBaseItem(identifier, Relations.Sides.Right) };
+                    if (items[0] == null && items[1] == null) {
+                        return new List<Relation> { r };
+                    }
                     if (items[0] == items[1]) {
-                        //Single-item Relative
+                        /*//Single-item Relative
                         if (items[0] != identifier.ToString()) {
                             //cannot discover anything within this category
                             return new List<Relation> { r };
-                        }
+                        }*/
                         string relatedItem = r.getRelatedItem(identifier);
                         return createImpossiblesForItem(relatedItem, Relations.getComparator(r.getRule()), Relations.getComparativeAmount(r.getRule(), false));
                     }
@@ -290,6 +294,13 @@ namespace Logix
             }
         }
 
+        /// <summary>
+        /// For single-item Relative, returns items more/less than bound amount.
+        /// </summary>
+        /// <param name="relatedItem"></param>
+        /// <param name="comparator"></param>
+        /// <param name="bound"></param>
+        /// <returns></returns>
         private List<Relation> createImpossiblesForItem(string relatedItem, string comparator, string bound) {
             try {
                 List<Relation> results = new List<Relation>();
@@ -390,10 +401,31 @@ namespace Logix
                     if (calculatedItem == null) {
                         relations.Add(relationBuilder.createRelation(rightItem, identifier + i.ToString(), false));
                     }
+                    if (isNegativelyRelated(leftItem, i)) {
+                        Relation aux = formNegativeToNearbyItem(rightItem, i, difference);
+                        if (aux != null) relations.Add(aux);
+                    }
+                    if (isNegativelyRelated(rightItem, i)) {
+                        Relation aux = formNegativeToNearbyItem(leftItem, i, inverseDifference);
+                        if (aux != null) relations.Add(aux);
+                    }
                 }
             }
             relations.AddRange(checkDeductibles());
             return relations;
+        }
+
+        private Relation formNegativeToNearbyItem(string leftItem, int i, string difference) {
+            RelationFactory relationBuilder = RelationFactory.getInstance();
+            string calculatedItem = findTarget(innerArray[(int)Rows.Values][i], difference);
+            if (calculatedItem != null) {
+                return relationBuilder.createRelation(leftItem, calculatedItem, false);
+            }
+            return null;
+        }
+
+        private bool isNegativelyRelated(string leftItem, int i) {
+            return innerArray[(int)Rows.Negatives][i].ToString().Contains(leftItem);
         }
 
         private bool hasNoPossibleOpposite(string item1, int index, string comparator, string item2, bool alreadySeen) {
