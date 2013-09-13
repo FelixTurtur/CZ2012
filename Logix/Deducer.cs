@@ -21,7 +21,7 @@ namespace Logix {
         private int puzzleDepth;
         private Solution solution;
         private const int MAXTURNS = 200;
-        private const int ABSURDIO_SPACING = 8;
+        private int Absurdio_Spacing;
 
         /// <summary>
         /// Constructor for testing purposes
@@ -128,13 +128,14 @@ namespace Logix {
             Stopwatch ticker = new Stopwatch();
             int turn = 1;
             usedClues = new List<string>();
+            Absurdio_Spacing = clues.Count;
             ticker.Start();
-            while (clues.Count() > 0 && turn < MAXTURNS && !solution.isComplete()) {
+            while (clues.Count > 0 && turn < MAXTURNS && !solution.isComplete()) {
                 string clue = clues[0];
                 List<Relation> relations = considerRelationToCategories(relationBuilder.createRelation(clue));
                 usedClues.Add(clues[0]);
                 clues.RemoveAt(0);
-                if (turn % ABSURDIO_SPACING == 0 || clues.Count() == 1) {
+                if (turn % Absurdio_Spacing == 0 || clues.Count == 1) {
                     relations.AddRange(Absurdio());
                 }
                 if (relations != null && relations.Count() > 0) {

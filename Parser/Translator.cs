@@ -37,7 +37,7 @@ namespace CZParser
         }
 
         private static bool containsMultipleStatements(string line) {
-            if (line.Contains(".") || line.Contains(";") || line.Contains("Tb ") || line.Contains("Te "))
+            if (line.Contains(".") || line.Contains(";") || line.Contains("Tb ") || line.Contains("Te ") || line.Contains("Ta "))
                 return true;
             return false;
         }
@@ -86,18 +86,26 @@ namespace CZParser
                 List<string> leftRelation = getRelationsFromLine(lines[0]);
                 relations.AddRange(leftRelation);
                 string leftItem = getFirstItem(leftRelation[0]);
-                relations.Add(leftItem + Representation.Relations.Negative + getFirstCat(lines[1]));
-                if (line.Length > lines[0].Length + "; Td A1".Length)
-                    relations.AddRange(getRelationsFromMultiLine(line.Substring(lines[0].Length + "; Td".Length)));
+                relations.AddRange(getRelationsFromMultiLine(leftItem + line.Substring(lines[0].Length + ";".Length)));
+            }
+            else if (line.Contains("Ta Td")) {
+                //form two negatives relating to first item, not left-preceding item.
+                string leftRelation = line.Substring(0, line.IndexOf("Ta "));
+                string leftItem = getFirstItem(leftRelation);
+                relations.AddRange(getRelationsFromLine(leftRelation));
+                relations.AddRange(getRelationsFromLine(leftItem + line.Substring(line.IndexOf("Ta ") + 2)));
             }
             else if (line.Contains("Tf")) {
                 //a negative/comparative relation and a second relation to the former item to be created
+                int i = 0;
             }
             else if (line.Contains("Tl")) {
                 //a negative/comparative relation and a second relation to the latter item to be created
+                int i = 0;
             }
             else if (line.Contains("Tt")) {
                 //a second relation must be formed with an item from the first relation
+                int i = 0;
             }
             else if (!line.Contains(";") && !line.Contains(".") && line.Contains("Td") && line.Contains("Te")) {
                 //a second relation must be formed with the first item of the first relation
@@ -171,6 +179,11 @@ namespace CZParser
             return p.Trim();
         }
 
+        /// <summary>
+        /// gets first Cat from string
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private static string getFirstItem(string p) {
             string result = p[0].ToString();
             int i = 1;
@@ -182,6 +195,11 @@ namespace CZParser
             return result;
         }
 
+        /// <summary>
+        /// Gets first Cat from string beginning with a Term
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private static string getFirstCat(string p) {
             while (p[0] == 'T') {
                 p = p.Substring(p.IndexOf(' ') + 1);
@@ -299,6 +317,14 @@ namespace CZParser
             try {
                 List<string> result = new List<string>();
                 foreach (string bit in line.Split(new char[] { ' ' })) {
+                    if (!buffer.isEmpty()) {
+                        if (buffer.ToString().Length == 2 && buffer.ToString()[0] == bit[0]) {
+                            //two items of the same category next to each other should not be related
+                            buffer.Clear();
+                            buffer.Add(bit);
+                            continue;
+                        }
+                    }
                     buffer.Add(bit);
                     if (PatternBank.holdsTagPattern(buffer)) {
                         result.Add(makeRelation(buffer.ToString()));

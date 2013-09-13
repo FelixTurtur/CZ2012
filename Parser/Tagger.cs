@@ -77,8 +77,8 @@ namespace CZParser
         }
 
         private static string removeParentheticals(string clue) {
-            while (clue.Contains("(")) {
-                clue = clue.Remove(clue.IndexOf('('), (clue.IndexOf(')') - clue.IndexOf('(')) + 1);
+            while (clue.Contains('(')) {
+                clue = clue.Remove(clue.IndexOf(" ("), (clue.IndexOf(')') - clue.IndexOf(" (")) + 1);
             }
             return clue;
         }
@@ -236,14 +236,15 @@ namespace CZParser
             else if (hasNumber(tag) && hasCatTag(tag)) {
                 return evaluateTag(previous, getCatTagFromCombo(tag), ref heldTag);
             }
+            else if (isCombinedTermCompCatTag(tag)) {
+                return evaluateTag(previous, getTermTagFromCombo(tag), ref heldTag);
+            }
             else if (hasCatTag(tag) && hasTermTag(tag)) {
-                if (getCatTagFromCombo(tag) != null) {
+                string catTag = getCatTagFromCombo(tag);
+                if (catTag != null && catTag.Length > 1) {
                     return evaluateTag(previous, getCatTagFromCombo(tag), ref heldTag);
                 }
                 return null;
-            }
-            else if (isCombinedTermCompCatTag(tag)) {
-                return evaluateTag(previous, getTermTagFromCombo(tag), ref heldTag);
             }
             return null;
         }
@@ -360,6 +361,7 @@ namespace CZParser
         private string finaliseResult(string result) {
             result = result.Trim();
             result = result.Replace("Tt Td", "Td");
+            result = result.Replace("Td Tb ", "");
             if (result.Substring(result.LastIndexOf(" ") + 1) == "Te") {
                 result = result.Substring(0, result.LastIndexOf(" "));
             }

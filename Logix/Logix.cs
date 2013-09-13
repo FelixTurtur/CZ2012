@@ -15,6 +15,7 @@ namespace Logix {
         private Representation.Results latestResults;
         private Puzzle p;
         internal bool goSlow;
+        int[,] solutionMatrix;
 
         public Logix(bool slow) { goSlow = slow; }
 
@@ -24,7 +25,7 @@ namespace Logix {
             brains.Concluded += brains_solveComplete;
             brains.Update += brains_Update;
             brains.setClues(p.getRules());
-            int[,] solutionMatrix = new int[p.height, p.width];
+            this.solutionMatrix = new int[p.height, p.width];
 
             try {
                 solutionMatrix = brains.Go();
@@ -39,6 +40,7 @@ namespace Logix {
             catch (Exception e) {
                 throw e;
             }
+            //latestResults.SetSuccess(isCorrect(translateSolution(p, solutionMatrix)));
             //Translate matrix solution to verbal solution
             return translateSolution(p, solutionMatrix);
         }
@@ -67,6 +69,35 @@ namespace Logix {
 
         void brains_solveComplete(Deducer sender, SolveCompleteArgs e) {
             this.latestResults = new Results(e.isSuccessful, e.turns, e.timeTaken);
+        }
+
+        private bool isCorrect(List<List<string>> solutionLines) {
+            foreach (List<string> row in solutionLines) {
+                if (rowIsInProvidedSolution(row)) {
+                    continue;
+                }
+                else {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool rowIsInProvidedSolution(List<string> row) {
+            bool lineFound = false;
+            foreach (List<string> line in p.ProvidedSolution) {
+                for (int i = 0; i < row.Count; i++) {
+                    if (line[i].ToLower().Contains(row[i].ToLower())) {
+                        lineFound = true;
+                    }
+                    else {
+                        lineFound = false;
+                        break;
+                    }
+                }
+                if (lineFound) return lineFound;
+            }
+            return false;
         }
 
         public Results getLastResults() {

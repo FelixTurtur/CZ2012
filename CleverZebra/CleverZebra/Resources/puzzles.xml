@@ -32,7 +32,7 @@
         <item>Tree</item>
       </category>
       <solution>
-        <row>Brenadan Briese, bowler hat, Monday, treetops</row>
+        <row>Brendan Briese, bowler hat, Monday, treetops</row>
         <row>Gareth Gale, flat cap, Friday, river</row>
         <row>Zachary Zeffer, baseball cap, Wednesday, dual carriageway</row>
       </solution>
@@ -41,7 +41,7 @@
   <puzzle id="p1" size="4x3" ordering="" semantic="">
     <title>Rainy Day Women</title>
     <text>
-      <preamble>The unpredictable March weather continues to be predictably bad and each of these three women got caught in the sort of downpour that has Biblical patriarchs reaching for the plans marked 'Arl'. Not having a brolly, they each ducked through the nearest door to avoid the cloudburst only to find themselves in a shop. From the clues, can you say where each woman was going, the name of the shop whose door she ran through and the item she felt obliged to buy while sheltering?</preamble>
+      <preamble>The unpredictable March weather continues to be predictably bad and each of these three women got caught in the sort of downpour that has Biblical patriarchs reaching for the plans marked 'Ark'. Not having a brolly, they each ducked through the nearest door to avoid the cloudburst only to find themselves in a shop. From the clues, can you say where each woman was going, the name of the shop whose door she ran through and the item she felt obliged to buy while sheltering?</preamble>
       <hints>
         <clue>The lady who dashed through the door of Lee's Key Cutting and Shoe Repairing emporium felt obliged to have a spare back door key cut.</clue>
         <clue>Denise De Luge was on her way to the dentist when she needed to seek refuge through the nearest door; the port in a storm for Stephanie Storm was Port's shop.</clue>
@@ -130,7 +130,7 @@
         <clue>Barrister Damien Dowte, wearing the head of a mop on his head, strode as unselfconsciously as he could, into court at 9am; the judge presiding was not Judge De Cree who wasn't presiding in the court with barrister Garfield Grille, who wasn't at work in court 4.</clue>
         <clue>'Excuse me,' said Judge Deam, hardly able to believe his eyes, 'is that a book on your head?' 'Yes, sir' replied the barrister, '"The Old Curiousity Shop", first edition.'</clue>
         <clue>Judge Rufus Roole, overseeing proceedings in court 3 of the central Court, was not confronted with a barrister wearing an item fashioned from a brown paper bag and some vaguely remembered origami.</clue>
-        <clue>Reginald Rangle, putting the case for the defene in court 2, was not the barrister who turned up for work with a knotted handkerchief on his head.</clue>
+        <clue>Reginald Rangle, putting the case for the defence in court 2, was not the barrister who turned up for work with a knotted handkerchief on his head.</clue>
         <clue>Judge Gaige was presiding in the court numbered one higher than the one where barrister Quentin Quarrell was modelling an unconventional style of headwear.</clue>
         <clue />
       </hints>
@@ -161,9 +161,9 @@
         <item>Paper bag</item>
       </category>
       <solution>
-        <row>Court 1, Judge Deam, Garfield Frille, book</row>
+        <row>Court 1, Judge Deam, Garfield Grille, book</row>
         <row>Court 2, Judge De Cree, Reginald Rangle, paper bag</row>
-        <row>Court 3, Judge Roole, Quentin Quarrel, handkerchief</row>
+        <row>Court 3, Judge Roole, Quentin Quarrell, handkerchief</row>
         <row>Court 4, Judge Gaige, Damien Dowte, mop</row>
       </solution>
     </box>
@@ -207,9 +207,9 @@
       </category>
       <solution>
         <row>Ben Barton, fruit cake, Aunt Amelia, Monday</row>
-        <row>Chris Cockcroft, birscuits, mother, Thursday</row>
+        <row>Chris Cockcroft, biscuits, mother, Thursday</row>
         <row>Hamish Hazel, toffee, grandmother, Tuesday</row>
-        <row>Martin Masters, wine gums, Autn Alison, Wednesday</row>
+        <row>Martin Masters, wine gums, Aunt Alison, Wednesday</row>
       </solution>
     </box>
   </puzzle>
@@ -229,7 +229,7 @@
       <category name="Celebrity">
         <item>Pamela Prowed</item>
         <item>Samantha Selffe</item>
-        <item>selwyn Smugge</item>
+        <item>Selwyn Smugge</item>
         <item>Vernon Vayne</item>
       </category>
       <category name="Famed for">
@@ -252,7 +252,7 @@
       </category>
       <solution>
         <row>Pamela Prowed, movie star, nose, Conrad Carver</row>
-        <row>Samantha Selffe, pop star, forhead, Lucille Loppett</row>
+        <row>Samantha Selffe, pop star, forehead, Lucille Loppett</row>
         <row>Selwyn Smugge, TV star, chin Cherry Chopper</row>
         <row>Vernon Vayne, author, ears, Humphrey Hacker</row>
       </solution>
@@ -264,7 +264,7 @@
       <preamble>Karl Borisov killed his wife five times last year - all, of course, on film. Karl is reckoned one of the best monsters in the movie business, and it's in his contract that, if you hire him, you hire her as well, to play a small role as one of the monster's victims - she's not a great actress. From the clues below, can you work out which film was released in each of the listed months, what monster he played in it, and his wife Gloria's smaller role?</preamble>
       <hints>
         <clue>In 'Congo of Terror', Karl appears as an alien cyborg (an organic robot, if you can get your head round that idea), and Gloria plays a passenger in some form of transport; 'Intruder' is not the film that features Karl as a particularly violent, particularly hairy werewolf.</clue>
-        <clue>'Shadow of Fear' was realeased in March.</clue>
+        <clue>'Shadow of Fear' was released in March.</clue>
         <clue>In the January release, which is not called 'It Walks by Night', Karl plays a mutant ape but Gloria doesn't play the 'woman in pub' who dies nastily at the hands of another scary monster.</clue>
         <clue>The film in which Karl played a bunyip (a man-eating Australian monster) came out four months after the one in which Gloria took the role of 'housewife on bus', one of a group of three slain by her husband's character.</clue>
         <clue>The nun on the train in a (very minor) character in the July release, which has a one-word title.</clue>
@@ -620,7 +620,7 @@
       <preamble>with the excitement of the day's football matches over, SportRadio's top presented Hank Erman hosts a phone-in programme for fans returning home to discuss the afternoon's events. Usually the programme is taken up with disgruntled callers demanding the manager's head on a plate or the replacement of the team's entire back four, but the five callers on tonight's show have other grumbles. From these snippets of the programme (not given in their order of appearance), can you give the order in which the caller's spoke, the team they support, and the complaint they feel the rest of the country needs to hear?</preamble>
       <hints>
         <clue>"OK", began Hank, "who's first?" "It's me," said a voice, "I've been to Vilaston and I'm purple with rage."</clue>
-        <clue>"Well, that was a passionate call from a Chersterman City fan," said Hank, "let's move on to Landsunder fan Bert Bellyache." "It's Belli ah chee, actually Hank."</clue>
+        <clue>"Well, that was a passionate call from a Chesterman City fan," said Hank, "let's move on to Landsunder fan Bert Bellyache." "It's Belli ah chee, actually Hank."</clue>
         <clue>"I arrived at the Swanpool ground," said an incensed caller, "and the car park was full. It's unacceptable!"</clue>
         <clue>"Who's our third caller?" Hank asked his producer. "It's Morris Nutter, although it might be Mutter," came the reply.</clue>
         <clue>"That was Grahan Gripe," said Hank, "Do you agree with him that all players need a haircut? Next up it's Barry Beef and don't worry there's still time to get your call in. Now Barry, you're an Oldcastle fan, right?" "Not a chance, no way, never" replied Barry.</clue>
@@ -723,7 +723,7 @@
       <hints>
         <clue>The resident using a baking tray as a sort of shovel-cum-scoop to clear out their drive lives at a house numbered two higher than the one where some poor sap is trying to clear the path; the former of these isn't Fred Flatt-Foote, who isn't the person trying to clear away snow with a garden trowel.</clue>
         <clue>Alan Abakk's only hope of clearing the snow at his home, which isn't 1 Addock Avenue, is a rather flimsy fish slice he's found in the kitchen drawer.</clue>
-        <clue>Percy Pansdown, who's trying to clear away the snow from his patio, lives at a number 1 higher than the person who is gamely, but ineffectually, shovelling with a ladel.</clue>
+        <clue>Percy Pansdown, who's trying to clear away the snow from his patio, lives at a number 1 higher than the person who is gamely, but ineffectually, shovelling with a ladle.</clue>
         <clue>The children's plastic spade is being used at a lower-numbered house than the one where Norman Napping was caught napping but a higher-numbered house than the one whose back step is some way to being cleared.</clue>
         <clue>Oliver Ofgard is clearing a step at a house numbered higher than the other resident clearing a step.</clue>
       </hints>
@@ -771,7 +771,7 @@
     <text>
       <preamble>The monthly darts tournament at the Broken Arrow public house in the Little Dublin area of Netherlipp is always a tense moment, for anyone else in the bar that is. The darts players at the Broken Arrow are, by popular estimation, the worst in the universe. But the players have been practising and in the first round of clues, can you say where each player's three darts ended up?</preamble>
       <hints>
-        <clue>Much to his surprise, Boris Bung scored with his first dart and then hit the landlord's hat (actually a pith hemlet, the landlord's no idiot) with his second.</clue>
+        <clue>Much to his surprise, Boris Bung scored with his first dart and then hit the landlord's hat (actually a pith helmet, the landlord's no idiot) with his second.</clue>
         <clue>Harland Hurl's third dart made a satisfying 'thunk' as it hit the door to the snug; his second hadn't hit the pub bar.</clue>
         <clue>Sylvester Sling's first dart hit a customer's book, which was fortunate as she was using it to cover her head at the time; he scored a lower number of points than the player whose dart ended up in a table.</clue>
         <clue>The person whose dart hit the sign 'Gents' on a door just above the 'e' scored with his third dart.</clue>
@@ -820,7 +820,7 @@
   <puzzle id="p17" size="4x5" ordering="" semantic="">
     <title> Riverside Pubs</title>
     <text>
-      <preamble>This puzzle is about five pubs which can be found in the Keighshire countryside and which do a roaring trade in spring and summer by advertising the delights of their beer gardens which sit next to small brooks or streams, all of which are ambitiously named as rivers. From the clues, can you work out in whcih village each pub sits, the minimal watercourse it overlooks and the brewery, or none, which owns it and provides it with its ale?</preamble>
+      <preamble>This puzzle is about five pubs which can be found in the Keighshire countryside and which do a roaring trade in spring and summer by advertising the delights of their beer gardens which sit next to small brooks or streams, all of which are ambitiously named as rivers. From the clues, can you work out in which village each pub sits, the minimal watercourse it overlooks and the brewery, or none, which owns it and provides it with its ale?</preamble>
       <hints>
         <clue>The Convents Brewery owns the pub on the River Leke; this is neither The Horse and Hare nor the pub at Ayleham, through which village the River Dribbel dribbles.</clue>
         <clue>Queens Brewery in netherlipp owns the pub at Mildford; this is not The Oak and Anchor.</clue>
@@ -927,7 +927,7 @@
         <clue>Lydia Lybal left her editor's office and immediately began her campaign on the Myscope network.</clue>
         <clue>Sylvia Slandar, who has worked for the 'Stonekeigh Advertiser' since leaving university last summer, wasn't' the reporter whose Double Summer Time campaign for daylight saving will mean more light in the morning... or is it the evening? - the details don't really matter - is gathering speed on Mugbook.</clue>
         <clue>Seymour Scandell, who doesn't work for the 'Netherlipp Clarion', hasn't begun a campaign for more bank holidays.</clue>
-        <clue>The cub reporter for the 'Storbury Globe', who began their campaign on Youpipe, isn't Debbis De Fayme, who has never used the Chirrup social network.</clue>
+        <clue>The cub reporter for the 'Storbury Globe', who began their campaign on Youpipe, isn't Debbie De Fayme, who has never used the Chirrup social network.</clue>
         <clue>The cub reporter for the 'Norchester Argus' is a woman, the reporter who started the campaign on the Pimport website is a man; the latter of these two isn't the 'Wallingfen Recorder' reporter who started a campaign to raise speed limits (or maybe lower them, they're waiting to see which way the wind blows).</clue>
       </hints>
     </text>
@@ -1013,7 +1013,7 @@
       </category>
       <solution>
         <row>Archie Fotheringhay, Foxy Touchwood, car dealer, real tennis</row>
-        <row>Edward Tanquerary, Caddy Lupton, Gurads officer, golf</row>
+        <row>Edward Tanqueray, Caddy Lupton, Guards officer, golf</row>
         <row>Gerald Huntington, Plum Fairfax, farmer, roller-skating</row>
         <row>Montague Ffolliott, Bones Fitzfulke, banker, fencing</row>
         <row>Rupert de Grey, Cherub Beckwith, explorer, kendo</row>
@@ -1023,12 +1023,12 @@
   <puzzle id="p21" size="4x5" ordering="currency" semantic="" other="'Park' name/service part">
     <title>Drop and shop</title>
     <text>
-      <preamble>These five ladies from Netherlipp like nothing more than a good mooch around the shops but find that their retail therapy style can be a little cramped by their other responsibilities. To their rescue have come the five shopping centres they're visiting today who have created a drop zone where shoppers can leave things to be picked up later. From the clues, can you say which woman visited which mall, what encumbrance she left in the safe hands of the amll staff and the subsidised price they charge for the service?</preamble>
+      <preamble>These five ladies from Netherlipp like nothing more than a good mooch around the shops but find that their retail therapy style can be a little cramped by their other responsibilities. To their rescue have come the five shopping centres they're visiting today who have created a drop zone where shoppers can leave things to be picked up later. From the clues, can you say which woman visited which mall, what encumbrance she left in the safe hands of the mall staff and the subsidised price they charge for the service?</preamble>
       <hints>
         <clue>Keighshire Hall has a Kidzone in which your little darlings can play while you shop; it costs £1 more than CarFinder that parks and retrieves your car, removing the need to remember where you left it.</clue>
         <clue>Stephanie Seed uses the Park Your Pooch service to look after her pampered poodle; this isn't the most expensive service.</clue>
         <clue>Stonekeigh Gardens' service costs £1 less than the one utilised by Laurinda Leeve, which is not the most expensive, but £1 more than the Bag Drop service where bulging and heavy shopping bags can be left for collection later.</clue>
-        <clue>The Hubby Hold - somewhere to leave grumpy husbands whilse the real business of shopping is done - is free; they're really not much trouble given a chair and sight of a TV.</clue>
+        <clue>The Hubby Hold - somewhere to leave grumpy husbands whilst the real business of shopping is done - is free; they're really not much trouble given a chair and sight of a TV.</clue>
         <clue>River Centre's service is more expensive than the one chosen by Melissa Maroon; the service that costs £1 isn't at Netherlipp Mall.</clue>
         <clue>Pauline Park always shops at the Northchester Northfield centre.</clue>
       </hints>
@@ -1132,7 +1132,7 @@
         <clue>The Battle of Dolsby Bay - Dolsby Bay is a bend on the River Keigh and the 'battle' was a brief fight between two retreating groups of soldiers - took place in 1466, but the hero was not Brigadier Quickley.</clue>
         <clue>The hero of the Battle of Narwood is the Captain, who is not Dumbson; The soldier called Gummer was not the Major.</clue>
         <clue>Blunda, who is not the General, was the noted hero - noted for his perfect timing of the phrases 'fall back', 'retreat' and 'run away' - at the Battle of Hayes Field, which did not take place in 1409.</clue>
-        <clue>The General featured in the battle which took place in 1798; the soldier called Compler was the hero of the 1530 incident.</clue>
+        <clue>The General featured in the battle which took place in 1798; the soldier called Clomper was the hero of the 1530 incident.</clue>
         <clue>The Battle of Dolsby Bay didn't feature Dumbson.</clue>
       </hints>
     </text>
@@ -1234,13 +1234,13 @@
   <puzzle id="p25" size="4x5" ordering="alphabet" semantic="surname" other="universal constraint">
     <title>Consulting Detectives</title>
     <text>
-      <preamble>The most famous 'consulting detective' in Victorian and Edwardian London was, of course, Sherlock Holmes, but he was just the tip o fhte iceberg with a number of others plying their trade on the streets of the capital. From the clues given, can you work out where each of those listed had rooms, the name of his friend and chronicler and the name of his housekeeper?</preamble>
+      <preamble>The most famous 'consulting detective' in Victorian and Edwardian London was, of course, Sherlock Holmes, but he was just the tip of the iceberg with a number of others plying their trade on the streets of the capital. From the clues given, can you work out where each of those listed had rooms, the name of his friend and chronicler and the name of his housekeeper?</preamble>
       <hints>
         <clue>None of the detectives had a surname beginning with the same letter as their address.</clue>
         <clue>Major Dunbar, formerly of the Royal Garrison Artillery, was assistant and confidante to the detective who employed Mrs Mounts as his housekeeper; the house she looks after is not in Weaver Street.</clue>
         <clue>Mrs Naples was the housekeeper in Potter's Lane, which wasn't the home and office of Fancourt Cleland, whose housekeeper was not Mrs Baffin; the Cooper Street premises were not those belonging to Calvin Pleydell.</clue>
-        <clue>Commander Ridley, who once commanded the firgate HMS 'Geryon', worked with his friend Zachary Gwynn.</clue>
-        <clue>The Hon Alec geddes worked with the detective based in Cutler Street, who was not Mrs Walvis' employer; Selwyn Dumain's office was on the fround floor of number 21 Weaver Street and his apartment on the building's first floor.</clue>
+        <clue>Commander Ridley, who once commanded the frigate HMS 'Geryon', worked with his friend Zachary Gwynn.</clue>
+        <clue>The Hon Alec geddes worked with the detective based in Cutler Street, who was not Mrs Walvis' employer; Selwyn Dumain's office was on the ground floor of number 21 Weaver Street and his apartment on the building's first floor.</clue>
         <clue>Kingsley Wycliff's housekeeper Mrs Colwyn was with him for many years, but he never, ever, met Rabbi Siegel.</clue>
       </hints>
     </text>
@@ -1287,7 +1287,7 @@
     <text>
       <preamble>In a decathlon tournament the ten events, competed for over two days, were won by five athletes, each one winning two events, though no athlete won more than one track event. Can you exercise your way through the clues and find out who won each event and what was their nationality? The events are listed in the order that they occur. (The track events are 100m, 110m hurdles, 400m and 1500m.)</preamble>
       <hints>
-        <clue>The high jump and the discus were won by the same man; this was not Plodden, who was visiting from the Bulgarian city of Varna.</clue>
+        <clue>The high jump and the discus were won by the same man; this was not Ploddon, who was visiting from the Bulgarian city of Varna.</clue>
         <clue>Despite hitting almost every barrier Staminaskov won the 110m hurdles and the British competitor won the 1500 metres.</clue>
         <clue>Burleigh won the long jump with a personal best leap and the Russian competitor, who is not Tuffan, surprised everyone, including himself and his coach, by winning a track event on the first day.</clue>
         <clue>The German did not win the shot put and the winner of the javelin, who wasn't Gritt, did not prove to be the fastest man by winning the 100 metres dash.</clue>
@@ -1375,7 +1375,7 @@
       </category>
       <solution>
         <row>Louise, Kate Gill, Supermodel, Tax exile</row>
-        <row>Richard, Tony Bruce, columnist, Iin rehab</row>
+        <row>Richard, Tony Bruce, columnist, In rehab</row>
         <row>Sean, Delia Benn, TV chef, On holiday</row>
         <row>Simon, Lenny Moss, Government Minister, In court</row>
         <row>Veronica, AA Smith, Comedian, In prison</row>
@@ -1477,7 +1477,7 @@
         <item>Mine explosion</item>
       </category>
       <solution>
-        <row>7th Kingslands, Nigel, Glider landing</row>
+        <row>7th Kingsands, Nigel, Glider landing</row>
         <row>9th, Saltingham, Dad, Car crashed onto beach</row>
         <row>11th, Ottercross, Keith, Mine explosion</row>
         <row>13th Dawcombe, Mum, Boat ran aground</row>
@@ -1492,9 +1492,9 @@
       <hints>
         <clue>Spike Spanner has been engaged by a wealthy woman charged with stealing something; Mike Mallet is walking the snowy streets of San Angelo on the trail of a female witness.</clue>
         <clue>The man charged with stealing his neighbour's prize-winning poodle has engaged a private eye to track down a delivery boy who can apparently testify that the dog moved home of its own accord; this detective wasn't Ricky Wrench who wasn't employed by Lucinda Loded who is staring down the barrel of a jaywalking rap.</clue>
-        <clue>The witness Nicky Nail was searching for on behald of Wanda Well-Ealled, who wan't accused of vandalism, wasn't the barman.</clue>
+        <clue>The witness Nicky Nail was searching for on behalf of Wanda Well-Ealled, who wasn't accused of vandalism, wasn't the barman.</clue>
         <clue>Ricardo Richman didn't engage the services of Dick Drill.</clue>
-        <clue>Felicity Flush, whose innocence could apparently be proven by the testimony of a truck friver, wasn't the client accused of shoplifting; the alleged shoplifter hasn't asked their detective to find a newspaper seller.</clue>
+        <clue>Felicity Flush, whose innocence could apparently be proven by the testimony of a truck driver, wasn't the client accused of shoplifting; the alleged shoplifter hasn't asked their detective to find a newspaper seller.</clue>
       </hints>
     </text>
     <box>
@@ -1507,7 +1507,7 @@
       </category>
       <category name="Client">
         <item>Felicity Flush</item>
-        <item>Lucinda Cloded</item>
+        <item>Lucinda Loded</item>
         <item>Riccardo Richman</item>
         <item>Wanda Well-Ealled</item>
         <item>Wesley Welth</item>
@@ -1552,7 +1552,7 @@
     </text>
     <box>
       <category name="Newspaper">
-        <item>Keighshire Tibune</item>
+        <item>Keighshire Tribune</item>
         <item>Netherlipp Clarion</item>
         <item>Northchester Argus</item>
         <item>Stonekeigh Advertiser</item>
@@ -1620,7 +1620,7 @@
       <category name="Style Name">
         <item>Ascot</item>
         <item>Cheltenham</item>
-        <item>Glydenbourne</item>
+        <item>Glyndebourne</item>
         <item>Henley</item>
         <item>Proms</item>
         <item>Wembley</item>
@@ -1645,7 +1645,7 @@
         <row>1, Cheltenham, Black, £60</row>
         <row>2,Wimbledon, Green, £80</row>
         <row>3, Henley, Red, £75</row>
-        <row>4, Glyndenbourne, Purple, £70</row>
+        <row>4, Glyndebourne, Purple, £70</row>
         <row>5, Proms, Grey, £85</row>
         <row>6, Ascot, Navy blue, £65</row>
       </solution>
@@ -1656,7 +1656,7 @@
     <text>
       <preamble>For the past five years, the annual Eddsbury Festival of Art and Culture has been held in February in the Eddsbury Town Hall and various other locations around town, and has included a competition for best new drama written by a local dramatist. From the clues, can you work out the writer and title of each year's winning play and what it is about?</preamble>
       <hints>
-        <clue>The murder mystery 'Huffman', based on a real-life case from teh 1920s, took the silver Lady Vargrave trophy awarded to the winning entry the year before it went to Nigel Orton.</clue>
+        <clue>The murder mystery 'Huffman', based on a real-life case from the 1920s, took the silver Lady Vargrave trophy awarded to the winning entry the year before it went to Nigel Orton.</clue>
         <clue>Isaac Jonson took the trophy the year after it went to a play about the plight of a homeless man living on the streets of Eddsbury, written by someone who lives in a Georgian mansion valued at £800,000.</clue>
         <clue>In 2012, the prize went to a rather bleak and decidely unfunny 'comedy' called 'Midnight'.</clue>
         <clue>'The Lights Went out' and the play about local politics in the 1940s won the prize two years apart - though not necessarily in that order.</clue>
@@ -1696,7 +1696,7 @@
       </category>
       <solution>
         <row>2009, Bruce Congreve, Lost Causes, Local politics in 1940s</row>
-        <row>2010, Rachel Shaw, Hufman, Murder mystery</row>
+        <row>2010, Rachel Shaw, Huffman, Murder mystery</row>
         <row>2011, Nigel Orton, The Lights Went Out, Green issues</row>
         <row>2012, Zoe Ayckbourn, Midnight, Homeless Man</row>
         <row>2013, Isaac Jonson, Inner Circle, Corruption in sport</row>
@@ -1748,11 +1748,11 @@
         <item>Turkmenistan</item>
       </category>
       <solution>
-        <row>April,Spencer,Kay,Angola</row>
-        <row>May,Evan,Paula,Iran</row>
-        <row>June,Ruben,Leona,Nepal</row>
-        <row>July,Horace,Amelia,Belize</row>
-        <row>August,Leon,Ronda,Turkmenistan</row>
+        <row>April, Spencer, Kay, Angola</row>
+        <row>May, Evan, Paula, Iran</row>
+        <row>June, Ruben, Leona, Nepal</row>
+        <row>July, Horace, Amelia, Belize</row>
+        <row>August, Leon, Ronda, Turkmenistan</row>
       </solution>
     </box>
   </puzzle>
@@ -1761,7 +1761,7 @@
     <text>
       <preamble>Last week, three people who regularly need to visit the city travelled by train and tube to reach their destinations. Unfortunately for each of them, the underground system failed them and each spent half an hour or so stuck in a tunnel between two stations. From the clues, can you say which person was stuck between which two stations and the reason given for the hold-up?</preamble>
       <hints>
-        <clue>Breandan Buss' tube train had just pulled out of Oxford Square when it ground to a halt; Thomas Tramme's train came to a jolting stop a few hundred yards before getting to Leicester Bridge.</clue>
+        <clue>Brendan Buss' tube train had just pulled out of Oxford Square when it ground to a halt; Thomas Tramme's train came to a jolting stop a few hundred yards before getting to Leicester Bridge.</clue>
         <clue>Fenella Ferry and her fellow stranded passengers should have been told that the delay was caused by a malfunction in the tannoy system but weren't because of a malfunction in the Tannoy system.</clue>
         <clue>The hold-up just before Waterloo Arch wasn't caused by a wi-fi failure.</clue>
         <clue>One train sat inert for almost half an hour between Knights Station and Fleet Circus.</clue>
@@ -1918,7 +1918,7 @@
       </category>
       <solution>
         <row>Barton, Hot lemon, Bobble hat, Maths</row>
-        <row>Cockcroft, Honey and lime, Balaclave, english</row>
+        <row>Cockcroft, Honey and lime, Balaclava, english</row>
         <row>Hazel, Ginger tea, School cap, Latin</row>
         <row>Masters, Rosehip tea, Scrumcap, History</row>
       </solution>
@@ -1931,9 +1931,9 @@
       <hints>
         <clue>One agent was given a new wallet which they were assured was bulletproof - all they need to do now is persuade the baddies to aim at it.</clue>
         <clue>Jane Fuse has been given an assignment on Mauritius; her gadget won't explode, not unless she straps it to a stick of dynamite, that is.</clue>
-        <clue>Jon Stick will need to visit the medical wing of MI99 before heading to the airport after shooting himself in thr foot when trying out his new laser device; he won't be catching the plane to Tahiti.</clue>
-        <clue>The agent holding the air ticket for Bermuda, who isn;t Jack Fix, has been given a new and rather smart looking fountain pen.</clue>
-        <clue>The agent heading for the long-haul flight to Bali has been given an item that can create a smokescrenn should the need arise; this isn't the very normal-looking mobile phone.</clue>
+        <clue>Jon Stick will need to visit the medical wing of MI99 before heading to the airport after shooting himself in the foot when trying out his new laser device; he won't be catching the plane to Tahiti.</clue>
+        <clue>The agent holding the air ticket for Bermuda, who isn't Jack Fix, has been given a new and rather smart looking fountain pen.</clue>
+        <clue>The agent heading for the long-haul flight to Bali has been given an item that can create a smokescreen should the need arise; this isn't the very normal-looking mobile phone.</clue>
         <clue>Jack Fix's visit to the quartermaster didn't result in his leaving with a new watch.</clue>
       </hints>
     </text>
@@ -1979,7 +1979,7 @@
         <clue>Jon Stick was the agent who made a dramatic escape on a hang glider but he wasn't escaping from the evil mind known as the Quarry.</clue>
         <clue>Joan Link activated her high-tech gadget and, with the ensuing smokescreen causing mayhem all around, escaped the clutches of the evil Quisling and his evil band.</clue>
         <clue>The Quill had demanded a trillion euro ransom lest he do something really quite dastardly; The Quasar stood on the beach and watched as his erstwhile prisoner disappeared towards the horizon on board a kite surfer.</clue>
-        <clue>Jane Fuse did not encounter the villain whose aim was the total destruction of the UK; the villain hoping to forment a world war was not the one from which an agent escaped astride a jetski or kite surfer.</clue>
+        <clue>Jane Fuse did not encounter the villain whose aim was the total destruction of the UK; the villain hoping to ferment a world war was not the one from which an agent escaped astride a jetski or kite surfer.</clue>
       </hints>
     </text>
     <box>
@@ -2058,10 +2058,10 @@
         <item>The High Life</item>
       </category>
       <solution>
-        <row>February, Roxana Stern, Pyschiatrist, In the Forest</row>
+        <row>February, Roxana Stern, Psychiatrist, In the Forest</row>
         <row>April, Freda Grimm, Mother-in-law, Cutting Edge</row>
-        <row>June, Noral Leather, Terrorist, The High Life</row>
-        <row>August, L=Ilsa Harsch, Teacher, Playing Away</row>
+        <row>June, Norah Leather, Terrorist, The High Life</row>
+        <row>August, Ilsa Harsch, Teacher, Playing Away</row>
         <row>October, Dora Flint, Judge, Frame</row>
       </solution>
     </box>
@@ -2069,7 +2069,7 @@
   <puzzle id="p42" size="4x5" ordering="" semantic="gender">
     <title>Not Born in the USA</title>
     <text>
-      <preamble>Did you knwo that American tennis player John McEnroe was actually born in West Germany? Or that US actress Victoria Principal (remember her in 'Dallas'?) was born in Japan? The five celebrities listed below are less well-known, but are also American citizens born, of American parentage, outside the USA; from the clues given, can you work out each one's full name and occcupation and where they were born?</preamble>
+      <preamble>Did you know that American tennis player John McEnroe was actually born in West Germany? Or that US actress Victoria Principal (remember her in 'Dallas'?) was born in Japan? The five celebrities listed below are less well-known, but are also American citizens born, of American parentage, outside the USA; from the clues given, can you work out each one's full name and occupation and where they were born?</preamble>
       <hints>
         <clue>Nancy Portland is not a golfer - in fact she's never even picked up a golf club.</clue>
         <clue>Luke was born in Spain, where his father was based with the USAF; the sprinter, whose surname is Fairbanks, wasn't born in Australia.</clue>
@@ -2121,7 +2121,7 @@
     <text>
       <preamble>A new eatery has opened in Stonekeigh, along the lines of a 1950s American diner. It's actually an old railway carriage with the wheels taken off and plonked in a car park just off the High Street, but it's a start. Its owner, Dinah Mow, has tried hard to keep the 50s Americana theme with posters, rock'n'roll msuic and waitresses, who are contractually obliged to chew gum, using diner slang. But not being fully aware of the lingo, they have made it up themselves. From the clues, can you name the waitress dealing with each customer, the diner slang she's used for the particular bread product ordered and the food to which she refers.</preamble>
       <hints>
-        <clue>It wasn't Sonia Servitte, who was taking Chuck Chowdon's order, who called out '...on a slab' at the end of the order, which in Dinah's Diner's diner slang means 'on toast'.</clue>
+        <clue>It wasn't Sonia Servitte, who was taking Chuck Chowdown's order, who called out '...on a slab' at the end of the order, which in Dinah's Diner's diner slang means 'on toast'.</clue>
         <clue>Pauline Putterway's waitress nodded and chewed as Pauline made her order and finished her shouted order to the kitchen with '...crusty', by which she didn't mean on a French baguette.</clue>
         <clue>Terry Tukkin ordered a bacon bap, but wasn't attended to by waitress Olivia O'Stesse whose customer didn't order the roll.</clue>
         <clue>Grace Garsonne listened to her customer, called out the order and then, after a precisely timed pause, added '...kneaded!'</clue>
@@ -2162,7 +2162,7 @@
         <row>Chuck Chowdown, Sonia Servitte, By the baker, Baguette</row>
         <row>Natalie Nosh, Olivia O'Stesse, On a slab, Toast</row>
         <row>Pauline Putterway, Muriel Mayde, Crusty, Roll</row>
-        <row>Terry Tukking, Grace Garsonne, Kneaded, Bap</row>
+        <row>Terry Tukkin, Grace Garsonne, Kneaded, Bap</row>
         <row>Wilf Wolfett, Penny Paige, In the dough, Sandwich</row>
       </solution>
     </box>

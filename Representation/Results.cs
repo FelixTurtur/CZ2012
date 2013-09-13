@@ -19,5 +19,9 @@ namespace Representation
         public List<object> listResults() {
             return new List<object> { Successful, TurnsForCompletion, TimeTaken };
         }
+
+        public void SetSuccess(bool p) {
+            Successful = p;
+        }
     }
 }

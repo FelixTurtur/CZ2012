@@ -62,6 +62,18 @@ namespace CleverZebra {
             SolveProblem();
         }
 
+        public List<string> ParseClues() {
+            try {
+                Parser parser = new Parser(activePuzzle);
+                List<string> rules = parser.Read();
+                activePuzzle.setRules(rules);
+                return rules;
+            }
+            catch (Exception e) {
+                throw new CZParser.ParserException("Unable to parse clues for puzzle id: " + activePuzzle.getId(), e);
+            }
+        }
+
         public void SolveProblem() {
             List<List<string>> solution = null;
             Representation.Results stats = null;
@@ -75,18 +87,6 @@ namespace CleverZebra {
                 throw new Logix.LogicException("Unable to solve puzzle id: " + activePuzzle.getId(), e);
             }
             reportSuccess(solution, stats);
-        }
-
-        public List<string> ParseClues() {
-            try {
-                Parser parser = new Parser(activePuzzle);
-                List<string> rules = parser.Read();
-                activePuzzle.setRules(rules);
-                return rules;
-            }
-            catch (Exception e) {
-                throw new CZParser.ParserException("Unable to parse clues for puzzle id: " + activePuzzle.getId(), e);
-            }
         }
 
         public void logix_update(Logix.Logix sender, SolutionBoxEventArgs e) {

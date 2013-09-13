@@ -71,6 +71,9 @@ namespace Logix.Calculators
                 else if (knownValue.ToString()[n] == '.') {
                     amount += '.';
                 }
+                else if (knownValue.ToString()[n] == ',') {
+                    amount += ',';
+                }
                 else {
                     postamount += knownValue.ToString()[n];
                 }
