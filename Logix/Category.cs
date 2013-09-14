@@ -321,7 +321,7 @@ namespace Logix
         private bool? checkDeterminability(Relation r) {
             Relation testRelation = ((ConditionalRelation)r).conditional;
             if (testRelation.isRelative()) {
-                //wuss out until we need this
+                //not yet implemented
                 return null;
             }
             else {
