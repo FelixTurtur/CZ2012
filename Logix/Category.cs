@@ -232,11 +232,10 @@ namespace Logix
                     return new List<Relation> { r };
                 }
                 if (r.isDirect()) {
-                    //direct relation
                     if (!alreadySeen) {
                         Category.Rows row = r.isPositive() ? Category.Rows.Positives : Category.Rows.Negatives;
                         addRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), row);
-                        return new List<Relation> {RelationFactory.getInstance().createRelation(r.getBaseItem(identifier), r.getRelatedItem(identifier), r.isPositive())};
+                        return new List<Relation> { r };
                     }
                     return null;
                 }
