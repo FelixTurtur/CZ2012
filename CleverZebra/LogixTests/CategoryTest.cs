@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Logix;
-using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
 namespace LogixTests

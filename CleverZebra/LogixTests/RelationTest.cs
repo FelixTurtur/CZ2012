@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Logix;
 
 namespace LogixTests
@@ -18,10 +17,13 @@ namespace LogixTests
         public void Create_Correct_Relation_Type() {
             Relation r = relationBuilder.createRelation("A1(B)-A3(B)=5");
             Assert.AreEqual(r.GetType().Name, "RelativeRelation");
+            Assert.IsTrue(r.isRelative());
             r = relationBuilder.createRelation("A1=B3");
             Assert.AreEqual(r.GetType().Name, "DirectRelation");
+            Assert.IsTrue(r.isDirect());
             r = relationBuilder.createRelation("?A1=B2?A1(C)>B1(C):A1(C)>B2(C)");
             Assert.AreEqual(r.GetType().Name, "ConditionalRelation");
+            Assert.IsTrue(r.isConditional());
         }
 
         [TestMethod]
@@ -41,5 +43,12 @@ namespace LogixTests
             Assert.AreEqual("A1", aItem);
         }
 
+        [TestMethod]
+        public void Check_Representation() {
+            Relation r = relationBuilder.createRelation("A1(C)-B1(C)=5");
+            Assert.IsTrue(Representation.Relations.isQuantified(r.getRule()));
+            r = relationBuilder.createRelation("A1(C)>B1(C)");
+            Assert.IsFalse(Representation.Relations.isQuantified(r.getRule()));
+        }
     }
 }
