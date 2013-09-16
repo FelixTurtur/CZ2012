@@ -156,6 +156,7 @@ namespace CleverZebra
             this.Controls.Add(this.btnMainMenu);
             this.Name = "frmPuzzles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Clever Zebra";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
